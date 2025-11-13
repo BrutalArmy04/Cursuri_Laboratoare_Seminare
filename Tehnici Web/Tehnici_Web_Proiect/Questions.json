@@ -1,0 +1,74 @@
+[
+  {
+    "question": "Cine a fost Musa I?",
+    "options": [
+      "Împăratul Chinei",
+      "Regele Imperiului Mali",
+      "Sultanul Egiptului"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "Ce a realizat Yongle în timpul domniei sale?",
+    "options": [
+      "Construcția Orașului Interzis",
+      "A cucerit Ierusalimul",
+      "A descoperit America"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "Care a fost contribuția principală a lui Saladin?",
+    "options": [
+      "Reformele economice",
+      "A unificat lumea musulmană și a recucerit Ierusalimul",
+      "A construit Marele Zid Chinezesc"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "În ce an a urcat Mansa Mūsā pe tron?",
+    "options": [
+      "1307",
+      "1312",
+      "1332"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "Ce eveniment a făcut cunoscută bogăția imperiului Mali în afara Africii?",
+    "options": [
+      "Construirea Universității Sankore",
+      "Pelerinajul la Mecca din 1324",
+      "Cucerirea capitalei Songhai, Gao"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "Ce materiale inovatoare au fost folosite la construcția moscheei din Gao?",
+    "options": [
+      "Cărămizi arse",
+      "Pietre ornamentale",
+      "Marmură importată"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "Cum a afectat Mansa Mūsā economia din Cairo în timpul vizitei sale?",
+    "options": [
+      "A stimulat comerțul cu aur",
+      "A provocat un declin al valorii aurului",
+      "A crescut cererea pentru produse locale"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "Ce a devenit Timbuktu sub conducerea lui Mansa Mūsā?",
+    "options": [
+      "Un centru militar important",
+      "Un oraș comercial și un centru educațional",
+      "O capitală religioasă a Islamului"
+    ],
+    "answer": 1
+  }
+]

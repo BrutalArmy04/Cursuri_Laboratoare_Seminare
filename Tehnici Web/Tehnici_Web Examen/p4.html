@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic HTML Page</title>
+</head>
+<body>
+    <div id="login">
+        <h2>Autentificare</h2>
+        <input type="text" id="username" placeholder="Introdu numele de utilizator">
+        <button onclick="handleLogin()">Login</button>
+    </div>
+</body>
+<script>
+    function handleLogin() {
+    let username = document.getElementById("username").value;
+    if (/^[A-Z]+(,[A-Z]+)*$/.test(username)) { 
+        fetch('names.json')
+            .then(response => response.json())
+            .then(data => {
+            let names = data.names.filter(name => username.split(',').some(letter => name.startsWith(letter)));
+            let resultDiv = document.createElement('div');
+            resultDiv.id = 'result';
+            resultDiv.innerHTML = names.length ? names.join('<br>') : 'No names found';
+            document.getElementById('login').appendChild(resultDiv);
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        alert("Input invalid");
+    }}
+
+
+</script>
+</html>

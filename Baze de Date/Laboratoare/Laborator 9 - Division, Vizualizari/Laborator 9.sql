@@ -1,0 +1,267 @@
+--DIVISION
+
+    -- PROIECTE
+--(1, 10000)
+--(2, 10000)
+--(3, 5000)
+    -- ANGAJATI SI PROIECTELE LA CARE AU LUCRAT
+--(A, 1), (A, 2), (A, 3)
+--(B, 1), (B, 2)
+--(C, 1), (C, 3)
+
+--METODA 2
+SELECT
+    DISTINCT W.EMPLOYEE_ID
+FROM WORKS_ON W
+WHERE NOT EXISTS(
+    (
+        SELECT
+            P.PROJECT_ID
+        FROM PROJECTS P
+        WHERE P.BUDGET = 10000
+    )
+    MINUS
+    (
+        SELECT
+            W2.PROJECT_ID
+        FROM WORKS_ON W2
+        WHERE W2.EMPLOYEE_ID = W.EMPLOYEE_ID
+    )
+)
+
+--METODA 4
+SELECT W.EMPLOYEE_ID
+FROM WORKS_ON W
+--(A, 1), (A, 2), (A, 3)
+--(B, 1), (B, 2)
+--(C, 1), (C, 3)
+WHERE W.PROJECT_ID IN (
+        SELECT
+            P.PROJECT_ID
+        FROM PROJECTS P
+        WHERE P.BUDGET = 10000
+    )
+--(A, 1), (A, 2) -> 2 = 2 -> DA
+--(B, 1), (B, 2) -> 2 = 2 -> DA
+--(C, 1) -> 1 = 2 -> NU
+GROUP BY W.EMPLOYEE_ID
+HAVING COUNT(*) = (
+        SELECT
+            COUNT(P.PROJECT_ID)
+        FROM PROJECTS P
+        WHERE P.BUDGET = 10000
+    );
+
+
+--1
+--METODA2
+SELECT W.EMPLOYEE_ID, E.LAST_NAME, E.FIRST_NAME
+FROM WORKS_ON W
+         JOIN EMPLOYEES E ON E.EMPLOYEE_ID = W.EMPLOYEE_ID
+WHERE W.PROJECT_ID IN (SELECT P.PROJECT_ID
+                       FROM PROJECTS P
+                       WHERE TO_CHAR(P.START_DATE, 'YYYY') = 2006
+                         AND TO_CHAR(P.START_DATE, 'MM') <= 6)
+GROUP BY W.EMPLOYEE_ID, E.LAST_NAME, E.FIRST_NAME
+HAVING COUNT(W.PROJECT_ID) = (SELECT COUNT(*)
+                              FROM PROJECTS P1
+                              WHERE TO_CHAR(P1.START_DATE, 'YYYY') = 2006
+                                AND TO_CHAR(P1.START_DATE, 'MM') <= 6);
+
+--METODA4
+SELECT DISTINCT W.EMPLOYEE_ID, E.LAST_NAME, E.FIRST_NAME
+FROM WORKS_ON W
+         JOIN EMPLOYEES E ON E.EMPLOYEE_ID = W.EMPLOYEE_ID
+WHERE NOT EXISTS((SELECT P.PROJECT_ID
+                  FROM PROJECTS P
+                  WHERE TO_CHAR(P.START_DATE, 'YYYY') = 2006
+                    AND TO_CHAR(P.START_DATE, 'MM') <= 6)
+                 MINUS
+                 (SELECT W1.PROJECT_ID
+                  FROM WORKS_ON W1
+                  WHERE W1.EMPLOYEE_ID = W.EMPLOYEE_ID));
+
+--2
+--A
+SELECT
+    E.FIRST_NAME
+FROM
+    (
+        SELECT
+            DISTINCT W1.EMPLOYEE_ID
+        FROM WORKS_ON W1
+        WHERE NOT EXISTS
+                (
+                    (
+                        SELECT
+                            W2.PROJECT_ID
+                        FROM WORKS_ON W2
+                        WHERE W2.EMPLOYEE_ID = 200
+                    )
+                    MINUS
+                    (
+                        SELECT
+                            W2.PROJECT_ID
+                        FROM WORKS_ON W2
+                        WHERE W1.EMPLOYEE_ID = W2.EMPLOYEE_ID
+                    )
+                )
+    )TEMP
+JOIN EMPLOYEES E ON E.EMPLOYEE_ID = TEMP.EMPLOYEE_ID;
+
+--b
+SELECT
+    E.FIRST_NAME
+FROM (
+        SELECT
+        DISTINCT W1.EMPLOYEE_ID
+        FROM WORKS_ON W1
+        WHERE NOT EXISTS
+                (
+                    (
+                        SELECT
+                            W2.PROJECT_ID
+                        FROM WORKS_ON W2
+                        WHERE W1.EMPLOYEE_ID = W2.EMPLOYEE_ID
+                    )
+                    MINUS
+                    (
+                        SELECT
+                            W2.PROJECT_ID
+                        FROM WORKS_ON W2
+                        WHERE W2.EMPLOYEE_ID = 200
+                    )
+                )
+     )TEMP
+JOIN EMPLOYEES E ON E.EMPLOYEE_ID = TEMP.EMPLOYEE_ID;
+
+--c
+SELECT
+    E.FIRST_NAME
+FROM (
+    SELECT
+        DISTINCT W1.EMPLOYEE_ID
+    FROM WORKS_ON W1
+    WHERE (NOT EXISTS
+                    (
+                        (
+                            SELECT
+                                W2.PROJECT_ID
+                            FROM WORKS_ON W2
+                            WHERE W2.EMPLOYEE_ID = 200
+                        )
+                        MINUS
+                        (
+                            SELECT
+                                W2.PROJECT_ID
+                            FROM WORKS_ON W2
+                            WHERE W1.EMPLOYEE_ID = W2.EMPLOYEE_ID
+                        )
+                    ))
+            AND
+            (
+            NOT EXISTS
+                    (
+                        (
+                            SELECT
+                                W2.PROJECT_ID
+                            FROM WORKS_ON W2
+                            WHERE W1.EMPLOYEE_ID = W2.EMPLOYEE_ID
+                        )
+                        MINUS
+                        (
+                            SELECT
+                                W2.PROJECT_ID
+                            FROM WORKS_ON W2
+                            WHERE W2.EMPLOYEE_ID = 200
+                        )
+            )
+            )
+            AND W1.EMPLOYEE_ID <>200
+         )TEMP
+JOIN EMPLOYEES E ON E.EMPLOYEE_ID = TEMP.EMPLOYEE_ID;
+
+---------------VIZUALIZARI
+--1
+CREATE OR REPLACE VIEW VIZ_EMP30 AS
+    SELECT
+        E.EMPLOYEE_ID, E.LAST_NAME, E.EMAIL
+    FROM EMPLOYEES E
+    WHERE E.DEPARTMENT_ID = 30;
+
+INSERT INTO VIZ_EMP30
+VALUES (100, 'A', 'A'); --NU MERGE DEOARECE NU RESPECTA CONSTRANGERILE DEFINITE PE TABELUL DE BAZA
+
+--2
+CREATE OR REPLACE VIEW VIZ_EMP30 AS
+    SELECT
+        E.EMPLOYEE_ID, E.LAST_NAME, E.EMAIL, E.HIRE_DATE, E.JOB_ID
+    FROM EMPLOYEES E
+    WHERE E.DEPARTMENT_ID = 30;
+
+SELECT * FROM VIZ_EMP30;
+
+INSERT INTO VIZ_EMP30
+VALUES (100, 'A', 'A', SYSDATE, 'AD_PRES'); --NU MERGE DEOARECE NU E RESPECTATA ACUM CONSTRANGEREA DE CHEIE PRIMARA
+
+INSERT INTO VIZ_EMP30
+VALUES (300, 'A', 'A', SYSDATE, 'AD_PRES');
+
+
+SELECT * FROM EMPLOYEES;
+SELECT * FROM VIZ_EMP30; --ANGAJATUL INTRODUS ANTERIOR NU ESTE MOMENTAN VIZIBIL IN VIZUALIZARE DEOARECE NU ESTE IN DEPARTAMENTUL 30
+
+UPDATE EMPLOYEES
+SET DEPARTMENT_ID = 30
+WHERE EMPLOYEE_ID = 300;
+SELECT * FROM VIZ_EMP30; --ANGAJATUL INTRODUS ESTE ACUM VIZIBIL IN VIZUALIZARE DEOARECE ESTE IN DEPARTAMENTUL 30
+
+DELETE FROM VIZ_EMP30 WHERE EMPLOYEE_ID = 300;
+
+--3
+CREATE OR REPLACE VIEW VIZ_EMPSAL50 AS
+    SELECT
+        E.EMPLOYEE_ID COD_ANGAJAT, E.LAST_NAME NUME,
+        E.EMAIL, E.JOB_ID FUNCTIE, E.HIRE_DATE DATA_ANGAJARE,
+        12 * E.SALARY SAL_ANUAL
+    FROM EMPLOYEES E
+    WHERE E.DEPARTMENT_ID = 50;
+
+SELECT * FROM VIZ_EMPSAL50;
+
+INSERT INTO VIZ_EMPSAL50
+VALUES (300, 'A', 'A', 'AD_PRES', SYSDATE, 300); --ACTUALIZAREA UNEI COLOANE NEACTUALIZABILE (SAL_ANUAL -> DEFINITA PRIN CALCUL)
+
+SELECT * FROM USER_UPDATABLE_COLUMNS
+WHERE TABLE_NAME = 'VIZ_EMPSAL50';
+
+INSERT INTO VIZ_EMPSAL50 (COD_ANGAJAT, NUME, EMAIL, FUNCTIE, DATA_ANGAJARE)
+VALUES (400, 'B', 'B', 'AD_PRES', SYSDATE); --MERGE DEOARECE SUNT FOLOSITE DOAR COLOANELE ACTUALIZABILE
+
+--4
+CREATE OR REPLACE VIEW VIZ_DEPT_SUM AS
+    SELECT
+        E.DEPARTMENT_ID, SUM(E.SALARY) SUM
+    FROM EMPLOYEES E
+    GROUP BY E.DEPARTMENT_ID; --NICIO COLOANA NU ESTE ACTUALIZABILE DEOARECE APAR FUNCTII GRUP + GROUP BY
+
+SELECT * FROM USER_UPDATABLE_COLUMNS
+WHERE TABLE_NAME = 'VIZ_DEPT_SUM';
+
+CREATE OR REPLACE VIEW VIZ_DEPT_SUM AS
+    SELECT
+        E.DEPARTMENT_ID, (
+            SELECT
+                SUM(E2.SALARY)
+            FROM EMPLOYEES E2
+            WHERE E2.DEPARTMENT_ID = E.DEPARTMENT_ID
+        ) SUM
+    FROM EMPLOYEES E; --IN ACEST CAZ FUNCTIA GRUP E IN SUBCERERE, DECI DEPARTMENT_ID ESTE ACTUALIZABILA
+
+--5
+CREATE OR REPLACE VIEW VIZ_SAL_PNU AS
+    SELECT
+        E.LAST_NAME, D.DEPARTMENT_NAME, L.CITY, E.SALARY
+    FROM EMPLOYEES E
+    JOIN DEPARTMENTS D on E.DEPARTMENT_ID = D.DEPARTMENT_ID
+    JOIN LOCATIONS L on D.LOCATION_ID = L.LOCATION_ID; --LAST_NAME SI SALARY SUNT SINGURELE COLOANE ACTUALIZABILE DEOARECE APARTIN DE TABELUL EMPLOYEES, CARE ESTE TABELUL KEY-PRESERVED

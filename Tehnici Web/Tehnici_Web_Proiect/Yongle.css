@@ -1,0 +1,116 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Serif', serif;
+    background: linear-gradient(to bottom, #ffefdb, #ffe4c4);
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: darkred;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+    header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        animation-name: aniYongle;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+
+.nav-bar {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+    .nav-bar a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.2rem;
+        padding: 5px 10px;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+        .nav-bar a:hover {
+            background: chocolate;
+            border-radius: 5px;
+            transform: scale(1.1);
+        }
+
+.section {
+    padding: 20px;
+    margin: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .section h2 {
+        font-size: 2rem;
+        color: darkred;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .section article h3 {
+        font-size: 1.5rem;
+        color: firebrick;
+        margin-bottom: 5px;
+    }
+
+    .section p {
+        margin-bottom: 15px;
+    }
+
+footer {
+    background: firebrick;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-column {
+    background-color: yellow;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    flex: 1 1 200px;
+    color: red;
+}
+
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .section {
+        margin: 10px;
+        padding: 15px;
+    }
+}
+@keyframes aniYongle {
+    0% {
+        background-color: yellow;
+    }
+
+    100% {
+        background-color: red;
+    }
+}

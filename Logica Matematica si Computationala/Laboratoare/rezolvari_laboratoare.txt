@@ -1,0 +1,394 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! LABORATOR 1 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+PROBLEMA COLORARII HARTILOR
+ culoare(albastru).
+ culoare(rosu).
+ culoare(verde).
+ culoare(galben).
+ harta(RO,SE,MD,UA,BG,HU) :- vecin(RO,SE), vecin(RO,UA),
+ vecin(RO,MD), vecin(RO,BG),
+ vecin(RO,HU), vecin(UA,MD),
+ vecin(BG,SE), vecin(SE,HU).
+ vecin(X,Y) :- culoare(X), culoare(Y), X \== Y.
+ 
+ 
+ 
+ interoghez cu>  harta(RO,SE,MD,UA,BG,HU).
+ 
+ 
+ 
+//ex2.pl
+female(mary).
+female(sandra).
+female(juliet).
+female(lisa).
+male(peter).
+male(paul).
+male(dony).
+male(bob).
+male(harry).
+parent(bob, lisa).
+parent(bob, paul).
+parent(bob, mary).
+parent(juliet, lisa).
+parent(juliet, paul).
+parent(juliet, mary).
+parent(peter, harry).
+parent(lisa, harry).
+parent(mary, dony).
+parent(mary, sandra).
+
+
+ex2:
+
+father_of(F,C):- male(F), parent(F,C).
+mother_of(M,C):- female(M),parent(M,C).
+grandmother_of(G,C):- mother_of(G,P), parent(P,C).
+grandfather_of(G,C):- father_of(G,P), parent(P,C).
+sister_of(S,P) :- parent(Q,S), parent(Q,P), female(S), S \= P.
+brother_of(B,P):- parent(Q,B), parent(Q,P), male(B), B \= P.
+aunt_of(A,P) :- sister_of(A,B), parent(B,P).
+uncle_of(A,B) :- brother_of(A,C), parent(C,B).
+
+ex3:
+
+% not_parent(X,Y) :- not(parent(X,Y)).
+person(X) :- male(X).
+person(X) :- female(X).
+not_parent(X,Y) :- person(X), person(Y), X\=Y, not(parent(X,Y)).
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! LABORATOR 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ex1:
+
+distance((A,B),(C,D),X) :- X is sqrt((C-A)**2 + (D-B)**2).
+
+ex2:
+
+fib(0,1).
+fib(1,1).
+fib(N,X) :- 2 =< N, M is N - 1, fib(M, Y), P is N - 2, fib(P, Z), X is Y + Z.
+
+fibo(0,0,1).
+fibo(1,1,1).
+fibo(N,Z,X) :- 2 =< N, M is N-1, fibo(M,Y,Z), X is Y + Z.
+
+fibg(N,X) :- fibo(N,_,X).
+
+ex3:
+
+line(0,_).
+line(X,C):- X>0, Y is X-1, write(C), line(Y,C).
+
+rectangle(0,_,_):-nl.
+rectangle(X,Z,C):- X>0, Y is X-1, line(Z,C), nl, rectangle(Y,Z,C).
+square(X,C) :- rectangle(X,X,C).
+
+executie>
+/*
+rectangle(5,5,*)
+5>0 da, Y=4, line(5,*), nl, rectangle(4, 5, *)
+
+line(5,*) - 5>0 da, Y=4, *, line(4,*)
+*/
+
+ex4:
+A
+all_a([]).
+all_a([a|X]):-all_a(X).
+
+CUM FUNCTIONEAZA???
+[a,a,a] → se potrivește [a|X], cu X = [a,a] → se apelează all_a([a,a])
+
+[a,a] → se potrivește [a|X], cu X = [a] → se apelează all_a([a])
+
+[a] → se potrivește [a|X], cu X = [] → se apelează all_a([])
+
+[] → se potrivește cazul de bază → ✅ adevărat
+
+B
+trans_a_b([],[]).
+trans_a_b([a|X],[b|Y]):-trans_a_b(X,Y).
+
+ex5:
+
+scalarMult(_,[],[]).
+scalarMult(N,[H|T],[X|Y]) :- X is N * H, scalarMult(N,T,Y).
+
+Nu se face append la o listă existentă.
+La fiecare recursie se construiește lista nouă, legând capul (X) cu coada (Y).
+Este echivalent cu a face: Rezultat = [N*H | RestulRezultatelor], unde RestulRezultatelor e construit recursiv.
+
+dot([],[],0).
+dot([H|T],[X|Y],M) :- dot(T,Y,N), M is N + H * X.
+
+EXECUTIE>
+dot([2,5,6],[3,4,1],R1). R1=32
+dot([5,6],[4,1],R), R1=26
+dot([6],[1],R), R1=6
+dot([],[],R) -> R=0
+
+/*
+dot([5,6],[4,1], Result), Result is Result + 2*3
+ */
+
+max([],0).
+max([H|T],X) :- max(T,Y), maxim(H,Y,X).
+
+maxim(A,B,B) :- B>A.
+maxim(A,B,A) :- A>=B.
+
+
+
+
+
+max([3,7,2], X) face:
+	max([7,2], Y) pentru a afla maximul din [7,2].
+
+max([7,2], Y) face:
+	max([2], Z) să afle maximul din [2].
+
+max([2], Z) face:
+	max([], 0) (cazul de bază).
+	Apoi maxim(2, 0, Z) → Z = 2 (pentru că 2 >= 0).
+
+Revenind în max([7,2], Y):
+	max([2], Z) a returnat Z = 2.
+	maxim(7, 2, Y) → Y = 7.
+
+Revenind în max([3,7,2], X):
+	max([7,2], Y) a returnat Y = 7.
+	maxim(3, 7, X) → X = 7.
+	
+	
+PENTRU MINIM:
+min([H], H).
+min([H|T], Min) :-
+    min(T, MinTail),
+    minim(H, MinTail, Min).
+
+minim(A, B, A) :- A =< B.
+minim(A, B, B) :- B < A.	
+	
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! LABORATOR 3 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+ex1:
+Varianata cu reverse: palindrome(L) :- reverse(L,L).
+
+
+rev([],[]).
+rev([H|T], L) :- rev(T,N), append(N,[H],L).
+palindrome(L) :- rev(L,L).
+
+
+
+Exemplu: rev([1,2,3], L)
+rev([1,2,3], L)
+
+apelează rev([2,3], N)
+
+rev([2,3], N)
+
+apelează rev([3], M)
+
+rev([3], M)
+
+apelează rev([], [])
+
+întoarce: rev([], []) ⇒ []
+
+apoi: append([], [3], [3])
+
+Apoi:
+	append([3], [2], [3,2])
+	append([3,2], [1], [3,2,1])
+
+Final: rev([1,2,3], [3,2,1])
+
+
+
+ex2:
+
+remove_duplicates([],[]).
+remove_duplicates([H|L],M) :- remove_duplicates(L,M), member(H,M).
+remove_duplicates([H|L],[H|M]) :- remove_duplicates(L,M), not(member(H,M)).
+
+ex3:
+
+atimes(_,[],0).
+atimes(N,[N|T],X) :- atimes(N,T,Y), X is Y + 1.
+
+		[N|T] înseamnă: capul listei este N și coada este T.
+		Se face apel recursiv pe restul listei (T) și se salvează rezultatul în Y.
+		Deoarece N este găsit o dată în această poziție, rezultatul final X va fi Y + 1.
+
+atimes(N,[H|T],X) :- atimes(N,T,X), H \= N.
+
+		H \= N înseamnă că elementul curent H este diferit de N.
+		Așadar, nu incrementăm contorul.
+		Apelăm recursiv atimes pe coada listei T, dar menținem X nemodificat.
+
+ex4:
+
+insertsort([],[]).
+insertsort([H|T],L) :- insertsort(T,L1), insert(H,L1,L).
+
+insert(X,[],[X]).
+insert(X,[H|T],[X|[H|T]]) :- X < H.
+insert(X,[H|T],[H|L]) :- X >= H, insert(X,T,L).
+
+	% insertsort(+List, -SortedList)
+	insertsort([], []). % cazul de bază: lista vidă e deja sortată
+	insertsort([H|T], L) :-
+		insertsort(T, L1), % sortăm restul listei
+		insert(H, L1, L).  % inserăm capul în lista sortată
+
+	% insert(+Element, +SortedList, -NewSortedList)
+	insert(X, [], [X]). % inserarea într-o listă goală -> [X]
+	insert(X, [H|T], [X,H|T]) :- X < H. % dacă X < capul, îl punem în față
+	insert(X, [H|T], [H|L]) :- X >= H, insert(X, T, L). % altfel mergem mai departe
+
+
+ex5:
+
+quicksort([],[]).
+quicksort([H|T],L) :- split(H,T,A,B), quicksort(A,M), quicksort(B,N),
+                        append(M,[H|N],L).
+split(_,[],[],[]).
+split(X,[H|T],[H|A],B) :- H < X, split(X,T,A,B).
+split(X,[H|T],A,[H|B]) :- H >= X, split(X,T,A,B).
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! LABORATOR 4 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+ex1:
+
+listaNelem(_,0,[]).
+listaNelem(L,N,[H|T]) :- N > 0, P is N - 1, member(H,L), listaNelem(L,P,T).
+
+ex2:
+
+word(abalone,a,b,a,l,o,n,e).
+word(abandon,a,b,a,n,d,o,n).
+word(enhance,e,n,h,a,n,c,e).
+word(anagram,a,n,a,g,r,a,m).
+word(connect,c,o,n,n,e,c,t).
+word(elegant,e,l,e,g,a,n,t).
+
+crosswd(V1,V2,V3,H1,H2,H3) :-
+                word(V1,_,A,_,B,_,C,_),
+                word(V2,_,D,_,E,_,F,_),
+                word(V3,_,G,_,H,_,I,_),
+                word(H1,_,A,_,D,_,G,_),
+                word(H2,_,B,_,E,_,H,_),
+                word(H3,_,C,_,F,_,I,_).
+
+ex3:
+
+path(X,X,[X]).
+path(X,Y,[X|L]) :- connected(X,Z), path(Z,Y,L).
+
+pathc(X,Y) :- path(X,Y,_).
+
+ex4:
+
+word_letters(X,Y) :- atom_chars(X,Y).
+
+liminus([C|L],C,L).
+liminus([D|L],C,[D|M]) :- D\==C, liminus(L,C,M).
+
+cover([],_).
+cover([H|T],L) :- liminus(L,H,M), cover(T,M).
+
+solution(Letters, Word, Len) :- word(Word), word_letters(Word,WordLetters), length(WordLetters,Len), cover(WordLetters, Letters).
+
+search_solution(_,'no solution',0).
+search_solution(ListLetters,Word,X) :- X > 0, solution(ListLetters,Word,X).
+search_solution(ListLetters,Word,X) :- X > 0, not(solution(ListLetters,Word,X)), Y is X-1, search_solution(ListLetters,Word,Y).
+
+topsolution(ListLetters,Word) :- length(ListLetters, MaxScore),  search_solution(ListLetters,Word,MaxScore).
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! LABORATOR 5 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+ex1:
+
+vars(V,[V]) :- atom(V).
+vars(non(X),S) :- vars(X,S).
+vars(si(X,Y),S) :- vars(X,T), vars(Y,U), union(T,U,S).
+vars(sau(X,Y),S) :- vars(X,T), vars(Y,U), union(T,U,S).
+vars(imp(X,Y),S) :- vars(X,T), vars(Y,U), union(T,U,S).
+
+ex2:
+
+val(V,[(V,A)|_],A).
+val(V,[_|T],A) :- val(V,T,A).
+
+%Solutie alternativa:
+
+val(V,E,A) :- member((V,A),E).
+
+ex3:
+
+bnon(0,1). bnon(1,0).
+bsi(0,0,0). bsi(0,1,0). bsi(1,0,0). bsi(1,1,1).
+bsau(0,0,0). bsau(0,1,1). bsau(1,0,1). bsau(1,1,1).
+% X -> Y = (non X) sau Y
+bimp(X,Y,Z) :- bnon(X,NX), bsau(NX,Y,Z).
+
+ex4:
+
+eval(V,E,A) :- atom(V), val(V,E,A).
+eval(non(X),E,A) :- eval(X,E,B), bnon(B,A).
+eval(si(X,Y),E,A) :- eval(X,E,B), eval(Y,E,C), bsi(B,C,A).
+eval(sau(X,Y),E,A) :- eval(X,E,B), eval(Y,E,C), bsau(B,C,A).
+eval(imp(X,Y),E,A) :- eval(X,E,B), eval(Y,E,C), bimp(B,C,A).
+
+ex5:
+
+evals(_,[],[]).
+evals(X,[E|Es],[A|As]) :- eval(X,E,A), evals(X,Es,As).
+
+ex6:
+
+evs([],[[]]).
+evs([V|T],Es) :- evs(T,Esp), adauga(V,Esp,Es).
+adauga(_,[],[]).
+adauga(V,[E|T], [[(V,0)|E],[(V,1)|E]|Es]) :- adauga(V,T,Es).
+
+ex7:
+
+all_evals(X,As) :- vars(X,S), evs(S,Es), evals(X,Es,As).
+
+ex8:
+
+all_ones([]).
+all_ones([1|T]) :- all_ones(T).
+taut(X) :- all_evals(X,As), all_ones(As).
+
+
+
+
+
+
+
+

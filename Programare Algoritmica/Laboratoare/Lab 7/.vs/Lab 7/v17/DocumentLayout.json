@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\cinema.in||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|solutionrelative:Lab 7\\cinema.in||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\Lab_7.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|solutionrelative:Lab 7\\Lab_7.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\rez.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|solutionrelative:Lab 7\\rez.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\paunescu.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|solutionrelative:Lab 7\\paunescu.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\eminescu.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CE7BF39D-820F-41F4-A661-FAC85591D713}|Lab 7\\Lab 7.pyproj|solutionrelative:Lab 7\\eminescu.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "cinema.in",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\cinema.in",
+              "RelativeDocumentMoniker": "Lab 7\\cinema.in",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\cinema.in",
+              "RelativeToolTip": "Lab 7\\cinema.in",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-14T13:11:40.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "rez.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\rez.txt",
+              "RelativeDocumentMoniker": "Lab 7\\rez.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\rez.txt",
+              "RelativeToolTip": "Lab 7\\rez.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-14T12:38:36.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "paunescu.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\paunescu.txt",
+              "RelativeDocumentMoniker": "Lab 7\\paunescu.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\paunescu.txt",
+              "RelativeToolTip": "Lab 7\\paunescu.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-14T12:38:26.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "eminescu.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\eminescu.txt",
+              "RelativeDocumentMoniker": "Lab 7\\eminescu.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\eminescu.txt",
+              "RelativeToolTip": "Lab 7\\eminescu.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-14T12:38:13.106Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Lab_7.py",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\Lab_7.py",
+              "RelativeDocumentMoniker": "Lab 7\\Lab_7.py",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 7\\Lab 7\\Lab_7.py",
+              "RelativeToolTip": "Lab 7\\Lab_7.py",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAADAAAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHeSURBVDhPpVMxa1NRFP7ebZLSlgaltNpSVCySRUxL0NAh4FJpHWpxcZAUBEPG/AKHDsVBN5eGrCnoYKCDoDiUCKKBjtZBUZtJ2ojYJr40ue\u002B\u002B47k3VzD0hQr94OOed8853/k47z2cCETk2NAgk8mQDQMhhFjK5/Mb9vEotIDruoEsFovEzVvZbPaWLTcQ9uxCpVLp4l\u002Bk0\u002BlEPB5/wIPm7RVC9uxCMpm0UTdKpRKi0WiCQy3wUt8FCvw7VSNxbRapG4voDwucGgyjXC7bzH84ePt1HysbH/GhWoNstzA1OoSFhZuxQqFg8sfu4FutAd\u002BT8KSEYm7v7GJ0YnLClgYLaAcjU9N4Vx9Dda8OBz7OjwywSNsIXY39vEL7TxWpxv2eO3hWHUZ19xc8ti25UdvXzdpNWH0BDj8JiLOrPXfweOu9mRgRhOXUEPr7IiBfYeacB9HaBNRvQH4f6\u002BlgMERwGxJP7grEoq9shj9Uz\u002BVGpmIi4vXcwdzlcePgzLAuZPiSGw869Jg\u002Biw1Mvw50oLGcuoh71y8h1HwB1Js8UfFLnwScNnBhdYVLWsy1IwK5XM5GHaw9uu0LeSCMddZA32lz7zjOQxMcByK1SPU3O/Rjnai2fkjNz8/5L77TyQJ/AJc67LNf3QeWAAAAAElFTkSuQmCC",
+              "WhenOpened": "2024-11-14T11:59:11.332Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

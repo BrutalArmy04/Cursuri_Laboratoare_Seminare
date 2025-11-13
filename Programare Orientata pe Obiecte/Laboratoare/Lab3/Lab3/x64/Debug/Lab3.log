@@ -1,0 +1,30 @@
+﻿  Lab3.cpp
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(68,54): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(68,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(78,53): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(78,34): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(89,32): error C3867: 'Matrice::nrLinii': non-standard syntax; use '&' to create a pointer to member
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(89,46): error C3867: 'Matrice::nrColoane': non-standard syntax; use '&' to create a pointer to member
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(89,27): error C2665: 'Matrice::Matrice': no overloaded function could convert all the argument types
+      D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(17,5):
+      could be 'Matrice::Matrice(const Matrice &)'
+          D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(89,27):
+          'Matrice::Matrice(const Matrice &)': cannot convert argument 1 from 'int' to 'const Matrice &'
+              D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(89,59):
+              Reason: cannot convert from 'int' to 'const Matrice'
+      D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(89,27):
+      while trying to match the argument list '(int)'
+  
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(93,34): error C2676: binary '[': 'const Matrice' does not define this operator or a conversion to a type acceptable to the predefined operator
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(94,24): error C2039: 'push_back': is not a member of 'Matrice'
+      D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(5,7):
+      see declaration of 'Matrice'
+  
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(114,26): error C2352: 'Matrice::transpusa': a call of a non-static member function requires an object
+      D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(87,13):
+      see declaration of 'Matrice::transpusa'
+  
+D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(114,15): error C2512: 'Matrice': no appropriate default constructor available
+      D:\Facultate\Programare Orientata pe Obiecte\Lab3\Lab3\Lab3.cpp(5,7):
+      see declaration of 'Matrice'
+  

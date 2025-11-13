@@ -1,0 +1,11 @@
+l = [4325, 25, 2342, 954, 123, 124 ,642, 1]
+#a)
+#print(sorted(l, key = str))
+#b)
+#print(sorted(l, key = lambda x: str(x)[::-1] ))
+#c)
+#print(sorted(l, key = lambda x:len(str(x)), reverse = True))
+#d)
+#print(sorted(l, key = lambda x: len(set(str(x)))))
+#e)
+#print(sorted(l, key = lambda x: (len(str(x)), -x)))

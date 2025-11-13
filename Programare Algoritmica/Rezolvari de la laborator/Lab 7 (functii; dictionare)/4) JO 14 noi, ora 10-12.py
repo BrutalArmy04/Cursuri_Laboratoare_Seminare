@@ -1,0 +1,3 @@
+## Laborator 7, JO 14 noi, ora 10-12
+
+## Niciun student prezent...

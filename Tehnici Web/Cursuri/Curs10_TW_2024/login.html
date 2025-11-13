@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sesiune Logare</title>
+  <style>
+  div#welcome, button#logout{
+    display:none;
+  }
+  input{
+    margin-top:5px;
+    margin-bottom:5px;
+  }
+  label{
+    font-weight: bold;
+    font-family: Impact;
+  }
+</style>
+  <script src="login.js"></script>
+</head>
+<body>
+
+  <div id="welcome">Bine ai venit, <span id="username"></span>!</div>
+  <p id="eroare"></p>
+  <br>
+  <form id="form">
+    <label for="user">Utilizator</label><br>
+    <input type="text" id="user" required><br>
+    <label for="user">Parola</label><br>
+    <input type="password" id="parola" required><br><br>
+    <button type="submit">Logare</button>
+  </form>
+  <button id="logout">Delogare</button>
+</body>
+</html>

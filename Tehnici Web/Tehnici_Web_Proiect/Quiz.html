@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Istoric</title>
+</head>
+<body>
+    <!-- Login -->
+    <div id="login">
+        <h2>Autentificare</h2>
+        <input type="text" id="username" placeholder="Introdu numele de utilizator">
+        <button onclick="handleLogin()">Login</button>
+    </div>
+
+    <!-- Quiz -->
+    <div id="quiz" style="display:none;">
+        <h2 id="question"></h2>
+        <div id="options"></div>
+        <div id="progress"></div>
+        <button onclick="handleLogout()">Logout</button>
+    </div>
+
+    <!-- Rezultate -->
+    <div id="results" style="display:none;"></div>
+
+    <!-- Control pentru nivel -->
+    <div id="controls"></div>
+
+    <!-- Canvas -->
+    <canvas id="quizCanvas" width="180" height="150" style="border:1px solid black;"></canvas>
+
+    <!-- Script -->
+    <script src="Quiz.js"></script>
+    <style>
+
+    </style>
+</body>
+</html>

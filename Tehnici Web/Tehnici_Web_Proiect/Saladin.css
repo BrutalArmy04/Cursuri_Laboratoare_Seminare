@@ -1,0 +1,114 @@
+﻿* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Georgia', serif;
+	line-height: 1.6;
+	background: #333;
+	color: #333;
+}
+
+header {
+	background: mediumseagreen;
+	color: white;
+	text-align: center;
+	padding: 20px;
+}
+
+	header h1 {
+		margin-bottom: 10px;
+		font-size: 2.5rem;
+		animation-name: aniSaladin;
+		animation-duration: 2s;
+		animation-iteration-count: infinite;
+	}
+
+.nav-bar {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+	.nav-bar li {
+		position: relative;
+	}
+
+	.nav-bar a {
+		text-decoration: none;
+		color: white;
+		font-size: 1.2rem;
+		padding: 5px 10px;
+		transition: background 0.3s ease, color 0.3s ease;
+	}
+
+		.nav-bar a:hover {
+			background: green;
+			color: #ecf0f1;
+			border-radius: 5px;
+		}
+
+.section {
+	padding: 20px;
+	margin: 20px;
+	background: white;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+	.section h2 {
+		font-size: 2rem;
+		margin-bottom: 10px;
+		color: forestgreen ;
+	}
+
+	.section article {
+		margin-bottom: 15px;
+	}
+
+		.section article h3 {
+			font-size: 1.5rem;
+			color: limegreen;
+			margin-bottom: 5px;
+		}
+
+@media (max-width: 768px) {
+	.nav-bar {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
+
+@keyframes aniSaladin {
+	0% {
+		background-color: seagreen;
+	}
+	100% {
+		background-color: greenyellow;
+	}
+}
+
+footer {
+	background-color: indigo;
+	color: white;
+	text-align: center;
+	padding: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	gap: 20px;
+}
+
+.footer-column {
+	background-color: seagreen;
+	padding: 15px;
+	border-radius: 5px;
+	text-align: center;
+	flex: 1 1 200px; 
+	color: greenyellow;
+}

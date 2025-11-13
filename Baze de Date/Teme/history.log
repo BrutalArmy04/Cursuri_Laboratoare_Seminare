@@ -1,0 +1,4 @@
+b4a78940-6c7d-4547-bcc1-790596a537c0:1762890852679:0:F:select user, database_name\nfrom dual;
+a53fb326-057e-485b-b5a5-d83ebc89b941:1762890870222:106:S:select user\nfrom dual;
+32154ce9-39b0-43bf-b822-537a474f66fb:1762890936875:0:S:set SERVEROUTPUT on
+1edc4a21-f03a-4c44-9ba9-9afa55e847c1:1762890937138:7:S:BEGIN\n    dbms_output.put_line('Instalare cu succes');\n    end;\n    /

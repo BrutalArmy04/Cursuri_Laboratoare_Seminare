@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<style>
+.color-1 {
+    color: red;
+}
+.color-2 {
+    color: blue;
+}
+.color-3 {
+    color: green;
+}
+.color-4 {
+    color: yellow;
+}
+.color-5 {
+    color: purple;
+}
+</style>
+<script>
+    var colors = ['color-1', 'color-2', 'color-3', 'color-4', 'color-5'];
+    document.addEventListener('keydown', function(event) {
+    var i = 1;
+        if (event.key === 'b') {
+            var randomColor = colors[Math.floor(Math.random() * colors.length)];
+            var x = document.createElement("BUTTON");
+            x.length = 100;
+            x.height = 50;
+            var t = document.createTextNode("Click me");
+            x.appendChild(t);
+            document.body.appendChild(x);
+            x.classList.add(randomColor);
+            i += 1;
+            x.className = randomColor;
+            
+
+        }
+    });
+    var buttonCount = 0;
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'b') {
+            buttonCount++;
+        }
+    });
+    document.addEventListener('click', function(event) {
+        if (event.target.tagName !== 'BUTTON') {
+            alert('Numarul de butone:' + buttonCount);
+        }
+    });
+    document.addEventListener('double-click', function(event) {
+        if (event.target.tagName === 'BUTTON') {
+            event.target.disabled = true;
+            var buttons = document.getElementsByClassName(event.target.className);
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+            }
+        }
+    });
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Backspace') {
+            var buttons = document.getElementsByTagName('BUTTON');
+            for (var i = buttons.length - 1; i >= 0; i--) {
+                if (buttons[i].disabled) {
+                    buttons[i].parentNode.removeChild(buttons[i]);
+                }
+            }
+        }
+    });
+        </script>
+</body>
+</html>

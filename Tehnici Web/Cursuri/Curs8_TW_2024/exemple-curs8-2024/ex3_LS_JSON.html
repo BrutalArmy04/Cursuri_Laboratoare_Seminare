@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title> localStorage</title>
+<script type="text/javascript" >
+ window.onload = function(){
+     var o1 = {student: {nume:"Maria", grupa:131}},
+         o2 = {student: {nume:"Andrei", grupa:141}},
+         o = [o1,o2];
+    var s = JSON.stringify(o);
+    // "[{"student":{"nume":"Maria","grupa":131}},
+    //{"student":{"nume":"Andrei","grupa":141}}]"
+    localStorage.setItem("myarray", s);
+    var st = localStorage.getItem("myarray");
+    var jo = JSON.parse(st);
+    alert(jo.length);
+    alert(jo[1].student.nume);
+  }
+	</script>
+
+ </head>
+<body>
+</body>
+</html>

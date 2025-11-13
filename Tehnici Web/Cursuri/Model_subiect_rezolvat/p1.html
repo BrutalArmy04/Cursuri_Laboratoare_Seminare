@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Exercitiul 1</title>
+
+  <style>
+
+  .container{
+    width:250px;
+    height:50vh;
+    border:2px dotted blue;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /*grid-template-areas:
+    ". element2 element5"
+    "element1 element3 element5"
+    ". element4 element5";*/
+  }
+
+  .container > div{
+    border:8px double black;
+    font-size:15px;
+  }
+
+  .container > div:nth-child(1){
+    grid-column:1/2;
+    grid-row:2/3;
+    /*grid-area: element1; */
+
+  }
+
+.container > div:nth-child(5){
+    grid-column:3/4;
+    grid-row:1/4;
+  }
+
+  .container > div:nth-child(2), .container > div:nth-child(3), .container > div:nth-child(4){
+    grid-column:2/3;
+  }
+
+  @keyframes color{
+    0%{
+      border-color:black;
+    }
+    100%{
+      border-color:yellow;
+    }
+  }
+
+  @media screen and (max-width:600px) and (max-height:500px){
+
+    .container{
+      display:block;
+    }
+
+    .container > div {
+      transition: font-size 3s, color 2s;
+      animation: color 3s infinite;
+    }
+
+    .container > div:hover {
+      font-size:30px;
+      color: red;
+    }
+  }
+
+</style>
+
+</head>
+<body>
+
+  <div class="container">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+  </div>
+
+</body>
+</html>

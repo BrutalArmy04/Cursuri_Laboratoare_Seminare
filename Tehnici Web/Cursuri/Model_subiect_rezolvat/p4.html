@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercitiul 4</title>
+<script>
+window.onload = function(){
+
+let butoane = document.getElementsByTagName('input');
+let afiseaza = document.getElementById('descriere');
+let rezultat = document.getElementById('rezultat');
+
+afiseaza.onclick = function(){
+   let culoare;
+   for(let b of butoane)
+	  if(b.checked) {
+			culoare = b.value;
+			break;
+		}
+	if(!culoare) alert("Nu ai selectat nici o culoare!");
+   else {
+	let url = "http://localhost:8000/culori.json";
+
+	fetch(url).then(function(response){
+		if(response.status == 200){
+			return response.json();
+		}
+		else{
+			throw new Error("statusul: " + response.status);
+		}
+	}).then(function(culori){
+
+	   if(!culori[culoare])
+		 {
+			 rezultat.innerHTML = "Nu exista informatii despre culoarea " + culoare;
+			 rezultat.style.color = "black";
+		 }
+
+		 else {
+			 rezultat.innerHTML = culori[culoare];
+			 rezultat.style.color = culoare;
+		 }
+
+	}).catch(function(err){
+		console.log("A aparut o eroare: " + err.message);
+	})
+}
+}
+}
+</script>
+</head>
+<body>
+    <p>Selecteaza o culoare si apasa butonul pentru a afla semnificatia</p>
+
+        <label>
+            <input type="radio" name="color" value="red"> Rosu
+        </label>
+        <label>
+            <input type="radio" name="color" value="blue"> Albastru
+        </label>
+        <label>
+            <input type="radio" name="color" value="green"> Verde
+        </label>
+        <label>
+            <input type="radio" name="color" value="yellow"> Galben
+        </label>
+        <label>
+            <input type="radio" name="color" value="purple"> Mov
+        </label>
+<br><br>
+    <button id="descriere">Afiseaza descrierea</button>
+
+    <p id="rezultat"></p>
+
+  </body>
+</html>

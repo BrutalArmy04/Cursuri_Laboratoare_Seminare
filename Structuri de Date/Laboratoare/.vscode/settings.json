@@ -1,0 +1,13 @@
+{
+    "cmake.sourceDirectory": "D:/Facultate/Structuri de Date/Lab3",
+    "files.associations": {
+        "*.pl": "prolog",
+        "format": "cpp",
+        "list": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp",
+        "xlocale": "cpp",
+        "iosfwd": "cpp",
+        "unordered_map": "cpp"
+    }
+}

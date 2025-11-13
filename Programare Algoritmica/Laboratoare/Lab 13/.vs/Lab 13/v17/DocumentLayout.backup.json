@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Facultate\\Programare Algoritmica\\Lab 13\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DCAD81CA-A5C3-4928-BA52-D9DF0AD5EAC3}|Lab 13\\Lab 13.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\Lab_13.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DCAD81CA-A5C3-4928-BA52-D9DF0AD5EAC3}|Lab 13\\Lab 13.pyproj|solutionrelative:Lab 13\\Lab_13.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCAD81CA-A5C3-4928-BA52-D9DF0AD5EAC3}|Lab 13\\Lab 13.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\input.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DCAD81CA-A5C3-4928-BA52-D9DF0AD5EAC3}|Lab 13\\Lab 13.pyproj|solutionrelative:Lab 13\\input.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCAD81CA-A5C3-4928-BA52-D9DF0AD5EAC3}|Lab 13\\Lab 13.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\traseu.out||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DCAD81CA-A5C3-4928-BA52-D9DF0AD5EAC3}|Lab 13\\Lab 13.pyproj|solutionrelative:Lab 13\\traseu.out||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "traseu.out",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\traseu.out",
+              "RelativeDocumentMoniker": "Lab 13\\traseu.out",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\traseu.out",
+              "RelativeToolTip": "Lab 13\\traseu.out",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T13:31:02.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "input.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\input.txt",
+              "RelativeDocumentMoniker": "Lab 13\\input.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\input.txt",
+              "RelativeToolTip": "Lab 13\\input.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-01-09T12:32:13.421Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Lab_13.py",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\Lab_13.py",
+              "RelativeDocumentMoniker": "Lab 13\\Lab_13.py",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 13\\Lab 13\\Lab_13.py*",
+              "RelativeToolTip": "Lab 13\\Lab_13.py*",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAAG4AAABAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHfSURBVDhPpZCxaxNhGMZ/9zVJaUuDUlq1FBWLZBFTCXo4BFyU1qGKi4OkIHhkzF/g0KF00M2lR9YUdDDQQVAcJILoQUd1UNRmkhoRm8RL777v7nOoCZd4AcEH3uF5nvd73vd74X\u002BgtTai3LIsHeWDEEJct217a1DvwbIs7bpubFUqFW3b9naxWLwWfSOipAvHcfqqi0KhkMtms3cty1rsaomeG4FpmoMSANVqlXQ6nQMWgacMC4hOBchduEj\u002ByjKjScGh8SS1Wq3nxQZEN3j1eY/Vrfe8rTeQvsf89ARLS1cz5XIZ/uUGXxptQiVRUhJIybudXaZn52a7vbEBpmkyNb/A69YM9W8tDEJOTI2hpI\u002BSkvOZH2f13sNAB\u002B07sV9wHIdH9Unquz9RvoeUPtL3UFISKkky\u002BAT7HwTi6FpsgGma3N9\u002Bg5I\u002BKaFZyU8wOpJChwHnjiuE9wKCXyC/zsQGOI7DeELjtiUPbgky6Wd/HA3KBelC4AIpNfQGl88cQ0mfI5PugRhKkM2DUk0INYwtPI/dAGAlf4rbl06T6DyBVgeCABJzYPhwcm0V8ICNvwJKpVIf37h3IxSyKVAuBMDIYQAMw1jvaxwGrYNl3Xq5o79vat3Y3Nedj4\u002B11je7/m\u002BXOuyzFtDhUgAAAABJRU5ErkJggg==",
+              "WhenOpened": "2025-01-09T12:04:28.445Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

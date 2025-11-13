@@ -1,0 +1,43 @@
+Cormen, problemele:
+
+6.2.1 (MAX-HEAPIFY)
+6.3.1 (BUILD-HEAP)
+6.5.8 (Merging k sorted lists in O(nlog(k))
+6.3 - punctele (b),(c),(d),(e): (tabele Young)
+
+Probleme stive/cozi: 
+                
+
+10.1-6 Implementati o coada folosind doua stive. Complexitatea operatiilor ? 10.1-7. Implementati o stiva folosind doua cozi. Complexitatea operatiilor ? 
+Celebrity problem.
+
+Detectarea parantezelor neechilibrate intr-un program LISP.
+
+Probleme liste:
+
+reversing a single linked list
+finding the middle of a linked list of odd length
+
+Problema detectarii unui ciclu intr-o structura de date (posibil cu erori) de tip lista simplu inlantuita.
+
+Problema 11.4-1 (Hashing, Cormen)
+
+Problemele gasirii a doua numere cu suma data, permutation bingo din materialul cu probleme cu hash functions.
+
+Problemele 12.2-1, 12.1-5, 12.2-7 (Cormen, capitolul BST)
+
+Problema "practica": fiind dat un arbore binar (prin pointer-ul root), cum scriem un program care sa printeze arborele "cat mai estetic" ?
+
+Cerinte minime:
+
+- spatiere egala (pe verticala) intre nivelurile arborelui.
+- orice nod parinte este la mijloc (pe orizontala) intre pozitiile copiilor.
+- doua noduri diferite nu au aceeasi pozitie pe orizontala.
+
+Problema 13.3-2, 13.2-4 si 13-3 (a) (capitolul Red-Black Trees, Cormen).
+
+La 13-3(a) am dedus din ea si faptul ca un arbore AVL cu n noduri are inaltimea O(log (n)).
+
+Problemele 33.1-8 si 33.3-2 (Computational Geometry, Cormen).
+
+Problemele 14.1-5, 14.1-7 si 14.1-8 (Augmenting Data Structures, Cormen)

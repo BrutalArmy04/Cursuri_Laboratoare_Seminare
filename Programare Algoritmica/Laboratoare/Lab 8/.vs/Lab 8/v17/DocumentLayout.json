@@ -1,0 +1,180 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Facultate\\Programare Algoritmica\\Lab 8\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Proiect\\Home.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Proiect\\Home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Proiect\\Mansa_Musa.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Proiect\\Saladin.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Proiect\\Yongle.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Proiect\\Mansa_Musa.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Proiect\\Saladin.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Facultate\\Tehnici_Web_Proiect\\Yongle.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "reteta.css",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.css",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.css",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.css",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.css",
+              "ViewState": "AgIAAEkBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-21T14:16:48.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "reteta.html",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.html",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.html",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.html",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Lab\\Lab6_TW_2024\\reteta.html",
+              "ViewState": "AgIAALoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-11-21T14:16:25.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Yongle.css",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Proiect\\Yongle.css",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Proiect\\Yongle.css",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Proiect\\Yongle.css",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Proiect\\Yongle.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-21T13:58:23.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Saladin.css",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Proiect\\Saladin.css",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Proiect\\Saladin.css",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Proiect\\Saladin.css",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Proiect\\Saladin.css",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-21T13:58:21.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Mansa_Musa.css",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Proiect\\Mansa_Musa.css",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Proiect\\Mansa_Musa.css",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Proiect\\Mansa_Musa.css",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Proiect\\Mansa_Musa.css",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAswFIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-21T13:58:16.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Home.css",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Proiect\\Home.css",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Proiect\\Home.css",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Proiect\\Home.css",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Proiect\\Home.css",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAiwG0AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-11-21T13:58:13.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Yongle.html",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Proiect\\Yongle.html",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Proiect\\Yongle.html",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Proiect\\Yongle.html",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Proiect\\Yongle.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-11-21T13:58:08.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Saladin.html",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Proiect\\Saladin.html",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Proiect\\Saladin.html",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Proiect\\Saladin.html",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Proiect\\Saladin.html",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAADMAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-11-21T13:58:03.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Mansa_Musa.html",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Proiect\\Mansa_Musa.html",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Proiect\\Mansa_Musa.html",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Proiect\\Mansa_Musa.html",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Proiect\\Mansa_Musa.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-11-21T13:57:57.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Home.html",
+              "DocumentMoniker": "D:\\Facultate\\Tehnici_Web_Proiect\\Home.html",
+              "RelativeDocumentMoniker": "..\\..\\Tehnici_Web_Proiect\\Home.html",
+              "ToolTip": "D:\\Facultate\\Tehnici_Web_Proiect\\Home.html",
+              "RelativeToolTip": "..\\..\\Tehnici_Web_Proiect\\Home.html",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAAcAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-11-21T13:57:50.49Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

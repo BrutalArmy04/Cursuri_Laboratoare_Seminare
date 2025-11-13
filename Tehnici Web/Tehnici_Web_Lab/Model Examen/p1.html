@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercitiul1</title>
+
+    <style>
+
+        #parinte {
+            height: 500px;
+            width: 50vw;
+            border: 5px solid green;
+            padding: 7px;
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 5fr 5fr 1fr;
+            grid-template-areas: "d1 d1 d1"
+                                 "d2 d3 d3"
+                                 "d2 d4 d5"
+                                 "d6 d6 d6";
+        }
+        #parinte > :nth-child(1)
+        {
+            background-color: orange;
+            grid-area:d1;
+        }
+            #parinte > :nth-child(2) {
+                background-color: pink;
+                grid-area: d2;
+            }
+            #parinte > :nth-child(3) {
+                background-color: red;
+                grid-area: d3;
+            }
+            #parinte > :nth-child(4) {
+                background-color: purple;
+                grid-area: d4;
+            }
+            #parinte > :nth-child(5) {
+                background-color: purple;
+                grid-area: d5;
+            }
+            #parinte > :nth-child(6) {
+                background-color: orange;
+                grid-area: d6;
+            }
+        #parinte>div{
+            display: flex;
+            justify-content:center;
+            align-items: center;
+        }
+
+        @media screen and (min-width:300px) and (max-width:600px) {
+            #parinte {
+                display: flex;
+                flex-direction: column-reverse;
+            }
+
+                #parinte > div {
+                    flex-grow: 1;
+                }
+
+                    #parinte > div:nth-child(2n+1) {
+                        transition: background-color 3s, font-weight 3s;
+                    }
+
+                        #parinte > div:nth-child(2n+1):hover {
+                            background-color: blue;
+                            font-weight: bold;
+                        }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="parinte">
+        <div>Div 1</div>
+        <div>Div 2</div>
+        <div>Div 3</div>
+        <div>Div 4</div>
+        <div>Div 5</div>
+        <div>Div 6</div>
+    </div>
+
+</body>
+</html>

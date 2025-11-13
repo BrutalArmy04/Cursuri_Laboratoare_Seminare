@@ -1,0 +1,149 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\Lab_9.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|solutionrelative:Lab 9\\Lab_9.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\plata.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|solutionrelative:Lab 9\\plata.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\bani.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|solutionrelative:Lab 9\\bani.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\tis.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|solutionrelative:Lab 9\\tis.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\turn.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|solutionrelative:Lab 9\\turn.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\programare.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|solutionrelative:Lab 9\\programare.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\cuburi.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|solutionrelative:Lab 9\\cuburi.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\Spectacole.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{757F2F59-12F1-4B09-B4CC-E88ECF5FF824}|Lab 9\\Lab 9.pyproj|solutionrelative:Lab 9\\Spectacole.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "plata.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\plata.txt",
+              "RelativeDocumentMoniker": "Lab 9\\plata.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\plata.txt",
+              "RelativeToolTip": "Lab 9\\plata.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-28T13:49:29.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "bani.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\bani.txt",
+              "RelativeDocumentMoniker": "Lab 9\\bani.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\bani.txt",
+              "RelativeToolTip": "Lab 9\\bani.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-28T13:33:15.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "turn.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\turn.txt",
+              "RelativeDocumentMoniker": "Lab 9\\turn.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\turn.txt",
+              "RelativeToolTip": "Lab 9\\turn.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-28T13:31:20.66Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "cuburi.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\cuburi.txt",
+              "RelativeDocumentMoniker": "Lab 9\\cuburi.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\cuburi.txt",
+              "RelativeToolTip": "Lab 9\\cuburi.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-28T13:12:15.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "programare.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\programare.txt",
+              "RelativeDocumentMoniker": "Lab 9\\programare.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\programare.txt",
+              "RelativeToolTip": "Lab 9\\programare.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-28T12:54:57.88Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Spectacole.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\Spectacole.txt",
+              "RelativeDocumentMoniker": "Lab 9\\Spectacole.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\Spectacole.txt",
+              "RelativeToolTip": "Lab 9\\Spectacole.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-28T12:37:42.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "tis.txt",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\tis.txt",
+              "RelativeDocumentMoniker": "Lab 9\\tis.txt",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\tis.txt",
+              "RelativeToolTip": "Lab 9\\tis.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-11-28T12:05:21.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Lab_9.py",
+              "DocumentMoniker": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\Lab_9.py",
+              "RelativeDocumentMoniker": "Lab 9\\Lab_9.py",
+              "ToolTip": "D:\\Facultate\\Programare Algoritmica\\Lab 9\\Lab 9\\Lab_9.py",
+              "RelativeToolTip": "Lab 9\\Lab_9.py",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAAAI4AAAAMAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHeSURBVDhPpVMxa1NRFP7ebZLSlgaltNpSVCySRUxL0NAh4FJpHWpxcZAUBEPG/AKHDsVBN5eGrCnoYKCDoDiUCKKBjtZBUZtJ2ojYJr40ue\u002B\u002B47k3VzD0hQr94OOed8853/k47z2cCETk2NAgk8mQDQMhhFjK5/Mb9vEotIDruoEsFovEzVvZbPaWLTcQ9uxCpVLp4l\u002Bk0\u002BlEPB5/wIPm7RVC9uxCMpm0UTdKpRKi0WiCQy3wUt8FCvw7VSNxbRapG4voDwucGgyjXC7bzH84ePt1HysbH/GhWoNstzA1OoSFhZuxQqFg8sfu4FutAd\u002BT8KSEYm7v7GJ0YnLClgYLaAcjU9N4Vx9Dda8OBz7OjwywSNsIXY39vEL7TxWpxv2eO3hWHUZ19xc8ti25UdvXzdpNWH0BDj8JiLOrPXfweOu9mRgRhOXUEPr7IiBfYeacB9HaBNRvQH4f6\u002BlgMERwGxJP7grEoq9shj9Uz\u002BVGpmIi4vXcwdzlcePgzLAuZPiSGw869Jg\u002Biw1Mvw50oLGcuoh71y8h1HwB1Js8UfFLnwScNnBhdYVLWsy1IwK5XM5GHaw9uu0LeSCMddZA32lz7zjOQxMcByK1SPU3O/Rjnai2fkjNz8/5L77TyQJ/AJc67LNf3QeWAAAAAElFTkSuQmCC",
+              "WhenOpened": "2024-11-28T12:03:23.587Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

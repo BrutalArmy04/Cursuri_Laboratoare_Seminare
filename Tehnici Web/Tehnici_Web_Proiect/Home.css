@@ -1,0 +1,115 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: darkblue;
+    background-color: whitesmoke;
+}
+
+header {
+    background: green;
+    color: black;
+    padding: 1rem 0;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+  
+}
+
+.nav-bar li {
+    margin: 0 15px;
+    position: relative;
+}
+
+    .nav-bar a {
+        color: whitesmoke;
+        text-decoration: none;
+        font-size: 1.2rem;
+        
+    }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: olivedrab;
+    padding: 10px 0;
+    list-style: none;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content li a {
+    color: white;
+    padding: 5px 15px;
+    display: block;
+}
+
+.titlu {
+    
+    text-align: center;
+    padding: 50px 20px;
+    color: black;
+}
+
+.short-desc {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 20px;
+}
+
+.short-desc article {
+    flex: 1;
+    margin: 0 10px;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+footer {
+    background: brown;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+    footer ul li ::before {
+        content: "→";
+        background-color: aqua;
+        color: rebeccapurple;
+        font-weight: bold;
+    }
+
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+    }
+
+    .features article {
+        margin-bottom: 20px;
+    }
+}
+.Saladin:hover
+{
+    background-color: seagreen;
+    color: greenyellow;
+   
+}
+.Yongle:hover {
+    background-color: yellow;
+    color: red;
+}
+.Mansa_Musa:hover {
+    background-color: maroon;
+    color: darkgoldenrod;
+}

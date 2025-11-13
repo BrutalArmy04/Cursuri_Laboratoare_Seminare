@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic HTML Page</title>
+</head>
+<body>
+    <input type="checkbox" id="pauza">
+<label for="luni">luni</label>
+<input type="checkbox" id="luni" name="luni">
+<label for="marti">marti</label>
+<input type="checkbox" id="marti" name="marti">
+<label for="miercuri">miercuri</label>
+<input type="checkbox" id="miercuri" name="miercuri">
+<label for="joi">joi</label>
+<input type="checkbox" id="joi" name="joi">
+<label for="vineri">vineri</label>
+<input type="checkbox" id="vineri" name="vineri">
+<label for="sambata">sambata</label>
+<input type="checkbox" id="sambata" name="sambata">
+<label for="duminica">duminica</label>
+<input type="checkbox" id="duminica" name="duminica">
+</body>
+<script>
+function moveLastToFirst() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+    if (!checked) {
+        const lastCheckbox = checkboxes[checkboxes.length - 1];
+        const parent = lastCheckbox.parentNode;
+        parent.insertBefore(lastCheckbox, checkboxes[0]);
+        //parent.insertBefore(lastCheckbox.id, checkboxes[0]); 
+    }
+}
+
+setInterval(moveLastToFirst, 3000);
+window.onload = function() {
+    moveLastToFirst();
+    
+
+window.onload = function() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        const isChecked = localStorage.getItem(checkbox.id) === 'true';
+        checkbox.checked = isChecked;
+    });
+    moveLastToFirst();
+};
+
+document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        localStorage.setItem(this.id, this.checked);
+    });
+});
+};
+
+
+</script>
+</html>

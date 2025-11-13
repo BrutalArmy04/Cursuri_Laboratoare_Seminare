@@ -1,0 +1,107 @@
+
+Laborator 5
+Logică matematică și computațională
+
+Introducere
+
+La acest laborator, vom implementa în Prolog formulele propoziționale și semantica lor.
+Variabilele vor fi reprezentate de atomi Prolog, iar operatorii ¬, ∧, ∨, →
+(pe care îi vom implementa individual, spre deosebire de curs/seminar) de
+simbolurile de funcție non, si, sau, imp.
+
+Interogați:
+?- X = a.
+?- X = si(a,b).
+?- X = imp(non(a),imp(a,b)).
+
+Scopul laboratorului va fi determinarea algoritmică a faptului că o formulă este sau nu tautologie.
+
+Practică
+
+Exercițiul 1
+Definiți un predicat vars/2 care este adevărat exact atunci când primul
+argument este o formulă, iar al doilea argument este lista care reprezintă
+mulțimea variabilelor care apar în ea.
+
+Exemplu:
+?- vars(imp(non(a),imp(a,b)), S).
+S = [a, b]
+
+Indicații:
+1. Folosiți predicatul predefinit atom/1.
+2. Folosiți predicatul union/3.
+
+Exercițiul 2
+Definiți un predicat val/3, astfel încât pentru orice variabilă V și orice
+evaluare E, avem că pentru orice A, val(V,E,A) este adevărat exact
+atunci când A este E(V).
+
+Exemplu:
+?- val(b,[(a,1),(b,0)], A).
+A = 0
+
+Exercițiul 3
+Definiți predicatele bnon/2, bsi/3, bsau/3, bimp/3 care implementează
+operațiile ¬, ∧, ∨, → pe mulțimea {0, 1}.
+
+Exemple:
+?- bsi(1,0,C).
+C = 0
+?- bimp(A,0,0).
+A = 1
+?- bimp(0,B,0).
+false
+
+Indiciu: Unele operații pot fi definite în funcție de altele.
+
+Exercițiul 4
+Definiți un predicat eval/3, astfel încât pentru orice formulă X și orice
+evaluare E, eval(X,E,A) este adevărat exact atunci când A este E+(X).
+
+Exemple:
+?- eval(imp(b,d),[(a,1), (b,0), (d,1)], A).
+A = 1
+?- eval(imp(d,b),[(a,1), (b,0), (d,1)], A).
+A = 0
+
+Exercițiul 5
+Definiți un predicat evals/3, astfel încât pentru orice formulă X și orice
+listă de evaluări Es, evals(X,Es,As) este adevărat exact atunci când As este
+lista rezultatelor evaluării lui X în fiecare dintre elementele lui Es.
+
+Exemplu:
+?- evals(imp(d,b), [[(a,1), (b,0), (d,1)], [(a,1), (b,1), (d,0)]], As).
+As = [0, 1]
+
+Exercițiul 6
+Definiți un predicat evs/2, astfel încât pentru orice listă de variabile S,
+evs(S,Es) este adevărat exact atunci când Es este lista evaluărilor definite pe S.
+
+Exemplu:
+?- evs([c,b], Es).
+Es = [[(c,0), (b,0)], [(c,1), (b,0)], [(c,0), (b,1)], [(c,1), (b,1)]]
+
+Indicații:
+1. Pentru orice mulțime A există o unică funcție de la ∅ la A.
+2. Pentru pasul inductiv, definiți un predicat ajutător.
+
+Exercițiul 7
+Definiți un predicat all_evals/2, astfel încât pentru orice formulă X,
+all_evals(X,As) este adevărat exact atunci când As este lista rezultatelor
+evaluării lui X în fiecare dintre elementele listei evaluărilor definite pe Var(X).
+
+Exemple:
+?- all_evals(imp(a,a), As).
+As = [1, 1]
+?- all_evals(imp(a,b), As).
+As = [1, 0, 1, 1]
+
+Exercițiul 8
+Definiți un predicat taut/1, astfel încât pentru orice formulă X, taut(X)
+este adevărat exact atunci când X este tautologie.
+
+Exemple:
+?- taut(imp(a,a)).
+true
+?- taut(imp(a,b)).
+false

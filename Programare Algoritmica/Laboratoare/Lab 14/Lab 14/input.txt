@@ -1,0 +1,8 @@
+7
+8 albastru
+10 verde 
+9 verde
+10 rosu 
+8 rosu 
+5 verde 
+6 verde

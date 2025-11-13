@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="demo.css">
+<style>
+
+canvas{border:5px solid pink;}
+
+</style>
+<script>
+window.onload = function() {
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// poziția, raza și viteza inițială a unui cerc
+let x = canvas.width / 2;
+let y = canvas.height / 2;
+let dx = 2; // deplasare pe axa x
+let dy = 2; // deplasare pe axa y
+let r = 30;
+
+function draw() {
+    // curățăm canvas-ul înainte de a desena următorul frame
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // desenăm cercul
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2, false);
+    ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.closePath();
+
+    // actualizăm poziția cercului
+    x += dx;
+    y += dy;
+
+    // detectăm coliziunile cu marginile canvas-ului și schimbăm direcția
+    if (x + r > canvas.width || x - r < 0) {
+        dx = -dx;
+    }
+    if (y + r > canvas.height || y - r < 0) {
+        dy = -dy;
+    }
+}
+
+function animate() {
+    // funcția animate va fi apelată în buclă pentru a crea efectul de animație
+    draw();
+    requestAnimationFrame(animate);
+}
+
+// incepem animația
+animate();
+
+}
+</script>
+</head>
+<body>
+<canvas id="canvas" width="500" height="500">
+</canvas>
+</body>
+</html>

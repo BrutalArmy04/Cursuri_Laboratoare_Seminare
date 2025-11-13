@@ -1,0 +1,51 @@
+
+fix fn1 and fn2 (la fn3 in ultima tabela sa adaug joc_juc)
+cerere sincronizata, functii de data si caracter, incerc sa fac delete-ul ala sa functioneze 
+(sau cel putin fac un delete mai complex)
+
+
+
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'lupul_alb', 1); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'pisica_verde', 1); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'corb_negru', 1); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'lupul_alb', 2); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'pisica_verde', 2); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'vulpe_isteata', 2); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'ursul_cenusiu', 3); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'cocosel_vesel', 3); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'ariciul_darnic', 3); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'lupul_alb', 4); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'ursul_cenusiu', 4); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'cocosel_vesel', 5); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'ariciul_darnic', 5); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'corb_negru', 5); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'vulpe_isteata', 6); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'ursul_cenusiu', 6); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'lupul_alb', 7); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'pisica_verde', 7); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'corb_negru', 8); 
+
+INSERT INTO JOACA VALUES(seq_joaca.NEXTVAL, 'vulpe_isteata', 8); 
+
+COMMIT; 
+
+SELECT * FROM JOACA; 

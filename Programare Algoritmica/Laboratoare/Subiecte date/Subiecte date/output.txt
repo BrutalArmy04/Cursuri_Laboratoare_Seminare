@@ -1,0 +1,1 @@
+{11: ['Ionescu Ion', {131: [2010, 30, 'Despre algoritmi'], 101: [1990, 70, 'Bazele Informaticii'], 141: [2010, 100, 'Complexitatea algoritmilor'], 121: [2010, 100, 'Tehnici de programare']}], 20: ['Popescu Marin', {213: [2012, 80, 'Introducere in C/C++'], 111: [2017, 50, 'Initiere in programare']}], 17: ['Georgescu Oana', {214: [2018, 150, 'Introducere in Python']}]}

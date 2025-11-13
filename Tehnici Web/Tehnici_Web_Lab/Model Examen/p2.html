@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercitiul2</title>
+    <style>
+        .buton{
+            border-radius: 5px;
+            margin-right: 10px;
+
+        }
+    </style>
+    <script>
+
+        window.onload = function () {
+            for (let i = 0; i < 6; i++) {
+
+                let buton = document.createElement("button");
+                buton.innerHTML = `Buton ${i + 1}`;
+                document.body.appendChild(buton);
+                buton.className = "buton";
+                buton.style.width = "100px";    
+                buton.style.height = "40px";
+                buton.style.backgroundColor = (i % 2 == 0) ? "yellow" : "green";
+                buton.style.color = (i % 2 == 0) ? "black" : "white";
+                buton.culoareInitiala = buton.style.backgroundColor;
+
+                buton.onclick = function (event) {
+                    event.stopPropagation;
+                    if (buton.style.backgroundColor == "red") {
+                        buton.remove();
+                    }
+                    else {
+                        buton.style.backgroundColor = "red";
+                        setTimeout(function () {
+                            buton.style.backgroundColor = buton.culoareInitiala;
+                        }, 5000);
+                    }
+                }
+
+            }
+        }
+        document.body.onclick = function () {
+            let butoane = document.getElementByTagName('button');
+            alert("Sunt " + butoane.length + " butoane");
+        }
+    </script>
+</head>
+<body>
+    border: 1px;
+</body>
+</html>

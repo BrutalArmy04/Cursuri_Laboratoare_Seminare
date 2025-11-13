@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Exercitiul3</title>
+    <script>
+        window.onload = function () {
+            let p = document.getElementById('info');
+            let nr = 0;
+            let c;
+            let font;
+            let f = localStorage.getItem("font");
+            if (f) {
+                p.style.fontSize = font + "px";
+            }
+            window.onkeydown = function (event) {
+                if (event.key == "a") {
+                    if (nr == 0) {
+                        let data = new Date();
+                        p.innerHTML += `Ziua: ${data.getDate()}/Ora: ${data.getHours()}`;
+                        c = setInterval(function () {
+
+                            font = Math.flood(Math.random() * 21) + 10;
+                            p.style.fontSize = font + "px";
+
+                        }, 3000);
+                        nr++;
+
+                    }
+                    else {
+                        clearInterval(c);
+                        localStorage.setItem("font", font);
+                    }
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <p id="info"> Astazi este o zi cu soare</p>
+</body>
+</html>
