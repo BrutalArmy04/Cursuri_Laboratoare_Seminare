@@ -2,7 +2,7 @@ set serveroutput on;
 CREATE OR REPLACE TYPE adrese_email_sro AS VARRAY(10) OF VARCHAR2(50);
 /
 
-CREATE TABLE client (
+CREATE TABLE client_sro (
     id_client NUMBER,
     nume_client VARCHAR2(100),
     adrese_email adrese_email_sro
@@ -14,14 +14,13 @@ DECLARE
 BEGIN
     adrese := adrese_email_sro('test1@a.com', 'test2@a.com');
     
-    INSERT INTO client (id_client, nume_client, adrese_email)
+    INSERT INTO client_sro (id_client, nume_client, adrese_email)
     VALUES (1, 'Client Test', adrese);
     COMMIT;
 END;
 /
 
 --E2
-
 
 CREATE OR REPLACE TYPE tip_orase_sro AS VARRAY(20) OF VARCHAR2(30);
 /

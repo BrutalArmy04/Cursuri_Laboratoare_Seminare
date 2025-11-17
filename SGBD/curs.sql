@@ -104,3 +104,60 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Alta eroare ' || SQLERRM);
 END;
 /
+
+--
+
+set SERVEROUTPUT ON
+
+DECLARE 
+  v_categ categorii%ROWTYPE; 
+  v_categ2 categorii%ROWTYPE; 
+  v_categ_modific v_categ%ROWTYPE; 
+  v_categ_null categorii%ROWTYPE; 
+BEGIN 
+  v_categ.denumire := 'Categorie noua'; 
+  v_categ.nivel :=1; 
+  SELECT MAX(id_categorie)+1 INTO v_categ.id_categorie  
+  FROM   categorii; 
+   
+  INSERT INTO categorii VALUES v_categ; 
+   
+  SELECT * INTO v_categ2 
+  FROM   categorii 
+  WHERE  id_categorie= v_categ.id_categorie; 
+   
+  DBMS_OUTPUT.PUT_LINE ('Ati inserat: '||  
+    v_categ2.id_categorie || ' ' || v_categ2.denumire ||  
+    '  '|| v_categ2.nivel || ' ' ||  
+    NVL(v_categ2.id_parinte,0)); 
+        
+ v_categ_modific := v_categ; 
+ v_categ_modific.id_categorie := v_categ.id_categorie + 1; 
+  
+ UPDATE categorii 
+ SET ROW = v_categ_modific 
+ WHERE id_categorie= v_categ.id_categorie; 
+  
+ SELECT * INTO v_categ2 
+ FROM   categorii 
+ WHERE  id_categorie= v_categ_modific.id_categorie; 
+  
+ DBMS_OUTPUT.PUT_LINE ('Ati modificat in: '||  
+   v_categ_modific.id_categorie || ' ' ||  
+   v_categ_modific.denumire || '  '||  
+   v_categ_modific.nivel || ' ' ||  
+   NVL(v_categ_modific.id_parinte,0)); 
+  
+ v_categ2 := v_categ_null; 
+  
+ DELETE FROM categorii  
+ WHERE  id_categorie= v_categ_modific.id_categorie 
+ RETURNING id_categorie, denumire, nivel, id_parinte 
+ INTO v_categ2; 
+  
+ DBMS_OUTPUT.PUT_LINE ('Ati sters linia: '||  
+   v_categ2.id_categorie || ' ' || v_categ2.denumire ||  
+   '  '|| v_categ2.nivel || ' ' ||  
+   NVL(v_categ2.id_parinte,0)); 
+ 
+   END;
