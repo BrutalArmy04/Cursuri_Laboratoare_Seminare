@@ -48,7 +48,7 @@
         },
         {
           "DockedWidth": 1116,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
@@ -60,12 +60,7 @@
               "RelativeToolTip": "ArticlesApp\\Views\\Articles\\New.cshtml",
               "ViewState": "AgIAAAsAAAAAAAAAAAAIwBcAAABkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-12T13:37:21.042Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+              "WhenOpened": "2025-11-12T13:37:21.042Z"
             },
             {
               "$type": "Document",
@@ -77,8 +72,7 @@
               "RelativeToolTip": "ArticlesApp\\Controllers\\CommentsController.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAwwBQAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T13:30:27.365Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T13:30:27.365Z"
             },
             {
               "$type": "Document",
@@ -90,8 +84,7 @@
               "RelativeToolTip": "ArticlesApp\\Views\\Articles\\Show.cshtml",
               "ViewState": "AgIAAEIAAAAAAAAAAAAAAEsAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-12T13:14:32.852Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T13:14:32.852Z"
             },
             {
               "$type": "Document",
@@ -101,7 +94,7 @@
               "RelativeDocumentMoniker": "ArticlesApp\\Controllers\\ArticlesController.cs",
               "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab7\\ArticlesAppLab7Template\\ArticlesApp\\Controllers\\ArticlesController.cs",
               "RelativeToolTip": "ArticlesApp\\Controllers\\ArticlesController.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAwwFAAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAwwEsAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-12T13:12:51.053Z",
               "EditorCaption": ""
@@ -116,8 +109,7 @@
               "RelativeToolTip": "ArticlesApp\\Models\\Article.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAYwB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T13:12:34.945Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T13:12:34.945Z"
             },
             {
               "$type": "Document",
@@ -129,8 +121,7 @@
               "RelativeToolTip": "ArticlesApp\\Migrations\\20251112131134_DBArticles.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T13:11:34.547Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T13:11:34.547Z"
             }
           ]
         }

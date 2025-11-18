@@ -1,0 +1,283 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\articles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\articles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\shared\\articleinfo.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\shared\\articleinfo.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\articles\\show.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\articles\\show.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\categories\\show.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\categories\\show.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\controllers\\articlescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\controllers\\articlescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\articles\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\articles\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\models\\article.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\models\\article.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\articles\\new.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\articles\\new.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\categories\\new.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\categories\\new.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|c:\\facultate\\cursuri_laboratoare_seminare\\asp.net\\lab8\\articlesapp\\views\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0EEE79EE-32CD-4BA5-A2BD-AF3E53E2FCF0}|ArticlesApp\\ArticlesApp.csproj|solutionrelative:articlesapp\\views\\categories\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 1099,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Articles\\Index.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Articles\\Index.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Articles\\Index.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Articles\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T15:51:31.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Show.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Articles\\Show.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Articles\\Show.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Articles\\Show.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Articles\\Show.cshtml",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAABAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T15:50:13.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T15:49:49.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ArticleInfo.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Shared\\ArticleInfo.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Shared\\ArticleInfo.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Shared\\ArticleInfo.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Shared\\ArticleInfo.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T15:48:57.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "ArticlesApp\\Models\\Category.cs",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Models\\Category.cs",
+              "RelativeToolTip": "ArticlesApp\\Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T14:27:39.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Article.cs",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Models\\Article.cs",
+              "RelativeDocumentMoniker": "ArticlesApp\\Models\\Article.cs",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Models\\Article.cs",
+              "RelativeToolTip": "ArticlesApp\\Models\\Article.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T10:27:52.998Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "New.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Categories\\New.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Categories\\New.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Categories\\New.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Categories\\New.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-10T12:39:01.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Categories\\Index.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Categories\\Index.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Categories\\Index.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Categories\\Index.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-10T12:38:52.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Show.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Categories\\Show.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Categories\\Show.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Categories\\Show.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Categories\\Show.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-10T12:39:05.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABsAAAAAAAAAAAAIwCYAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T14:59:23.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Articles\\Edit.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Articles\\Edit.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Articles\\Edit.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Articles\\Edit.cshtml",
+              "ViewState": "AgIAABMAAAAAAAAAAAAIwCoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-10T12:37:54.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ArticlesController.cs",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Controllers\\ArticlesController.cs",
+              "RelativeDocumentMoniker": "ArticlesApp\\Controllers\\ArticlesController.cs",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Controllers\\ArticlesController.cs",
+              "RelativeToolTip": "ArticlesApp\\Controllers\\ArticlesController.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAADwv3kAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T12:06:46.682Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Comment.cs",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Models\\Comment.cs",
+              "RelativeDocumentMoniker": "ArticlesApp\\Models\\Comment.cs",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Models\\Comment.cs",
+              "RelativeToolTip": "ArticlesApp\\Models\\Comment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T14:28:10.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "New.cshtml",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Articles\\New.cshtml",
+              "RelativeDocumentMoniker": "ArticlesApp\\Views\\Articles\\New.cshtml",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Views\\Articles\\New.cshtml",
+              "RelativeToolTip": "ArticlesApp\\Views\\Articles\\New.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-10T12:35:53.567Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Program.cs",
+              "RelativeDocumentMoniker": "ArticlesApp\\Program.cs",
+              "ToolTip": "C:\\Facultate\\Cursuri_Laboratoare_Seminare\\ASP.net\\Lab8\\ArticlesApp\\Program.cs",
+              "RelativeToolTip": "ArticlesApp\\Program.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAIwCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T14:23:14.094Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
