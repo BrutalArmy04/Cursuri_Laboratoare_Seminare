@@ -88,3 +88,84 @@ corect (M (L primaLinie:restul)) = all (\(L linie) -> length linie == length pri
 testcorect1 = corect (M[L[1,2,3], L[4,5], L[2,3,6,8], L[8,5,3]]) 
 testcorect2 = corect (M[L[1,2,3], L[4,5,8], L[3,6,8], L[8,5,3]]) 
 
+--Mbappe
+
+
+-- a) 
+data Direction = North | NorthEast | East | SouthEast | South | SouthWest | West | NorthWest
+    deriving (Show, Eq, Enum)
+
+data Turtle = Turtle { position :: (Int, Int), direction :: Direction }
+    deriving Show
+
+-- b) 
+data Action = Step | Turn
+    deriving Show
+
+-- c) 
+data Command = Do Action | Repeat Int Command
+    deriving Show
+
+-- d) 
+getPizza :: Turtle -> [Command] -> (Int, Int)
+getPizza turtle [] = position turtle
+getPizza turtle (cmd:cmds) = getPizza (executeCommand turtle cmd) cmds
+
+executeCommand :: Turtle -> Command -> Turtle
+executeCommand turtle (Do action) = executeAction turtle action
+executeCommand turtle (Repeat n cmd) 
+    | n <= 0 = turtle
+    | otherwise = executeCommand (executeCommand turtle cmd) (Repeat (n-1) cmd)
+
+executeAction :: Turtle -> Action -> Turtle
+executeAction turtle Step = moveForward turtle
+executeAction turtle Turn = turnRight turtle
+
+moveForward :: Turtle -> Turtle
+moveForward (Turtle (x, y) dir) = Turtle newPos dir
+  where
+    newPos = case dir of
+        North     -> (x, y+1)
+        NorthEast -> (x+1, y+1)
+        East      -> (x+1, y)
+        SouthEast -> (x+1, y-1)
+        South     -> (x, y-1)
+        SouthWest -> (x-1, y-1)
+        West      -> (x-1, y)
+        NorthWest -> (x-1, y+1)
+
+turnRight :: Turtle -> Turtle
+turnRight (Turtle pos dir) = Turtle pos newDir
+  where
+    newDir = toEnum ((fromEnum dir + 1) `mod` 8)
+
+-- e) 
+data ActionExt = StepExt | TurnExt | Seq CommandExt CommandExt
+    deriving Show
+
+data CommandExt = DoExt ActionExt | RepeatExt Int CommandExt | WaitExt
+    deriving Show
+
+getPizzaExt :: Turtle -> [CommandExt] -> (Int, Int)
+getPizzaExt turtle [] = position turtle
+getPizzaExt turtle (cmd:cmds) = getPizzaExt (executeCommandExt turtle cmd) cmds
+
+executeCommandExt :: Turtle -> CommandExt -> Turtle
+executeCommandExt turtle WaitExt = turtle
+executeCommandExt turtle (DoExt action) = executeActionExt turtle action
+executeCommandExt turtle (RepeatExt n cmd) 
+    | n <= 0 = turtle
+    | otherwise = executeCommandExt (executeCommandExt turtle cmd) (RepeatExt (n-1) cmd)
+
+executeActionExt :: Turtle -> ActionExt -> Turtle
+executeActionExt turtle StepExt = moveForward turtle
+executeActionExt turtle TurnExt = turnRight turtle
+executeActionExt turtle (Seq cmd1 cmd2) = 
+    executeCommandExt (executeCommandExt turtle cmd1) cmd2
+
+-- f) 
+aggregateCommands :: [CommandExt] -> CommandExt
+aggregateCommands = foldr seqCommands WaitExt
+  where
+    seqCommands cmd WaitExt = cmd
+    seqCommands cmd1 cmd2 = DoExt (Seq cmd1 cmd2)
