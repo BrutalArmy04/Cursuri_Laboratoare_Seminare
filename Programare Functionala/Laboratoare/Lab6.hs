@@ -73,7 +73,7 @@ test_verif2 :: Bool
 test_verif2 = verifica (M[L[2,20,3], L[4,21], L[2,3,6,8,6], L[8,5,3,9]]) 25 
 
 doarPozN :: Matrice -> Int -> Bool
-doarPozN (M linii) n = all (allPozitive) (filter (lungimeN n) linii)
+doarPozN (M linii) n = all allPozitive (filter (lungimeN n) linii)
   where
     lungimeN n (L lista) = length lista == n
     allPozitive (L lista) = all (> 0) lista
@@ -89,7 +89,6 @@ testcorect1 = corect (M[L[1,2,3], L[4,5], L[2,3,6,8], L[8,5,3]])
 testcorect2 = corect (M[L[1,2,3], L[4,5,8], L[3,6,8], L[8,5,3]]) 
 
 --Mbappe
-
 
 -- a) 
 data Direction = North | NorthEast | East | SouthEast | South | SouthWest | West | NorthWest

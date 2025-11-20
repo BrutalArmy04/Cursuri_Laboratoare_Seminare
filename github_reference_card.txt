@@ -1,0 +1,67 @@
+pt 1 pers
+
+git status          # See what changed
+git add .           # Stage all changes
+git commit -m "msg" # Commit changes
+git push            # Upload to GitHub
+git pull            # Download from GitHub
+
+pt >1 pers
+
+Daily Workflow (Your Go-To Commands)
+
+git status                  # See what changed
+git add .                   # Stage all changes
+git commit -m "message"     # Commit changes
+git pull                    # Download others' changes FIRST
+git push                    # Upload your changes
+
+Getting Started & Syncing
+
+git clone <url>             # Download repository for first time
+git pull                    # Get latest changes from GitHub
+git fetch                   # Check for remote changes without merging
+
+Handling Merge Conflicts
+
+git pull                    # This might cause conflicts if others changed same files
+# Edit conflicted files (look for <<<<<<<, =======, >>>>>>> markers)
+git add .                   # Mark conflicts as resolved
+git commit -m "Resolve merge conflicts"
+git push
+
+Branching (Essential for Collaboration)
+
+git branch                  # List all branches
+git branch <name>           # Create new branch
+git checkout <name>         # Switch to branch
+git checkout -b <name>      # Create AND switch to new branch
+git merge <branch>          # Merge branch into current branch
+git branch -d <name>        # Delete branch (locally)
+
+Team Coordination Commands
+
+git log --oneline --graph --all    # See commit history with branches
+git remote show origin             # Show remote repository info
+git diff                           # See what you changed
+git diff HEAD~1                    # Compare with previous commit
+
+Oh No!" Situations & Fixes
+
+git reset --hard HEAD      # Discard all local changes
+git stash                  # Temporarily save uncommitted changes
+git stash pop              # Restore stashed changes
+git log --oneline          # Find commit hash to revert to
+git reset --hard <commit>  # Go back to specific commit (CAREFUL!)
+
+Sharing Your Work with Team
+
+git push origin <branch>   # Push your branch to GitHub
+git push -u origin <branch> # Push AND set upstream (first time)
+git push --force-with-lease # Force push (use cautiously!)
+
+Cleaning Up
+
+git branch -d <name>       # Delete local branch
+git push origin --delete <branch>  # Delete remote branch
+git fetch --prune          # Clean up deleted remote branches locally

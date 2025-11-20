@@ -126,3 +126,43 @@ BEGIN
     COMMIT;
 END;
 /
+
+--Tema E1
+
+DECLARE
+    TYPE tip_coduri IS TABLE OF employees.employee_id%TYPE;
+    TYPE tip_salarii IS TABLE OF employees.salary%TYPE;
+    
+    v_coduri tip_coduri;
+    v_salarii_vechi tip_salarii;
+    v_salarii_noi tip_salarii;
+    
+BEGIN
+
+    SELECT employee_id
+    BULK COLLECT INTO v_coduri
+    FROM employees
+    WHERE commission_pct IS NULL
+    ORDER BY salary ASC
+    FETCH FIRST 5 ROWS ONLY;
+
+    FORALL i IN v_coduri.FIRST..v_coduri.LAST
+        UPDATE employees
+        SET salary = salary * 1.05
+        WHERE employee_id = v_coduri(i)
+        RETURNING salary BULK COLLECT INTO v_salarii_noi;
+
+    SELECT salary
+    BULK COLLECT INTO v_salarii_vechi
+    FROM employees
+    WHERE employee_id IN (SELECT * FROM TABLE(v_coduri));
+
+    FOR i IN v_coduri.FIRST..v_coduri.LAST LOOP
+        DBMS_OUTPUT.PUT_LINE('Angajat ' || v_coduri(i) || 
+                            ': Salariu vechi = ' || (v_salarii_noi(i)/1.05) || 
+                            ', Salariu nou = ' || v_salarii_noi(i));
+    END LOOP;
+    
+    COMMIT;
+end;
+/

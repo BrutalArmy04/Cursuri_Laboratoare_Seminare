@@ -109,3 +109,80 @@ END;
 
 
 --folosim rowcount pt cursor explicit si ciclu cursor standard
+
+
+--tema e4 
+
+--modif 9 (nu sunt sigur ca am facut ce trebuia)
+
+CREATE OR REPLACE TYPE lista_jucatori_t AS VARRAY(10) OF VARCHAR2(20);
+CREATE TABLE manageri_joc (
+    cod_mgr NUMBER(10),
+    nume VARCHAR2(20),
+    lista_jucatori lista_jucatori_t
+);
+
+
+DECLARE
+    v_jucatori lista_jucatori_t := lista_jucatori_t('lupul_alb', 'pisica_verde', 'corb_negru');
+    v_lista manageri_joc.lista_jucatori%TYPE;
+BEGIN
+    INSERT INTO manageri_joc VALUES (1, 'Manager 1', v_jucatori);
+    INSERT INTO manageri_joc VALUES (2, 'Manager 2', NULL);
+    INSERT INTO manageri_joc VALUES (3, 'Manager 3', lista_jucatori_t('vulpe_isteata', 'ursul_cenusiu'));
+
+    SELECT lista_jucatori INTO v_lista FROM manageri_joc WHERE cod_mgr = 1;
+    
+    DBMS_OUTPUT.PUT_LINE('Jucatorii managerului 1:');
+    FOR j IN v_lista.FIRST..v_lista.LAST LOOP
+        DBMS_OUTPUT.PUT_LINE(v_lista(j));
+    END LOOP;
+    
+    COMMIT;
+END;
+/
+
+SELECT * FROM manageri_joc;
+DROP TABLE manageri_joc;
+DROP TYPE lista_jucatori_t;
+
+
+
+-- modif 10
+
+CREATE TABLE jucatori_test AS
+SELECT nume_utilizator, id_cont 
+FROM JUCATOR 
+WHERE ROWNUM <= 3;
+
+
+CREATE OR REPLACE TYPE tip_resurse_t IS TABLE OF VARCHAR2(20);
+/
+
+ALTER TABLE jucatori_test 
+ADD (resurse tip_resurse_t)
+NESTED TABLE resurse STORE AS tabel_resurse;
+
+DECLARE
+BEGIN
+    INSERT INTO jucatori_test 
+    VALUES ('jucator_nou', 100, tip_resurse_t('Aur', 'Lemn', 'Piatra'));
+    
+    UPDATE jucatori_test 
+    SET resurse = tip_resurse_t('Fier', 'Tesatura')
+    WHERE nume_utilizator = 'lupul_alb';
+    
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE('Jucatori si resursele lor:');
+    FOR rec IN (SELECT j.nume_utilizator, r.* 
+                FROM jucatori_test j, TABLE(j.resurse) r) LOOP
+        DBMS_OUTPUT.PUT_LINE(rec.nume_utilizator || ' - ' || rec.COLUMN_VALUE);
+    END LOOP;
+end;
+/
+
+
+SELECT * FROM jucatori_test;
+DROP TABLE jucatori_test;
+DROP TYPE tip_resurse_t;
