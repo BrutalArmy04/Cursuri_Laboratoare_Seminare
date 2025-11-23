@@ -141,3 +141,6 @@ balance tree = buildBalancedTree (toList tree)
       let mid = length xs `div` 2
           (leftList, (k, v):rightList) = splitAt mid xs
       in BNode (buildBalancedTree leftList) k (Just v) (buildBalancedTree rightList)
+
+
+
