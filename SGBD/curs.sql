@@ -960,3 +960,5 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Indexed By Table - Timp mediu de executie: ' || l_avg_time || ' secunde');
 end;
 /
+
+
