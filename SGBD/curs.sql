@@ -962,3 +962,215 @@ end;
 /
 
 
+--5.5 sau 5.6 care e mai rapid
+
+--5.5
+
+DECLARE 
+  CURSOR c IS                              
+    SELECT * 
+    FROM   categorii  
+    WHERE  id_parinte IS NULL;      
+  v_categorii categorii%ROWTYPE;
+  l_start_time NUMBER;
+  l_end_time NUMBER;
+  l_total_time NUMBER := 0;
+  l_runs NUMBER := 10000;
+  l_avg_time NUMBER;  
+ 
+BEGIN   
+    FOR run_counter IN 1..l_runs LOOP
+        l_start_time := DBMS_UTILITY.GET_TIME;
+    
+        OPEN c; 
+        FETCH c INTO v_categorii; 
+        WHILE c%FOUND LOOP 
+            DBMS_OUTPUT.PUT_LINE(v_categorii.id_categorie || ' ' || 
+            v_categorii.denumire); 
+            FETCH c INTO v_categorii; 
+        END LOOP;  
+        CLOSE c; 
+
+        l_end_time := DBMS_UTILITY.GET_TIME;
+        l_total_time := l_total_time + (l_end_time - l_start_time);
+    END LOOP;
+    l_avg_time := (l_total_time / l_runs) / 100;
+    DBMS_OUTPUT.PUT_LINE('Numar teste 5.5: ' || l_runs);
+    DBMS_OUTPUT.PUT_LINE('Timp mediu de executie 5.5: ' || l_avg_time || ' secunde');
+
+END; 
+/ 
+
+--5.6
+
+DECLARE 
+  TYPE tab_imb IS TABLE OF categorii%ROWTYPE; 
+  v_categorii tab_imb; 
+  l_start_time NUMBER;
+  l_end_time NUMBER;
+  l_total_time NUMBER := 0;
+  l_runs NUMBER := 10000;
+  l_avg_time NUMBER;  
+   
+  CURSOR c IS                              
+    SELECT * FROM   categorii  
+    WHERE  id_parinte IS NULL;        
+ 
+BEGIN   
+    FOR run_counter IN 1..l_runs LOOP
+        l_start_time := DBMS_UTILITY.GET_TIME;
+    
+        OPEN c; 
+        FETCH c BULK COLLECT INTO v_categorii; 
+        CLOSE c; 
+        FOR i IN 1..v_categorii.LAST LOOP 
+            DBMS_OUTPUT.PUT_LINE(v_categorii(i).id_categorie || ' ' 
+            || v_categorii(i).denumire);  
+        end loop;
+        l_end_time := DBMS_UTILITY.GET_TIME;
+        l_total_time := l_total_time + (l_end_time - l_start_time);
+    END LOOP;
+    l_avg_time := (l_total_time / l_runs) / 100;
+    DBMS_OUTPUT.PUT_LINE('Numar teste 5.6: ' || l_runs);
+    DBMS_OUTPUT.PUT_LINE('Timp mediu de executie 5.6: ' || l_avg_time || ' secunde');
+
+END; 
+/
+
+-- 5.7
+
+spool output_5_7.txt
+
+DECLARE 
+  TYPE tab_imb IS TABLE OF produse.denumire%TYPE; 
+  v_produse tab_imb; 
+  v_denumire produse.denumire%TYPE;   
+
+  CURSOR c1 IS                              
+    SELECT denumire 
+    FROM   produse 
+    WHERE ROWNUM <=10; 
+     
+  CURSOR c2 IS                              
+    SELECT denumire 
+    FROM   produse;  
+     
+BEGIN   
+    dbms_output.put_line('--- Fetch Exit When ---');
+  for i in 1..10 loop
+  OPEN c1; 
+  LOOP 
+    FETCH c1 INTO v_denumire; 
+    EXIT WHEN c1%NOTFOUND; 
+    DBMS_OUTPUT.PUT_LINE(v_denumire); 
+  END LOOP;   
+  CLOSE c1; 
+   
+  DBMS_OUTPUT.PUT_LINE('----------------------'); 
+    END LOOP;
+   dbms_output.put_line('--- Bulk Collect Cu Limita ---');
+   for i in 1..10 loop
+  OPEN c2; 
+  FETCH c2 BULK COLLECT INTO v_produse LIMIT 10;  
+  CLOSE c2; 
+  FOR i IN 1..v_produse.LAST LOOP 
+     DBMS_OUTPUT.PUT_LINE(v_produse(i)); 
+  END LOOP;   
+    DBMS_OUTPUT.PUT_LINE('----------------------'); 
+  end LOOP;
+  dbms_output.put_line('--- Fetch Exit When ---');
+  for i in 1..10 loop
+  OPEN c1; 
+  LOOP 
+    FETCH c1 INTO v_denumire; 
+    EXIT WHEN c1%NOTFOUND; 
+    DBMS_OUTPUT.PUT_LINE(v_denumire); 
+  END LOOP;   
+  CLOSE c1; 
+   
+  DBMS_OUTPUT.PUT_LINE('----------------------'); 
+    END LOOP;
+   dbms_output.put_line('--- Bulk Collect Cu Limita ---');
+   for i in 1..10 loop
+  OPEN c2; 
+  FETCH c2 BULK COLLECT INTO v_produse LIMIT 10;  
+  CLOSE c2; 
+  FOR i IN 1..v_produse.LAST LOOP 
+     DBMS_OUTPUT.PUT_LINE(v_produse(i)); 
+  END LOOP;   
+    DBMS_OUTPUT.PUT_LINE('----------------------'); 
+  end LOOP;
+END;  
+/ 
+
+spool off
+
+--5.14
+
+DECLARE 
+   TYPE tip_cursor IS REF CURSOR RETURN produse%ROWTYPE; 
+   c tip_cursor; 
+ 
+   v_optiune NUMBER(1) := &p_optiune; 
+   i produse%ROWTYPE; 
+   l_start_time NUMBER;
+   l_end_time NUMBER;
+   l_total_time NUMBER := 0;
+ 
+BEGIN 
+    for run_counter IN 1..1000 LOOP
+   IF v_optiune = 1 THEN  
+     l_start_time := DBMS_UTILITY.GET_TIME;
+     OPEN c FOR  
+     SELECT *  
+     FROM  produse p 
+     WHERE EXISTS (SELECT 1  
+                   FROM   facturi_produse pf, facturi f 
+                   WHERE  p.id_produs = pf.id_produs 
+                   AND    pf.id_factura = f.id_factura 
+                   AND    TO_CHAR(data,'q') = 1); 
+     
+    ELSIF v_optiune = 2 THEN 
+      l_start_time := DBMS_UTILITY.GET_TIME;
+      OPEN c FOR  
+      SELECT *  
+      FROM  produse p 
+      WHERE id_produs IN  
+                    (SELECT id_produs  
+                     FROM   facturi_produse pf, facturi f 
+                     WHERE  pf.id_factura = f.id_factura 
+                     AND    TO_CHAR(data,'q') = 2); 
+     
+    ELSIF v_optiune = 3 THEN 
+        l_start_time := DBMS_UTILITY.GET_TIME;
+      OPEN c FOR 
+      SELECT DISTINCT p.*  
+      FROM  produse p, facturi_produse pf, facturi f 
+      WHERE p.id_produs = pf.id_produs 
+      AND   pf.id_factura = f.id_factura 
+      AND   TO_CHAR(data,'q') = 3;                  
+     
+    ELSE  
+    l_start_time := DBMS_UTILITY.GET_TIME;
+      OPEN c FOR  
+      SELECT *  
+      FROM  produse p 
+      WHERE id_produs IN (SELECT id_produs  
+                          FROM   facturi_produse);   
+   END IF; 
+   l_end_time := DBMS_UTILITY.GET_TIME;
+   l_total_time := l_total_time + (l_end_time - l_start_time);
+    end loop;
+    DBMS_OUTPUT.PUT_LINE('Timp de deschidere cursor pentru '|| v_optiune || ':' ||  (l_total_time)/1000 || ' secunde');
+    
+--   LOOP 
+--    FETCH c INTO i; 
+--    EXIT WHEN c%NOTFOUND; 
+--    DBMS_OUTPUT.PUT_LINE(i.id_produs||' ' ||i.denumire); 
+ 
+--   END LOOP; 
+--   DBMS_OUTPUT.PUT_LINE('Nr produse vandute: '|| 
+--                         c%ROWCOUNT); 
+  CLOSE c;  
+END;  
+/ 

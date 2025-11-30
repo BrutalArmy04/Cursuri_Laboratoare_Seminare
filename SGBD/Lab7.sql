@@ -186,3 +186,69 @@ end;
 SELECT * FROM jucatori_test;
 DROP TABLE jucatori_test;
 DROP TYPE tip_resurse_t;
+
+--e2
+
+
+DECLARE
+    CURSOR c_joburi_detaliate IS
+        SELECT j.job_id, 
+               j.job_title,
+               COUNT(e.employee_id) as nr_angajati,
+               NVL(SUM(e.salary), 0) as venit_total,
+               NVL(AVG(e.salary), 0) as venit_mediu
+        FROM jobs j
+        LEFT JOIN employees e ON j.job_id = e.job_id
+        GROUP BY j.job_id, j.job_title
+        ORDER BY j.job_title;
+    
+    CURSOR c_angajati (p_job_id VARCHAR2) IS
+        SELECT first_name, last_name, salary
+        FROM employees
+        WHERE job_id = p_job_id
+        ORDER BY last_name, first_name;
+    
+    v_nr_ordine NUMBER;
+    v_nr_total_angajati NUMBER := 0;
+    v_venit_total_global NUMBER := 0;
+
+BEGIN
+    SELECT COUNT(*), NVL(SUM(salary), 0)
+    INTO v_nr_total_angajati, v_venit_total_global
+    FROM employees;
+    
+    
+    FOR job_rec IN c_joburi_detaliate LOOP
+        DBMS_OUTPUT.PUT_LINE('Job: ' || job_rec.job_title);
+        
+        v_nr_ordine := 0;
+        
+        IF job_rec.nr_angajati > 0 THEN
+            FOR angajat_rec IN c_angajati(job_rec.job_id) LOOP
+                v_nr_ordine := v_nr_ordine + 1;
+                DBMS_OUTPUT.PUT_LINE(
+                    RPAD(v_nr_ordine || '.', 4) || 
+                    RPAD(angajat_rec.first_name || ' ' || angajat_rec.last_name, 30) ||
+                    TO_CHAR(angajat_rec.salary, '999,999.00')
+                );
+            END LOOP;
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('*** Niciun angajat pe acest job ***');
+        END IF;
+        
+        DBMS_OUTPUT.PUT_LINE('Statistici job:');
+        DBMS_OUTPUT.PUT_LINE('- Numar angajati: ' || job_rec.nr_angajati);
+        DBMS_OUTPUT.PUT_LINE('- Venit total lunar: ' || TO_CHAR(job_rec.venit_total, '999,999,999.00'));
+        DBMS_OUTPUT.PUT_LINE('- Venit mediu lunar: ' || TO_CHAR(job_rec.venit_mediu, '999,999.00'));
+        
+        DBMS_OUTPUT.PUT_LINE('');
+        DBMS_OUTPUT.PUT_LINE('');
+        
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('Total general angajati: ' || v_nr_total_angajati);
+    DBMS_OUTPUT.PUT_LINE('Venit total lunar general: ' || TO_CHAR(v_venit_total_global, '999,999,999.00'));
+    DBMS_OUTPUT.PUT_LINE('Venit mediu lunar general: ' || TO_CHAR(v_venit_total_global/NULLIF(v_nr_total_angajati,0), '999,999.00'));
+    
+END;
+/
