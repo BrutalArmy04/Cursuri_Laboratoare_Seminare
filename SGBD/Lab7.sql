@@ -252,3 +252,188 @@ BEGIN
     
 END;
 /
+
+--E6
+-- voi rezolva cerinta
+--pentru fiecare dintre jocurile 1, 2, 3 și 4, obtineti status-ul precum si lista jucatorilor care participa în cadrul acestora.
+
+
+--cursor clasic
+
+DECLARE
+    CURSOR c_jocuri IS
+        SELECT id_joc, status
+        FROM JOC
+        WHERE id_joc IN (1, 2, 3, 4)
+        ORDER BY id_joc;
+    
+    CURSOR c_jucatori(p_joc_id NUMBER) IS
+        SELECT DISTINCT j.nume_utilizator
+        FROM JUCATOR j
+        INNER JOIN RES_JOC_JOC rjj ON j.nume_utilizator = rjj.nume_utilizator
+        WHERE rjj.id_joc = p_joc_id
+        ORDER BY j.nume_utilizator;
+    
+    v_joc_id JOC.id_joc%TYPE;
+    v_status JOC.status%TYPE;
+    v_jucator VARCHAR2(20);
+    v_jucator_count NUMBER;
+    
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('=== JOCURI ȘI JUCATORI PARTICIPANTI ===');
+    DBMS_OUTPUT.PUT_LINE('');
+    
+    -- Parcurgem jocurile
+    FOR joc_rec IN c_jocuri LOOP
+        DBMS_OUTPUT.PUT_LINE('--- JOCUL ' || joc_rec.id_joc || ' ---');
+        DBMS_OUTPUT.PUT_LINE('Status: ' || joc_rec.status);
+        DBMS_OUTPUT.PUT_LINE('Jucatori participanti:');
+        
+        v_jucator_count := 0;
+        
+        OPEN c_jucatori(joc_rec.id_joc);
+        LOOP
+            FETCH c_jucatori INTO v_jucator;
+            EXIT WHEN c_jucatori%NOTFOUND;
+            
+            v_jucator_count := v_jucator_count + 1;
+            DBMS_OUTPUT.PUT_LINE('   ' || v_jucator_count || '. ' || v_jucator);
+        END LOOP;
+        CLOSE c_jucatori;
+        
+        IF v_jucator_count = 0 THEN
+            DBMS_OUTPUT.PUT_LINE('   *** Niciun jucator ***');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('   Total jucatori: ' || v_jucator_count);
+        END IF;
+        
+        DBMS_OUTPUT.PUT_LINE('');
+    END LOOP;
+END;
+/
+
+--cursor cu parametru (la asta am pus sa adauge si resurse)
+
+DECLARE
+    CURSOR c_jocuri_detaliat(p_joc_ids VARCHAR2) IS
+        SELECT j.id_joc, j.status,
+               (SELECT COUNT(DISTINCT rjj.nume_utilizator) 
+                FROM RES_JOC_JOC rjj 
+                WHERE rjj.id_joc = j.id_joc) as nr_jucatori
+        FROM JOC j
+        WHERE j.id_joc IN (
+            SELECT TO_NUMBER(REGEXP_SUBSTR(p_joc_ids, '[^,]+', 1, LEVEL))
+            FROM dual
+            CONNECT BY REGEXP_SUBSTR(p_joc_ids, '[^,]+', 1, LEVEL) IS NOT NULL
+        )
+        ORDER BY j.id_joc;
+    
+    v_joc_list VARCHAR2(50) := '1,2,3,4';
+    
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('=== JOCURI ȘI JUCATORI PARTICIPANTI ===');
+    DBMS_OUTPUT.PUT_LINE('');
+    
+    FOR joc_rec IN c_jocuri_detaliat(v_joc_list) LOOP
+        DBMS_OUTPUT.PUT_LINE('--- JOCUL ' || joc_rec.id_joc || ' ---');
+        DBMS_OUTPUT.PUT_LINE('Status: ' || joc_rec.status);
+        
+        IF joc_rec.nr_jucatori = 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Jucatori: *** Niciun jucator ***');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Jucatori participanti:');
+            
+            FOR juc_rec IN (
+                SELECT DISTINCT j.nume_utilizator,
+                       (SELECT COUNT(*) 
+                        FROM RES_JOC_JOC rjj2 
+                        WHERE rjj2.nume_utilizator = j.nume_utilizator 
+                        AND rjj2.id_joc = joc_rec.id_joc) as resurse_detinate
+                FROM JUCATOR j
+                INNER JOIN RES_JOC_JOC rjj ON j.nume_utilizator = rjj.nume_utilizator
+                WHERE rjj.id_joc = joc_rec.id_joc
+                ORDER BY j.nume_utilizator
+            ) LOOP
+                DBMS_OUTPUT.PUT_LINE('   - ' || juc_rec.nume_utilizator || 
+                                   ' (Resurse detinute in acest joc: ' || 
+                                   juc_rec.resurse_detinate || ')');
+            END LOOP;
+            
+            DBMS_OUTPUT.PUT_LINE('   Total: ' || joc_rec.nr_jucatori || ' jucatori');
+        END IF;
+        
+        DBMS_OUTPUT.PUT_LINE('');
+    END LOOP;
+END;
+/
+
+--expresii cursor
+
+DECLARE
+    CURSOR c_jocuri_complet IS
+        SELECT j.id_joc,
+               j.status,
+               CURSOR(
+                   SELECT DISTINCT ju.nume_utilizator,
+                          c.email
+                   FROM JUCATOR ju
+                   INNER JOIN RES_JOC_JOC rjj ON ju.nume_utilizator = rjj.nume_utilizator
+                   INNER JOIN CONT c ON ju.id_cont = c.id_cont
+                   WHERE rjj.id_joc = j.id_joc
+                   ORDER BY ju.nume_utilizator
+               ) as cursor_jucatori
+        FROM JOC j
+        WHERE j.id_joc IN (1, 2, 3, 4)
+        ORDER BY j.id_joc;
+    
+    v_joc_id JOC.id_joc%TYPE;
+    v_status JOC.status%TYPE;
+    v_cursor_jucatori SYS_REFCURSOR;
+    
+    v_nume_jucator JUCATOR.nume_utilizator%TYPE;
+    v_email CONT.email%TYPE;
+    v_counter NUMBER;
+    
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('=== JOCURI ȘI JUCATORI PARTICIPANTI ===');
+    DBMS_OUTPUT.PUT_LINE('');
+    
+    OPEN c_jocuri_complet;
+    
+    LOOP
+        FETCH c_jocuri_complet INTO v_joc_id, v_status, v_cursor_jucatori;
+        EXIT WHEN c_jocuri_complet%NOTFOUND;
+        
+        DBMS_OUTPUT.PUT_LINE('=== JOCUL ' || v_joc_id || ' ===');
+        DBMS_OUTPUT.PUT_LINE('Status: ' || v_status);
+        DBMS_OUTPUT.PUT_LINE('---------------------------------');
+        
+        v_counter := 0;
+        
+        LOOP
+            FETCH v_cursor_jucatori INTO v_nume_jucator, v_email;
+            EXIT WHEN v_cursor_jucatori%NOTFOUND;
+            
+            v_counter := v_counter + 1;
+            DBMS_OUTPUT.PUT_LINE(v_counter || '. ' || v_nume_jucator || 
+                               ' | Email: ' || v_email);
+        END LOOP;
+        
+        CLOSE v_cursor_jucatori;
+        
+        IF v_counter = 0 THEN
+            DBMS_OUTPUT.PUT_LINE('*** Joc fara jucatori ***');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('---------------------------------');
+            DBMS_OUTPUT.PUT_LINE('Total jucatori: ' || v_counter);
+        END IF;
+        
+        DBMS_OUTPUT.PUT_LINE('');
+    END LOOP;
+    
+    CLOSE c_jocuri_complet;
+    
+END;
+/
+
+--PS : voi face mici modificari la baza de date

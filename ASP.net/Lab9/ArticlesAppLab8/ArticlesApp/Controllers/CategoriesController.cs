@@ -1,5 +1,7 @@
 ﻿using ArticlesApp.Data;
 using ArticlesApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,9 +10,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArticlesApp.Controllers
 {
-    public class CategoriesController(ApplicationDbContext context) : Controller
+    [Authorize(Roles ="Admin")]
+    public class CategoriesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager) 
+        : Controller
     {
         private readonly ApplicationDbContext db = context;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly RoleManager<IdentityRole> _roleManger = roleManager;
 
         public ActionResult Index()
         {
@@ -22,6 +29,7 @@ namespace ArticlesApp.Controllers
             var categories = from category in db.Categories
                              orderby category.CategoryName
                              select category;
+
             ViewBag.Categories = categories;
             return View();
         }
@@ -100,7 +108,13 @@ namespace ArticlesApp.Controllers
         {
             
             
-            Category? category = db.Categories.Find(id);
+            // Category? category = db.Categories.Find(id); -> nu merge stergerea in cascada
+
+            Category? category = db.Categories
+                                    .Include(c => c.Articles)
+                                        .ThenInclude(a  => a.Comments)
+                                    .Where(c  => c.Id == id)
+                                    .FirstOrDefault();
 
             if (category is null)
             {

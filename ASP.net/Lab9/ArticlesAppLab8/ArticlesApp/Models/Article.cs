@@ -26,12 +26,15 @@ namespace ArticlesApp.Models
         [Required(ErrorMessage = "Categoria este obligatorie")]
         public int? CategoryId { get; set; }
 
-        public virtual Category? Category { get; set; }
-
+        
+        // useri si roluri
         public string? UserId { get; set; }
 
         // prop de navigatie (un articol este postat de un singur user)
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser? User { get; set; }
+        // proprietatea de navigatie (un articol apartine unei singure categorii)
+
+        public virtual Category? Category { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 

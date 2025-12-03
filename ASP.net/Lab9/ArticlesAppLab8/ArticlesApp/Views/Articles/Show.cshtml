@@ -9,7 +9,9 @@
 
     <partial name="ArticleInfo" model="Model"></partial>
 
-    <div class="d-flex flex-row justify-content-between">
+    @if ((ViewBag.AfisareButoane == true && Model.UserId == ViewBag.UserCurent) || ViewBag.EsteAdmin == true)
+    {
+        <div class="d-flex flex-row justify-content-between">
 
         <a class="btn btn-success" asp-controller="Articles" asp-action="Edit" asp-route-id="@Model.Id">Editeaza articol</a>
 
@@ -20,6 +22,9 @@
         </form>
 
     </div>
+    }
+
+
 
 </div>
 
@@ -40,11 +45,14 @@
 
                     <p>@comm.Content</p>
                     <small>@comm.Date</small>
+                    <strong><i class="bi bi-person"></i>@comm.User.UserName</strong>
 
                 </div>
                 <br>
+                @if(comm.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin == true)
 
-                <div class="d-flex">
+                {
+                    <div class="d-flex">
 
                    <div>
 
@@ -65,6 +73,7 @@
                     </div>
 
                 </div>
+                }
 
                 <br />
 
