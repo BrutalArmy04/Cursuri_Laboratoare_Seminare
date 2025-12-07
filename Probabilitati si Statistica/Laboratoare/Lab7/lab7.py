@@ -131,8 +131,112 @@ def ex2_3_4():
 
 #ex2_3_4()
 
-def ex2_5_6():
-    pass
+
+# Definim functia de densitate a distributiei normale
+def functie(x, miu, sigma2):
+    # sigma2 este varianta (sigma^2)
+    return 1 / (2 * np.pi * sigma2) ** 0.5 * np.exp(-(x - miu)**2 / (2 * sigma2))
+
+def ex2_5():
+    N = 10000
+    
+    # Parametrii lui X
+    miu_x = 10
+    sigma_x_patrat = 4
+    sigma_x = np.sqrt(sigma_x_patrat)
+    
+    # Parametrii lui Y
+    miu_y = 20
+    sigma_y_patrat = 9
+    sigma_y = np.sqrt(sigma_y_patrat)
+    
+    # 1. Generarea simularilor pentru X si Y
+    X_sim = np.random.normal(loc=miu_x, scale=sigma_x, size=N)
+    Y_sim = np.random.normal(loc=miu_y, scale=sigma_y, size=N)
+    
+    # 2. Calculul variabilei suma Z = X + Y
+    Z_sim = X_sim + Y_sim
+    
+    # Parametrii teoretici pentru Z
+    miu_z = miu_x + miu_y    # 30
+    sigma_z_patrat = sigma_x_patrat + sigma_y_patrat  # 13
+    sigma_z = np.sqrt(sigma_z_patrat)
+    
+    # 3. Realizarea Histogramei
+    _, ax = plt.subplots(figsize=(10, 6))
+    
+    # Afisam histograma variabilei Z
+    ax.hist(Z_sim, bins=50, density=True, color="blue", alpha=0.6, label='Simulare $X+Y$')
+    
+    # 4. Suprapunerea Graficului Functiei de Densitate
+    
+    # Generam puncte pentru graficul functiei de densitate N(30, 13)
+    # Limitele sunt alese in jurul mediei Z (miu_z) ± 4 deviatia standard Z (sigma_z)
+    v_x = np.linspace(miu_z - 4 * sigma_z, miu_z + 4 * sigma_z, 200)
+    v_y = functie(v_x, miu_z, sigma_z_patrat)
+    
+    # Desenam curba de densitate teoretica
+    ax.plot(v_x, v_y, color="red", linewidth=2, label=f'Densitate Normală $\mathcal{{N}}({miu_z}, {sigma_z_patrat})$')
+    
+    ax.set_title('Histograma sumei a două variabile Normale independente')
+    ax.set_xlabel('Valoare Z = X + Y')
+    ax.set_ylabel('Densitate')
+    ax.legend()
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.show()
 
 
-ex2_5_6()
+#ex2_5()
+
+
+# Functia de densitate a distributiei normale (reutilizata)
+# def functie(x, miu, sigma2): ...
+
+def ex2_6():
+    N = 10000
+    
+    # Parametrii distributiei Normale pe care o tintim
+    miu = 30
+    sigma = 40
+    sigma_patrat = sigma**2 # 1600
+    
+    # 1. Generarea a N variabile Uniforme U1 si U2
+    U1 = np.random.random(size=N)
+    U2 = np.random.random(size=N)
+    
+    # 2. Aplicarea formulei Box-Muller (forma polara - transformata)
+    # NOTA: Folosim ln(U1) in formula corecta, nu cea din PDF-ul original
+    
+    try:
+        # np.log este logaritm natural (ln)
+        X_box_muller = miu + np.sqrt(-2 * sigma_patrat * np.log(U1)) * np.cos(2 * np.pi * U2)
+    except FloatingPointError:
+        # Aceasta eroare ar putea aparea daca un U1 este 0, caz in care ln(0) este infinit.
+        # Desi putin probabil cu np.random.random, este o buna practica sa o gestionam.
+        print("Eroare de calcul Box-Muller (posibil ln(0)).")
+        return
+        
+    # 3. Realizarea Histogramei
+    _, ax = plt.subplots(figsize=(10, 6))
+    
+    ax.hist(X_box_muller, bins=50, density=True, color="green", alpha=0.6, label='Simulare Box-Muller')
+    
+    # 4. Suprapunerea Graficului Functiei de Densitate
+    
+    # Generam puncte pentru graficul functiei de densitate N(30, 1600)
+    v_x = np.linspace(miu - 4 * sigma, miu + 4 * sigma, 200)
+    v_y = functie(v_x, miu, sigma_patrat)
+    
+    # Desenam curba de densitate teoretica
+    ax.plot(v_x, v_y, color="red", linewidth=2, label=f'Densitate Normală $\mathcal{{N}}({miu}, {sigma_patrat})$')
+    
+    ax.set_title(f'Histograma generată prin Metoda Box-Muller (N={N})')
+    ax.set_xlabel('Valoare X')
+    ax.set_ylabel('Densitate')
+    ax.legend()
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.show()
+    
+# Apelul functiei ex2_6()
+
+#ex2_6()

@@ -1174,3 +1174,337 @@ BEGIN
   CLOSE c;  
 END;  
 / 
+
+--6.1.1
+
+-- 6.1.1 rezolvam triggeri cu pragma autonomous_transaction (pt proiect)
+
+CREATE OR REPLACE PROCEDURE proc_ex1  
+(v_value dummy_table.value%TYPE, v_procent NUMBER)  
+AS 
+BEGIN 
+UPDATE  dummy_table
+SET     value = 
+            value * v_procent + value
+WHERE   value = v_value; 
+EXCEPTION 
+WHEN NO_DATA_FOUND THEN 
+RAISE_APPLICATION_ERROR (-20000,'Nu exista produsul'); 
+
+END;
+
+
+--
+CREATE OR REPLACE PROCEDURE proc_ex1  
+(v_value dummy_table.value%TYPE, v_procent NUMBER)  
+AS 
+    PRAGMA AUTONOMOUS_TRANSACTION;
+    v_row_count NUMBER;
+    v_message VARCHAR2(400);
+    v_error_msg VARCHAR2(400); -- var pt msg de eroare
+BEGIN 
+    v_message := 'Procedura a inceput pentru v_value=' || v_value || ', procent=' || v_procent;
+    INSERT INTO proc_log(procedure_name, message) VALUES ('PROC_EX1', v_message);
+    COMMIT;
+    
+    UPDATE dummy_table
+    SET value = value * (1 + v_procent/100)
+    WHERE value = v_value;
+    
+    v_row_count := SQL%ROWCOUNT;
+    
+    IF v_row_count > 0 THEN
+        v_message := 'Update realizat cu succes pentru ' || v_row_count || ' randuri';
+    ELSE
+        v_message := 'Nu exista randuri cu valoarea ' || v_value;
+        INSERT INTO proc_log(procedure_name, message) VALUES ('PROC_EX1', v_message);
+        COMMIT;
+        RAISE_APPLICATION_ERROR(-20000, v_message);
+    END IF;
+    
+    INSERT INTO proc_log(procedure_name, message) VALUES ('PROC_EX1', v_message);
+    COMMIT;
+    
+EXCEPTION 
+    WHEN OTHERS THEN
+        v_error_msg := SQLERRM;
+        
+        INSERT INTO proc_log(procedure_name, message) 
+        VALUES ('PROC_EX1', 'Eroare: ' || v_error_msg);
+        COMMIT;
+        
+        RAISE_APPLICATION_ERROR(-20001, v_error_msg);
+END;
+/
+
+--parametru IN tip_de_date {:= | DEFAULT} expresie   
+--| { OUT | IN OUT }[NOCOPY] tip_de_date facem colectie mare si testam cele 2 chestii
+
+
+
+CREATE OR REPLACE TYPE tab_numere IS TABLE OF NUMBER;
+/
+
+CREATE OR REPLACE TYPE tab_varchar IS TABLE OF VARCHAR2(100);
+/
+
+-- solutia 1: Cu cursor FOR UPDATE
+CREATE OR REPLACE PROCEDURE solutia_cursor (
+    p_nume_cautat IN dummy_table.name%TYPE DEFAULT '%',
+    p_factor_modificare IN NUMBER DEFAULT 1,
+    p_id_gasite OUT tab_numere,
+    p_nume_modificate OUT tab_varchar,
+    p_timp_executie OUT NUMBER
+) AS
+    v_start_time TIMESTAMP;
+    v_end_time TIMESTAMP;
+    CURSOR c_date IS
+        SELECT id, name
+        FROM dummy_table
+        WHERE name LIKE p_nume_cautat
+        FOR UPDATE;
+BEGIN
+    v_start_time := SYSTIMESTAMP;
+    
+    p_id_gasite := tab_numere();
+    p_nume_modificate := tab_varchar();
+    
+    FOR rec IN c_date LOOP
+        UPDATE dummy_table
+        SET value = value * p_factor_modificare
+        WHERE CURRENT OF c_date;
+        
+        p_id_gasite.EXTEND;
+        p_id_gasite(p_id_gasite.COUNT) := rec.id;
+        
+        p_nume_modificate.EXTEND;
+        p_nume_modificate(p_nume_modificate.COUNT) := rec.name;
+    END LOOP;
+    
+    v_end_time := SYSTIMESTAMP;
+    p_timp_executie := EXTRACT(SECOND FROM (v_end_time - v_start_time)) * 1000; 
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        p_timp_executie := -1; 
+        RAISE;
+END solutia_cursor;
+/
+
+-- solutia 2: Cu BULK COLLECT și FORALL 
+CREATE OR REPLACE PROCEDURE solutia_forall (
+    p_nume_cautat IN dummy_table.name%TYPE DEFAULT '%',
+    p_factor_modificare IN NUMBER DEFAULT 1,
+    p_id_gasite OUT tab_numere,
+    p_nume_modificate OUT tab_varchar,
+    p_timp_executie OUT NUMBER
+) AS
+    v_start_time TIMESTAMP;
+    v_end_time TIMESTAMP;
+    
+    TYPE tab_id IS TABLE OF dummy_table.id%TYPE;
+    TYPE tab_name IS TABLE OF dummy_table.name%TYPE;
+    TYPE tab_value IS TABLE OF dummy_table.value%TYPE;
+    
+    v_ids tab_id;
+    v_names tab_name;
+    v_values tab_value;
+    v_values_new tab_value;
+BEGIN
+    v_start_time := SYSTIMESTAMP;
+    
+    SELECT id, name, value
+    BULK COLLECT INTO v_ids, v_names, v_values
+    FROM dummy_table
+    WHERE name LIKE p_nume_cautat;
+    
+    v_values_new := tab_value();
+    v_values_new.EXTEND(v_ids.COUNT);
+    
+    FOR i IN 1..v_ids.COUNT LOOP
+        v_values_new(i) := v_values(i) * p_factor_modificare;
+    END LOOP;
+    
+    FORALL i IN 1..v_ids.COUNT
+        UPDATE dummy_table
+        SET value = v_values_new(i)
+        WHERE id = v_ids(i);
+
+    p_id_gasite := tab_numere();
+    p_nume_modificate := tab_varchar();
+    
+    p_id_gasite.EXTEND(v_ids.COUNT);
+    p_nume_modificate.EXTEND(v_ids.COUNT);
+    
+    FOR i IN 1..v_ids.COUNT LOOP
+        p_id_gasite(i) := v_ids(i);
+        p_nume_modificate(i) := v_names(i);
+    END LOOP;
+    
+    v_end_time := SYSTIMESTAMP;
+    p_timp_executie := EXTRACT(SECOND FROM (v_end_time - v_start_time)) * 1000; 
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        p_timp_executie := -1;
+        RAISE;
+END solutia_forall;
+/
+
+-- solutia 3: simplă cu buclă FOR
+CREATE OR REPLACE PROCEDURE solutia_simpla (
+    p_nume_cautat IN dummy_table.name%TYPE DEFAULT '%',
+    p_factor_modificare IN NUMBER DEFAULT 1,
+    p_id_gasite OUT tab_numere,
+    p_nume_modificate OUT tab_varchar,
+    p_timp_executie OUT NUMBER
+) AS
+    v_start_time TIMESTAMP;
+    v_end_time TIMESTAMP;
+BEGIN
+    v_start_time := SYSTIMESTAMP;
+
+    SELECT id BULK COLLECT INTO p_id_gasite
+    FROM dummy_table
+    WHERE name LIKE p_nume_cautat;
+    
+    SELECT name BULK COLLECT INTO p_nume_modificate
+    FROM dummy_table
+    WHERE name LIKE p_nume_cautat
+    ORDER BY id;
+    
+    FOR i IN 1..p_id_gasite.COUNT LOOP
+        UPDATE dummy_table
+        SET value = value * p_factor_modificare
+        WHERE id = p_id_gasite(i);
+    END LOOP;
+    
+    v_end_time := SYSTIMESTAMP;
+    p_timp_executie := EXTRACT(SECOND FROM (v_end_time - v_start_time)) * 1000; 
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        p_timp_executie := -1; 
+        RAISE;
+END solutia_simpla;
+/
+
+-- procedura principală care testeaza solutiile
+CREATE OR REPLACE PROCEDURE test_performanta_solutii (
+    p_num_iteratii IN NUMBER DEFAULT 5
+) AS
+    v_timp_cursor_total NUMBER := 0;
+    v_timp_forall_total NUMBER := 0;
+    v_timp_simpla_total NUMBER := 0;
+    
+    v_timp_cursor NUMBER;
+    v_timp_forall NUMBER;
+    v_timp_simpla NUMBER;
+    
+    v_ids_cursor tab_numere;
+    v_ids_forall tab_numere;
+    v_ids_simpla tab_numere;
+    
+    v_nume_cursor tab_varchar;
+    v_nume_forall tab_varchar;
+    v_nume_simpla tab_varchar;
+    
+    v_iteratie NUMBER;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('TEST PERFORMANTA SOLUTII PROCESSARE DUMMY_TABLE');
+    DBMS_OUTPUT.PUT_LINE('Numar iteratii: ' || p_num_iteratii);
+    DBMS_OUTPUT.PUT_LINE('');
+    
+
+    
+
+    FOR v_iteratie IN 1..p_num_iteratii LOOP
+        
+        -- Test 1: Cursor FOR UPDATE
+        solutia_cursor(
+            p_nume_cautat => 'Test%',
+            p_factor_modificare => 1.1,
+            p_id_gasite => v_ids_cursor,
+            p_nume_modificate => v_nume_cursor,
+            p_timp_executie => v_timp_cursor
+        );
+        v_timp_cursor_total := v_timp_cursor_total + v_timp_cursor;
+        DBMS_OUTPUT.PUT_LINE('Solutia CURSOR: ' || ROUND(v_timp_cursor, 2) || ' ms');
+        UPDATE dummy_table SET value = value / 1.1 WHERE name LIKE 'Test%';
+        
+        -- Test 2: FORALL
+        solutia_forall(
+            p_nume_cautat => 'Test%',
+            p_factor_modificare => 1.1,
+            p_id_gasite => v_ids_forall,
+            p_nume_modificate => v_nume_forall,
+            p_timp_executie => v_timp_forall
+        );
+        v_timp_forall_total := v_timp_forall_total + v_timp_forall;
+        DBMS_OUTPUT.PUT_LINE('Solutia FORALL:  ' || ROUND(v_timp_forall, 2) || ' ms');
+        UPDATE dummy_table SET value = value / 1.1 WHERE name LIKE 'Test%';
+        
+        -- Test 3: Simplă cu buclă FOR
+        solutia_simpla(
+            p_nume_cautat => 'Test%',
+            p_factor_modificare => 1.1,
+            p_id_gasite => v_ids_simpla,
+            p_nume_modificate => v_nume_simpla,
+            p_timp_executie => v_timp_simpla
+        );
+        v_timp_simpla_total := v_timp_simpla_total + v_timp_simpla;
+        DBMS_OUTPUT.PUT_LINE('Solutia SIMPLA:  ' || ROUND(v_timp_simpla, 2) || ' ms');
+        
+        DBMS_OUTPUT.PUT_LINE('');
+    END LOOP;
+    
+    
+    DBMS_OUTPUT.PUT_LINE('Solutia CURSOR: ' || ROUND(v_timp_cursor_total / p_num_iteratii, 2) || ' ms (medie)');
+    DBMS_OUTPUT.PUT_LINE('Solutia FORALL:  ' || ROUND(v_timp_forall_total / p_num_iteratii, 2) || ' ms (medie)');
+    DBMS_OUTPUT.PUT_LINE('Solutia SIMPLA:  ' || ROUND(v_timp_simpla_total / p_num_iteratii, 2) || ' ms (medie)');
+    DBMS_OUTPUT.PUT_LINE('');
+    
+    
+    DECLARE
+        v_min_timp NUMBER;
+        v_winner VARCHAR2(50);
+    BEGIN
+        v_min_timp := LEAST(
+            v_timp_cursor_total / p_num_iteratii,
+            v_timp_forall_total / p_num_iteratii,
+            v_timp_simpla_total / p_num_iteratii
+        );
+        
+        IF v_min_timp = v_timp_cursor_total / p_num_iteratii THEN
+            v_winner := 'CURSOR';
+        ELSIF v_min_timp = v_timp_forall_total / p_num_iteratii THEN
+            v_winner := 'FORALL';
+        ELSE
+            v_winner := 'SIMPLA';
+        END IF; 
+
+    END;
+    
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Eroare in test_performanta_solutii: ' || SQLERRM);
+        ROLLBACK;
+        RAISE;
+END test_performanta_solutii;
+/
+
+BEGIN
+    DBMS_OUTPUT.ENABLE(1000000);
+    
+    test_performanta_solutii(p_num_iteratii => 10000); 
+
+    COMMIT;
+    
+    
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Eroare: ' || SQLERRM);
+        ROLLBACK;
+END;
+/

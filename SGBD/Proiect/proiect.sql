@@ -1,0 +1,309 @@
+CREATE SEQUENCE seq_cont INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_joc INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_res_joc_juc INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_tura INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_abilitate INCREMENT BY 1 START WITH 1 MAXVALUE 999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_sel_car INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_carte INCREMENT BY 1 START WITH 1 MAXVALUE 999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_oras INCREMENT BY 1 START WITH 1 MAXVALUE 999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_cladire INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_folosire INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_resursa INCREMENT BY 1 START WITH 1 MAXVALUE 99999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_jucator INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+CREATE SEQUENCE seq_res_juc_joc INCREMENT BY 1 START WITH 1 MAXVALUE 9999 NOCYCLE NOCACHE;
+
+
+CREATE TABLE CONT (
+    id_cont NUMBER(4) CONSTRAINT pk_cont PRIMARY KEY,
+    email VARCHAR2(50) CONSTRAINT uk_cont_email UNIQUE NOT NULL,
+    parola VARCHAR2(30) NOT NULL,
+    data_inregistrare DATE NOT NULL
+);
+
+CREATE TABLE JUCATOR (
+    id_jucator NUMBER(4) CONSTRAINT pk_jucator PRIMARY KEY,
+    nume_utilizator VARCHAR2(20) CONSTRAINT uk_jucator_nume UNIQUE NOT NULL,
+    id_cont NUMBER(4) CONSTRAINT fk_jucator_cont REFERENCES CONT(id_cont) NOT NULL
+);
+
+CREATE TABLE JOC (
+    id_joc NUMBER(4) CONSTRAINT pk_joc PRIMARY KEY,
+    status VARCHAR2(15) NOT NULL CHECK (status IN ('IN DESFASURARE', 'FINALIZAT'))
+);
+
+CREATE TABLE ABILITATE (
+    id_abilitate NUMBER(3) CONSTRAINT pk_abilitate PRIMARY KEY,
+    nume_abilitate VARCHAR2(30) CONSTRAINT uk_abilitate_nume UNIQUE NOT NULL,
+    descriere VARCHAR2(200) NOT NULL
+);
+
+CREATE TABLE CARACTER (
+    nume_caracter VARCHAR2(20) CONSTRAINT pk_caracter PRIMARY KEY,
+    id_abilitate NUMBER(3) CONSTRAINT fk_caracter_abilitate REFERENCES ABILITATE(id_abilitate) NOT NULL,
+    numar NUMBER(1) NOT NULL CHECK (numar BETWEEN 1 AND 8)
+);
+
+CREATE TABLE TIP_RESURSA (
+    id_tip_res NUMBER(1) CONSTRAINT pk_tip_resursa PRIMARY KEY CHECK(id_tip_res IN (1,2,3,4,5)),
+    nume VARCHAR2(15) CONSTRAINT uk_tip_resursa_nume UNIQUE NOT NULL
+);
+
+CREATE TABLE CARTE (
+    id_carte NUMBER(3) CONSTRAINT pk_carte PRIMARY KEY,
+    tip_carte VARCHAR2(15) NOT NULL CHECK (tip_carte IN ('Negustoreasca', 'Boiereasca', 'Religioasa', 'Militara', 'Unica')),
+    cost NUMBER(2) NOT NULL CHECK (cost BETWEEN 1 AND 10),
+    nume VARCHAR2(30) CONSTRAINT uk_carte_nume UNIQUE NOT NULL
+);
+
+CREATE TABLE TURA (
+    id_tura NUMBER(4) CONSTRAINT pk_tura PRIMARY KEY,
+    id_joc NUMBER(4) CONSTRAINT fk_tura_joc REFERENCES JOC(id_joc) NOT NULL,
+    carac_decart_inviz VARCHAR2(20) NOT NULL
+);
+
+CREATE TABLE SELECTIE_CARACTER (
+    id_selectie NUMBER(4) CONSTRAINT pk_selectie_caracter PRIMARY KEY,
+    id_jucator NUMBER(4) CONSTRAINT fk_selectie_jucator REFERENCES JUCATOR(id_jucator) NOT NULL,
+    nume_caracter VARCHAR2(20) CONSTRAINT fk_selectie_caracter REFERENCES CARACTER(nume_caracter) NOT NULL,
+    id_tura NUMBER(4) CONSTRAINT fk_selectie_tura REFERENCES TURA(id_tura) NOT NULL,
+    caract_decart_viz VARCHAR2(20)
+);
+
+CREATE TABLE RESURSA (
+    id_resursa NUMBER(5) CONSTRAINT pk_resursa PRIMARY KEY,
+    id_tip_res NUMBER(1) CONSTRAINT fk_resursa_tip REFERENCES TIP_RESURSA(id_tip_res) NOT NULL,
+    cantitate NUMBER(3) NOT NULL CHECK (cantitate > 0)
+);
+
+CREATE TABLE CARTE_UNICA (
+    id_carte_unica NUMBER(3) CONSTRAINT pk_carte_unica PRIMARY KEY,
+    id_abilitate NUMBER(3) CONSTRAINT fk_carte_unica_abilitate REFERENCES ABILITATE(id_abilitate) NOT NULL,
+    CONSTRAINT fk_carte_unica_carte FOREIGN KEY (id_carte_unica) REFERENCES CARTE(id_carte),
+    CONSTRAINT chk_carte_unica_tip CHECK (
+        EXISTS (
+            SELECT 1 FROM CARTE c 
+            WHERE c.id_carte = id_carte_unica 
+            AND c.tip_carte = 'Unica'
+        )
+    )
+);
+
+CREATE TABLE ORAS (
+    id_oras NUMBER(3) CONSTRAINT pk_oras PRIMARY KEY,
+    id_jucator NUMBER(4) CONSTRAINT fk_oras_jucator REFERENCES JUCATOR(id_jucator) NOT NULL
+);
+
+CREATE TABLE CLADIRE (
+    id_cladire NUMBER(4) CONSTRAINT pk_cladire PRIMARY KEY,
+    id_carte NUMBER(3) CONSTRAINT fk_cladire_carte REFERENCES CARTE(id_carte) NOT NULL,
+    id_oras NUMBER(3) CONSTRAINT fk_cladire_oras REFERENCES ORAS(id_oras) NOT NULL,
+    poate_fi_afectata NUMBER(1) NOT NULL CHECK (poate_fi_afectata IN (0, 1))
+);
+
+CREATE TABLE FOLOSESTE (
+    id_folosire NUMBER(4) CONSTRAINT pk_foloseste PRIMARY KEY,
+    id_resursa NUMBER(5) CONSTRAINT fk_foloseste_resursa REFERENCES RESURSA(id_resursa) NOT NULL,
+    id_cladire NUMBER(4) CONSTRAINT fk_foloseste_cladire REFERENCES CLADIRE(id_cladire) NOT NULL,
+    cantitate_folosita NUMBER(2) NOT NULL CHECK (cantitate_folosita BETWEEN 1 AND 10),
+    CONSTRAINT uk_foloseste_res_clad UNIQUE (id_resursa, id_cladire)
+);
+
+CREATE TABLE RES_JOC_JUC (
+    id_relatie NUMBER(4) CONSTRAINT pk_res_joc_juc PRIMARY KEY,
+    id_jucator NUMBER(4) CONSTRAINT fk_res_joc_juc_jucator REFERENCES JUCATOR(id_jucator) NOT NULL,
+    id_joc NUMBER(4) CONSTRAINT fk_res_joc_juc_joc REFERENCES JOC(id_joc) NOT NULL,
+    id_resursa NUMBER(5) CONSTRAINT fk_res_joc_juc_res REFERENCES RESURSA(id_resursa) NOT NULL,
+    CONSTRAINT uk_res_joc_juc_res UNIQUE (id_jucator, id_joc, id_resursa)
+);
+
+INSERT INTO CONT VALUES (seq_cont.NEXTVAL, 'andrei.popescu@email.ro', 'Munte2024!', TO_DATE('15-01-2023', 'DD-MM-YYYY'));
+INSERT INTO CONT VALUES (seq_cont.NEXTVAL, 'elena_ionescu@email.ro', 'Parola@123', TO_DATE('20-02-2023', 'DD-MM-YYYY'));
+INSERT INTO CONT VALUES (seq_cont.NEXTVAL, 'radu.vasilescu@gmail.com', 'Vali2025#', TO_DATE('10-03-2023', 'DD-MM-YYYY'));
+INSERT INTO CONT VALUES (seq_cont.NEXTVAL, 'ioana.stefan@gmail.com', 'luna82024', TO_DATE('05-04-2023', 'DD-MM-YYYY'));
+INSERT INTO CONT VALUES (seq_cont.NEXTVAL, 'florindumitru32@gmail.com', 'F18@r3verie', TO_DATE('12-05-2022', 'DD-MM-YYYY'));
+INSERT INTO CONT VALUES (seq_cont.NEXTVAL, 'daniela_ilie@email.ro', 'Dani#Pass9', TO_DATE('18-06-2024', 'DD-MM-YYYY'));
+INSERT INTO CONT VALUES (seq_cont.NEXTVAL, 'cristi.enache@gmail.com', 'Cristi!789', TO_DATE('22-07-2022', 'DD-MM-YYYY'));
+COMMIT;
+
+INSERT INTO JUCATOR VALUES (seq_jucator.NEXTVAL, 'lupul_alb', 1);
+INSERT INTO JUCATOR VALUES (seq_jucator.NEXTVAL, 'pisica_verde', 2);
+INSERT INTO JUCATOR VALUES (seq_jucator.NEXTVAL, 'corb_negru', 3);
+INSERT INTO JUCATOR VALUES (seq_jucator.NEXTVAL, 'vulpe_isteata', 4);
+INSERT INTO JUCATOR VALUES (seq_jucator.NEXTVAL, 'ursul_cenusiu', 5);
+INSERT INTO JUCATOR VALUES (seq_jucator.NEXTVAL, 'cocosel_vesel', 6);
+INSERT INTO JUCATOR VALUES (seq_jucator.NEXTVAL, 'ariciul_darnic', 7);
+COMMIT;
+
+INSERT INTO JOC VALUES (seq_joc.NEXTVAL, 'IN DESFASURARE');
+INSERT INTO JOC VALUES (seq_joc.NEXTVAL, 'FINALIZAT');
+INSERT INTO JOC VALUES (seq_joc.NEXTVAL, 'IN DESFASURARE');
+INSERT INTO JOC VALUES (seq_joc.NEXTVAL, 'FINALIZAT');
+INSERT INTO JOC VALUES (seq_joc.NEXTVAL, 'IN DESFASURARE');
+INSERT INTO JOC VALUES (seq_joc.NEXTVAL, 'FINALIZAT');
+INSERT INTO JOC VALUES (seq_joc.NEXTVAL, 'IN DESFASURARE');
+INSERT INTO JOC VALUES (seq_joc.NEXTVAL, 'FINALIZAT');
+COMMIT;
+
+INSERT INTO ABILITATE VALUES (seq_abilitate.NEXTVAL, 'Omoara', 'Ucide un alt caracter');
+INSERT INTO ABILITATE VALUES (seq_abilitate.NEXTVAL, 'Fura', 'Ia un tip de resursa de la un alt jucator');
+INSERT INTO ABILITATE VALUES (seq_abilitate.NEXTVAL, 'Schimba', 'Schimba cartile cu un alt jucator');
+INSERT INTO ABILITATE VALUES (seq_abilitate.NEXTVAL, 'Coroana', 'Preia coroana');
+INSERT INTO ABILITATE VALUES (seq_abilitate.NEXTVAL, 'Protejeaza', 'Imun la atacuri');
+INSERT INTO ABILITATE VALUES (seq_abilitate.NEXTVAL, 'Taxa', 'Ia resurse de la anumite cladiri');
+INSERT INTO ABILITATE VALUES (seq_abilitate.NEXTVAL, 'Copiere', 'Copiaza abilitatea unui alt caracter');
+INSERT INTO ABILITATE VALUES (seq_abilitate.NEXTVAL, 'Distruge', 'Distruge o cladire');
+COMMIT;
+
+INSERT INTO CARACTER VALUES ('Asasin', 1, 1);
+INSERT INTO CARACTER VALUES ('Pungas', 2, 2);
+INSERT INTO CARACTER VALUES ('Fermecatoare', 3, 3);
+INSERT INTO CARACTER VALUES ('Rege', 4, 4);
+INSERT INTO CARACTER VALUES ('Episcop', 5, 5);
+INSERT INTO CARACTER VALUES ('Negustor', 6, 6);
+INSERT INTO CARACTER VALUES ('Arhitect', 7, 7);
+INSERT INTO CARACTER VALUES ('General', 8, 8);
+COMMIT;
+
+INSERT INTO TIP_RESURSA VALUES (1, 'Aur');
+INSERT INTO TIP_RESURSA VALUES (2, 'Lemn');
+INSERT INTO TIP_RESURSA VALUES (3, 'Piatra');
+INSERT INTO TIP_RESURSA VALUES (4, 'Fier');
+INSERT INTO TIP_RESURSA VALUES (5, 'Tesatura');
+COMMIT;
+
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 1, 'Asasin');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 1, 'Pungas');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 1, 'Fermecatoare');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 2, 'Rege');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 3, 'Episcop');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 3, 'Negustor');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 4, 'Arhitect');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 5, 'General');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 5, 'Asasin');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 5, 'Pungas');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 6, 'Fermecatoare');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 7, 'Rege');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 7, 'Episcop');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 7, 'Negustor');
+INSERT INTO TURA VALUES (seq_tura.NEXTVAL, 8, 'Arhitect');
+COMMIT;
+
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 1, 'Negustor', 1, 'Pungas');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 2, 'Rege', 1, 'Fermecatoare');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 3, 'Episcop', 1, 'Negustor');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 1, 'Pungas', 2, 'Asasin');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 2, 'Fermecatoare', 2, 'Rege');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 4, 'Asasin', 2, 'Episcop');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 5, 'Asasin', 3, 'General');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 6, 'Fermecatoare', 3, 'Arhitect');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 7, 'Arhitect', 3, 'Pungas');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 1, 'Rege', 4, 'Fermecatoare');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 5, 'Episcop', 4, 'Negustor');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 6, 'Negustor', 5, 'Pungas');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 7, 'Arhitect', 5, 'General');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 3, 'General', 5, 'Arhitect');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 4, 'Asasin', 6, 'Pungas');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 5, 'Pungas', 6, 'Asasin');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 1, 'Fermecatoare', 7, 'Rege');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 2, 'Rege', 7, 'Fermecatoare');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 3, 'Episcop', 8, 'Negustor');
+INSERT INTO SELECTIE_CARACTER VALUES (seq_sel_car.NEXTVAL, 4, 'Negustor', 8, 'Episcop');
+COMMIT;
+
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 1, 5);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 2, 3);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 1, 4);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 3, 2);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 2, 6);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 4, 1);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 1, 2);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 5, 4);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 3, 4);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 4, 2);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 2, 5);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 5, 3);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 1, 6);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 3, 3);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 3, 1);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 2, 2);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 1, 3);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 2, 1);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 5, 2);
+INSERT INTO RESURSA VALUES (seq_resursa.NEXTVAL, 1, 1);
+COMMIT;
+
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Religioasa', 3, 'Biserica');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Negustoreasca', 2, 'Piata');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Militara', 4, 'Fortareata');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Boiereasca', 5, 'Palat');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Unica', 6, 'Biblioteca');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Religioasa', 2, 'Manastire');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Negustoreasca', 3, 'Magazin');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Militara', 3, 'Turn');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Boiereasca', 4, 'Vila');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Unica', 5, 'Universitate');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Religioasa', 4, 'Catedrala');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Negustoreasca', 1, 'Taraba');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Militara', 5, 'Castel');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Boiereasca', 3, 'Conac');
+INSERT INTO CARTE VALUES (seq_carte.NEXTVAL, 'Unica', 4, 'Observator');
+COMMIT;
+
+INSERT INTO CARTE_UNICA VALUES (5, 7);
+INSERT INTO CARTE_UNICA VALUES (10, 3);
+INSERT INTO CARTE_UNICA VALUES (15, 5);
+COMMIT;
+
+INSERT INTO ORAS VALUES (seq_oras.NEXTVAL, 1);
+INSERT INTO ORAS VALUES (seq_oras.NEXTVAL, 2);
+INSERT INTO ORAS VALUES (seq_oras.NEXTVAL, 3);
+INSERT INTO ORAS VALUES (seq_oras.NEXTVAL, 4);
+INSERT INTO ORAS VALUES (seq_oras.NEXTVAL, 5);
+INSERT INTO ORAS VALUES (seq_oras.NEXTVAL, 6);
+INSERT INTO ORAS VALUES (seq_oras.NEXTVAL, 7);
+COMMIT;
+
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 1, 1, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 2, 1, 0);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 3, 2, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 4, 2, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 5, 3, 0);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 6, 3, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 7, 4, 0);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 8, 4, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 9, 5, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 10, 5, 0);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 11, 6, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 12, 6, 0);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 13, 7, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 14, 7, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 15, 1, 0);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 1, 2, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 2, 3, 0);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 3, 4, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 4, 5, 1);
+INSERT INTO CLADIRE VALUES (seq_cladire.NEXTVAL, 5, 6, 0);
+COMMIT;
+
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 1, 1, 5);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 2, 1, 12);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 3, 1, 3);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 1, 2, 7);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 2, 2, 19);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 4, 2, 14);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 5, 3, 2);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 6, 3, 8);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 7, 3, 15);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 1, 4, 1);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 5, 4, 11);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 6, 5, 4);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 7, 5, 9);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 3, 5, 17);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 4, 6, 6);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 5, 6, 13);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 1, 7, 10);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 2, 7, 18);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 3, 8, 16);
+INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 4, 8, 20);
+COMMIT;
+
