@@ -1,7 +1,3 @@
-// client.c - TCP echo client
-// Compile: gcc client.c -o client
-// Run: ./client
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

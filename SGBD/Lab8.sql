@@ -101,4 +101,4 @@ create or replace function salariu_mediu_sro (p_job_id IN jobs.job_id%TYPE)
         END salariu_mediu_sro;
 
 
---tema e3 (fara tabel info), e4 (putem face doar pt cei condusi direct), e7
+--tema e3 (fara tabel info), e4 (putem face doar pt cei condusi direct)
