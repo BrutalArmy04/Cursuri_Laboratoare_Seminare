@@ -59,7 +59,7 @@ eval T _ = True
 eval (Not p) env = not (eval p env)
 eval (p :|: q) env = eval p env || eval q env
 eval (p :&: q) env = eval p env && eval q env
-eval (p :->: q) env = not (eval p env) || eval q env  -- p -> q = notp ∨ q
+eval (p :->: q) env = not (eval p env) || eval q env  -- p -> q = not p sau q
 eval (p :<->: q) env = eval p env == eval q env       -- p <-> q = (p -> q) and (q -> p)
 
 test_eval = eval  (Var "P" :|: Var "Q") [("P", True), ("Q", False)] == True

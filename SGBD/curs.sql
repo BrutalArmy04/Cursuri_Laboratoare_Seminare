@@ -1508,3 +1508,102 @@ EXCEPTION
         ROLLBACK;
 END;
 /
+
+
+--7.3 testare toate pachetele predefinite (folosind emp_sro din lab)
+
+--DBMS_OUTPUT 
+
+DECLARE
+    CURSOR c_comision IS
+        SELECT first_name, last_name, salary, commission_pct
+        FROM emp_sro
+        WHERE commission_pct IS NOT NULL
+        ORDER BY salary DESC;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('--- Angajati cu comision (' || SYSDATE || ') ---');
+    DBMS_OUTPUT.PUT_LINE(RPAD('Nume', 20) || RPAD('Salariu', 15) || 'Comision');
+    DBMS_OUTPUT.PUT_LINE(RPAD('-', 45, '-'));
+
+    FOR rec IN c_comision LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            RPAD(rec.first_name || ' ' || rec.last_name, 20) || 
+            RPAD(TO_CHAR(rec.salary, '99,999'), 15) || 
+            TO_CHAR(rec.commission_pct * 100) || '%'
+        );
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE(RPAD('-', 45, '-'));
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Eroare: ' || SQLERRM);
+END;
+/
+
+--DBMS_JOB
+
+CREATE OR REPLACE PROCEDURE p_marire_salariu_id (
+    p_id_angajat IN emp_sro.employee_id%TYPE,
+    p_valoare IN NUMBER
+)
+IS
+BEGIN
+    UPDATE emp_sro
+    SET salary = salary + p_valoare
+    WHERE employee_id = p_id_angajat;
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        NULL;
+END;
+/
+VARIABLE job_num NUMBER;
+SET SERVEROUTPUT ON;
+
+BEGIN
+    DBMS_JOB.SUBMIT(
+        job         => :job_num,                                  
+        what        => 'p_marire_salariu_id(206, 500);',          
+        next_date   => SYSDATE + (1 / 1440),                      
+        interval    => 'NULL'                                    
+    );
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Job planificat cu succes. ID Job: ' || :job_num);
+END;
+/
+
+--UTL_FILE
+
+CREATE OR REPLACE PROCEDURE p_write_dept_50_to_file
+IS
+    v_file_handle UTL_FILE.FILE_TYPE;   
+    v_nume_fisier CONSTANT VARCHAR2(30) := 'dept50_report.txt';
+    v_locatie CONSTANT VARCHAR2(30) := 'Test_Curs';
+BEGIN
+    v_file_handle := UTL_FILE.FOPEN(v_locatie, v_nume_fisier, 'w');
+    
+    UTL_FILE.PUT_LINE(v_file_handle, 'Raport Angajati Departament 50');
+    
+    FOR rec IN (SELECT last_name, job_id, salary FROM emp_sro WHERE department_id = 50 ORDER BY last_name)
+    LOOP
+        UTL_FILE.PUT_LINE(v_file_handle, RPAD(rec.last_name, 20) || ' | ' || RPAD(rec.job_id, 10) || ' | ' || TO_CHAR(rec.salary));
+    END LOOP;
+    
+    UTL_FILE.FCLOSE(v_file_handle);
+    DBMS_OUTPUT.PUT_LINE('Fisierul ' || v_nume_fisier || ' a fost scris cu succes in ' || v_locatie);
+
+EXCEPTION
+    WHEN UTL_FILE.INVALID_PATH THEN
+        DBMS_OUTPUT.PUT_LINE('Eroare UTL_FILE: Locatie invalida.'); 
+    WHEN UTL_FILE.WRITE_ERROR THEN
+        DBMS_OUTPUT.PUT_LINE('Eroare UTL_FILE: Eroare la scrierea in fisier.'); 
+    WHEN OTHERS THEN
+        IF UTL_FILE.IS_OPEN(v_file_handle) THEN
+            UTL_FILE.FCLOSE(v_file_handle);
+        END IF;
+        DBMS_OUTPUT.PUT_LINE('Eroare necunoscuta: ' || SQLERRM);
+END;
+/
+
+
+
