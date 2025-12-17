@@ -126,4 +126,3 @@ END;
 
 --tema e2, e3 a,b
 
---alter database open pe sys;

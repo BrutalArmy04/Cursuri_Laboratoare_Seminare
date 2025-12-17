@@ -1,0 +1,45 @@
+﻿@model ExercitiuLaborator12.Models.Membership
+
+<h2>Ștergere abonament</h2>
+
+<h3 class="text-danger">Ești sigur că vrei să ștergi acest abonament?</h3>
+
+<div>
+    <h4>Detalii abonament</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+        <dt class="col-sm-3">
+            Data emiterii
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Date.ToShortDateString()
+        </dd>
+
+        <dt class="col-sm-3">
+            Sala
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Gym.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Șterge</button> |
+        <a asp-action="Index" class="btn btn-secondary">Anulează și înapoi la listă</a>
+    </form>
+</div>
