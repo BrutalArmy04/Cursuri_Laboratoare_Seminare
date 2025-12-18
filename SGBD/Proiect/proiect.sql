@@ -307,3 +307,5 @@ INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 3, 8, 16);
 INSERT INTO RES_JOC_JUC VALUES (seq_res_juc_joc.NEXTVAL, 4, 8, 20);
 COMMIT;
 
+
+-- apelurile de la fiecare la final

@@ -126,3 +126,144 @@ END;
 
 --tema e2, e3 a,b
 
+--e2 lab cu pachete
+
+-- Definiti un pachet PL/SQL care sa permita analiza valorii cladirilor construite in orasele jucatorilor. 
+-- Pachetul va contine un cursor si o functie
+
+
+CREATE OR REPLACE PACKAGE pachet_cladiri_oras AS
+
+    TYPE r_cladire_info IS RECORD (
+        nume_carte CARTE.nume%TYPE,
+        tip_carte  CARTE.tip_carte%TYPE,
+        cost       CARTE.cost%TYPE
+    );
+
+
+    CURSOR c_cladiri (p_id_oras ORAS.id_oras%TYPE, p_cost_min NUMBER) 
+        RETURN r_cladire_info;
+
+    FUNCTION f_max_cost (v_id_oras ORAS.id_oras%TYPE) RETURN NUMBER;
+
+END pachet_cladiri_oras;
+/
+
+CREATE OR REPLACE PACKAGE BODY pachet_cladiri_oras AS
+
+    CURSOR c_cladiri (p_id_oras ORAS.id_oras%TYPE, p_cost_min NUMBER) 
+        RETURN r_cladire_info IS
+        SELECT c.nume, c.tip_carte, c.cost
+        FROM CLADIRE cl
+        JOIN CARTE c ON cl.id_carte = c.id_carte
+        WHERE cl.id_oras = p_id_oras
+          AND c.cost >= p_cost_min;
+
+    FUNCTION f_max_cost (v_id_oras ORAS.id_oras%TYPE) RETURN NUMBER IS
+        v_maxim NUMBER := 0;
+    BEGIN
+        SELECT MAX(c.cost)
+        INTO v_maxim
+        FROM CLADIRE cl
+        JOIN CARTE c ON cl.id_carte = c.id_carte
+        WHERE cl.id_oras = v_id_oras;
+
+        IF v_maxim IS NULL THEN
+            v_maxim := 0;
+        END IF;
+
+        RETURN v_maxim;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN 0;
+    END f_max_cost;
+
+END pachet_cladiri_oras;
+/
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_oras_target ORAS.id_oras%TYPE := 1; -- aleg orasul cu id 1 pt test
+    v_cost_max    NUMBER;
+    v_rec_cladire pachet_cladiri_oras.c_cladiri%ROWTYPE; 
+BEGIN
+    v_cost_max := pachet_cladiri_oras.f_max_cost(v_oras_target);
+    
+    DBMS_OUTPUT.PUT_LINE('In orasul cu ID ' || v_oras_target || 
+                         ', costul maxim al unei cladiri este: ' || v_cost_max);
+    
+    DBMS_OUTPUT.PUT_LINE('Lista cladirilor cu acest cost:');
+
+    OPEN pachet_cladiri_oras.c_cladiri(v_oras_target, v_cost_max);
+    
+    LOOP
+        FETCH pachet_cladiri_oras.c_cladiri INTO v_rec_cladire;
+        EXIT WHEN pachet_cladiri_oras.c_cladiri%NOTFOUND;
+        
+        DBMS_OUTPUT.PUT_LINE('Cladire: ' || v_rec_cladire.nume_carte || 
+                             ' | Tip: ' || v_rec_cladire.tip_carte || 
+                             ' | Cost: ' || v_rec_cladire.cost);
+    END LOOP;
+    
+    CLOSE pachet_cladiri_oras.c_cladiri;
+END;
+/
+
+
+--e2 lab plsql6
+
+CREATE OR REPLACE TRIGGER trig_e2_sro
+BEFORE UPDATE OF commission_pct ON emp_sro
+FOR EACH ROW
+BEGIN
+    IF :NEW.commission_pct > 0.5 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Eroare: Comisionul nu poate depasi 50% din valoarea salariului!');
+    END IF;
+END;
+/
+
+--e3 a
+
+CREATE TABLE info_dept_sro AS
+SELECT DISTINCT department_id as id, 
+       'Departament ' || department_id as nume_dept, 
+       0 as plati 
+FROM emp_sro
+WHERE department_id IS NOT NULL;
+
+ALTER TABLE info_dept_sro ADD numar NUMBER(4);
+
+UPDATE info_dept_sro d
+SET numar = (SELECT COUNT(*) 
+             FROM emp_sro e 
+             WHERE e.department_id = d.id);
+COMMIT;
+
+--e3 b
+
+CREATE OR REPLACE TRIGGER trig_e3_sro
+AFTER INSERT OR DELETE OR UPDATE OF department_id ON emp_sro
+FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        UPDATE info_dept_sro
+        SET numar = NVL(numar, 0) + 1
+        WHERE id = :NEW.department_id;
+        
+    ELSIF DELETING THEN
+        UPDATE info_dept_sro
+        SET numar = numar - 1
+        WHERE id = :OLD.department_id;
+        
+    ELSIF UPDATING THEN
+        UPDATE info_dept_sro
+        SET numar = numar - 1
+        WHERE id = :OLD.department_id;
+        
+        UPDATE info_dept_sro
+        SET numar = NVL(numar, 0) + 1
+        WHERE id = :NEW.department_id;
+    END IF;
+END;
+/
