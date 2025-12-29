@@ -1,0 +1,21 @@
+fc183c71-9ac9-457a-80a6-0bba32d11281:1766420053407:42:S:create table dept_sro as select * from dept_ari;
+7472dd31-b46c-41e0-9e56-bc5d10051db6:1766420087886:118:S:CREATE OR REPLACE TRIGGER trg_limit_angajati_dept\n    AFTER INSERT OR UPDATE OF department_id ON emp_sro\nDECLARE\n    -- Cursor pentru a identifica departamentele care depășesc limita\n    CURSOR c_dept_violation IS\n        SELECT department_id, COUNT(*) as nr_angajati\n        FROM emp_sro\n        GROUP BY department_id\n        HAVING COUNT(*) > 45;\n        \n    v_dept_id emp_sro.department_id%TYPE;\n    v_count   NUMBER;\nBEGIN\n    -- Iterăm prin departamentele care au încălcat regula\n    FOR rec IN c_dept_violation LOOP\n        RAISE_APPLICATION_ERROR(-20001, \n            'Eroare: Departamentul ' || rec.department_id || \n            ' are deja ' || rec.nr_angajati || \n            ' angajati. Limita maxima este de 45.');\n    END LOOP;\nEND;\n/
+87326974-6863-4796-80b1-9e63cc1fc0d5:1766420093071:0:F:BEGIN\n    FOR i IN 1..50 LOOP\n        INSERT INTO emp_sro (employee_id, last_name, email, hire_date, job_id, department_id)\n        VALUES (emp_sro_seq.NEXTVAL, 'TestUser'||i, 'TEST'||i, SYSDATE, 'IT_PROG', 50);\n    END LOOP;\nEND;\n/
+e920869f-0af5-4d1b-85e1-3ec6de386ea2:1766420150988:36:S:drop trigger trig_block_insert_18;
+63c7f383-fa98-4001-8e18-04c7be9c307c:1766420156186:0:F:BEGIN\n    FOR i IN 1..50 LOOP\n        INSERT INTO emp_sro (employee_id, last_name, email, hire_date, job_id, department_id)\n        VALUES (emp_sro_seq.NEXTVAL, 'TestUser'||i, 'TEST'||i, SYSDATE, 'IT_PROG', 50);\n    END LOOP;\nEND;\n/
+1262d88e-82c7-4bb3-b74e-aa73ae8cad49:1766422097685:0:F:as select department_id, department_name from departments;
+1909490e-a40a-4350-ab4e-fc33e8354b86:1766422098166:0:F:add constraint pk_dept_test_sro primary key (department_id);
+c51b0442-c416-47fc-a31f-b97dbf1ce213:1766422127700:0:F:as select department_id, department_name from DEPT_SRO;
+54cffef9-04a8-40b7-ad2b-8a1bfedf8d27:1766422127846:0:F:add constraint pk_dept_test_sro primary key (department_id);
+9de34025-f9f6-4ad7-9ed6-d68685c0b20e:1766422301344:0:F:drop table dept_test_sro;
+87af483f-ab2c-4f0a-aafa-b085e7064050:1766422301488:0:F:drop table emp_test_sro;
+d427bf30-3bc9-4e75-9814-a84a515e8eb0:1766422301570:12:S:commit;
+f0b17ed6-ed54-410c-a436-8beb125761a0:1766422310395:28:S:CREATE TABLE dept_test_sro \n    AS SELECT department_id, department_name FROM departments;
+ccb4ea2a-132b-4a47-966c-116be0ce365a:1766422310589:21:S:ALTER TABLE dept_test_sro \n    ADD CONSTRAINT pk_dept_test_sro PRIMARY KEY (department_id);
+93f91049-a30c-4e32-a290-8cc875137346:1766422310842:99:S:CREATE TABLE emp_test_sro \n    AS SELECT employee_id, first_name, last_name, department_id FROM emp_sro;
+7a85dcc5-6dea-4d95-8455-7a2b0dc23938:1766422311084:29:S:ALTER TABLE emp_test_sro \n    ADD CONSTRAINT pk_emp_test_sro PRIMARY KEY (employee_id);
+8bfb7439-7876-46ce-a292-f85aef661720:1766422333582:75:S:CREATE OR REPLACE TRIGGER trg_cascade_dept_sro\n    AFTER DELETE OR UPDATE OF department_id ON dept_test_sro\n    FOR EACH ROW\nBEGIN\n    IF DELETING THEN\n        DELETE FROM emp_test_sro\n        WHERE department_id = :OLD.department_id;\n        \n    ELSIF UPDATING('department_id') THEN\n        UPDATE emp_test_sro\n        SET department_id = :NEW.department_id\n        WHERE department_id = :OLD.department_id;\n    END IF;\nEND;\n/
+74d3cd41-c0b3-4e71-92c6-0a6e8e8d0d3c:1766422344523:25:S:UPDATE dept_test_sro SET department_id = 15 WHERE department_id = 10;
+45fe9ed1-f417-446c-82c2-3599ee9f563c:1766422347733:101:S:SELECT * FROM emp_test_sro WHERE department_id = 15;
+602b77e2-4a1f-4f35-b3f2-3033fd039cc1:1766422352556:12:S:DELETE FROM dept_test_sro WHERE department_id = 15;
+8b70709f-6bd8-4815-b63f-9d97eddec3c1:1766422352708:12:S:SELECT * FROM emp_test_sro WHERE department_id = 15;
