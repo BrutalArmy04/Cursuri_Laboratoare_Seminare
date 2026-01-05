@@ -134,7 +134,7 @@ END;
 
 --e5
 
-create table member_sro as select(*) from member;
+create table member_sro as select * from member;
 alter table member_sro add discount number(6,2);
 
 DECLARE
@@ -202,6 +202,6 @@ BEGIN
     
     v_updated_rows := SQL%ROWCOUNT;
     
-    DBMS_OUTPUT.PUT_LINE('Update ' || v_updated_rows || );
+    DBMS_OUTPUT.PUT_LINE('Update ' || v_updated_row);
 END;
 /
