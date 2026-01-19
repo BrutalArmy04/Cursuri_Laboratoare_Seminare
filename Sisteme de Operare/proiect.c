@@ -4,9 +4,9 @@
 #include <unistd.h>
 #include <time.h>
 
-#define NUM_DOCTORS 1
-#define NUM_PATIENTS 10
-#define MAX_CONSULTATION_TIME 3 // nr secunde
+#define NUM_DOCTORS 2
+#define NUM_PATIENTS 20
+#define MAX_CONSULTATION_TIME 10 // nr secunde
 
 typedef struct {
     int id;
@@ -31,7 +31,7 @@ void* patient_routine(void* arg) {
     int id = *(int*)arg;
     free(arg);
 
-    time_t arrival_time = time(NULL);
+    time_t arrival_time = time(NULL);   
     printf("Pacientul %d a intrat in sala de asteptare.\n", id);
 
     // zona critica

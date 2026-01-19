@@ -144,9 +144,9 @@ void ex3()
 
 int main() {
     
-    //ex1();
+    ex1();
     //ex2();
-    ex3();
+    //ex3();
     return 0;
 }
 

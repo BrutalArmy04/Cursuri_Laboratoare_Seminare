@@ -1,0 +1,161 @@
+\documentclass[12pt, a4paper]{article}
+
+% Pachete pentru codare și limba română
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[romanian]{babel}
+
+% Pachete pentru matematică
+\usepackage{amsmath, amssymb, amsfonts}
+
+% Setări pentru margini și layout
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{parskip} % Spațiu între paragrafe fără indentare
+\usepackage{enumitem} % Pentru liste personalizate
+
+% Titlul documentului
+\title{\textbf{Sinteză: Probabilități și Statistică}}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Probabilități Elementare (Curs 1-2)}
+
+\subsection*{Operații și Reguli de bază}
+\begin{itemize}
+    \item \textbf{Reuniune (Includere-Excludere):} 
+    \[ P(A \cup B) = P(A) + P(B) - P(A \cap B) \]
+    \item \textbf{Probabilitate Condiționată:} 
+    \[ P(A|B) = \frac{P(A \cap B)}{P(B)} \]
+    \item \textbf{Regula Multiplicării:} 
+    \[ P(A \cap B) = P(A|B) \cdot P(B) \]
+    \item \textbf{Independență:} Evenimentele $A$ și $B$ sunt independente $\iff P(A \cap B) = P(A) \cdot P(B)$ (sau $P(A|B) = P(A)$).
+\end{itemize}
+
+\subsection*{Teoreme Fundamentale}
+\begin{itemize}
+    \item \textbf{Legea Probabilității Totale:} Dacă $B_1, ..., B_n$ formează o partiție a spațiului $\Omega$:
+    \[ P(A) = \sum_{i} P(A|B_i)P(B_i) \]
+    \item \textbf{Teorema lui Bayes (Forma simplă):}
+    \[ P(B|A) = \frac{P(A|B)P(B)}{P(A)} \]
+\end{itemize}
+
+\hrulefill
+
+\section{Variabile Aleatoare Discrete (Curs 3)}
+Fie $X$ o v.a. discretă cu pmf (funcție de masă) $p(x) = P(X=x)$.
+
+\begin{itemize}
+    \item \textbf{Media (Valoarea așteptată):} $E[X] = \sum_{i} x_i p(x_i)$
+    \item \textbf{Dispersia (Varianța):} $\text{Var}(X) = E[(X - \mu)^2] = E[X^2] - (E[X])^2$
+    \item \textbf{Deviația Standard:} $\sigma_X = \sqrt{\text{Var}(X)}$
+\end{itemize}
+
+\textbf{Proprietăți:}
+\begin{itemize}
+    \item $E[aX + b] = aE[X] + b$
+    \item $\text{Var}(aX + b) = a^2 \text{Var}(X)$
+    \item $\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y)$ (doar dacă $X,Y$ sunt independente)
+\end{itemize}
+
+\textbf{Distribuții Discrete Comune:}
+\begin{itemize}
+    \item \textbf{Bernoulli(p):} Succes/Eșec. $E[X]=p$, $\text{Var}(X)=p(1-p)$.
+    \item \textbf{Binomial(n, p):} Nr. succese în $n$ încercări. 
+    \[ P(X=k) = C_n^k p^k (1-p)^{n-k} \]
+    $E[X] = np$, $\text{Var}(X) = np(1-p)$.
+    \item \textbf{Geometrică(p):} Încercări până la primul succes. $P(X=k) = (1-p)^k p$ (atenție la definiția din curs, uneori e $k-1$).
+    \item \textbf{Uniformă discretă:} $P(X=k) = 1/n$.
+\end{itemize}
+
+\hrulefill
+
+\section{Variabile Aleatoare Continue (Curs 4)}
+Fie $X$ v.a. continuă cu pdf (densitate) $f(x)$ și cdf (repartiție cumulativă) $F(x)$.
+
+\begin{itemize}
+    \item \textbf{Relația pdf-cdf:} $F(x) = P(X \le x) = \int_{-\infty}^x f(t)dt$ și $f(x) = F'(x)$.
+    \item \textbf{Probabilitate interval:} $P(a \le X \le b) = \int_a^b f(x)dx = F(b) - F(a)$.
+    \item \textbf{Media:} $E[X] = \int_{-\infty}^{\infty} x f(x) dx$.
+\end{itemize}
+
+\textbf{Distribuții Continue Comune:}
+\begin{itemize}
+    \item \textbf{Uniformă U(a,b):} $f(x) = \frac{1}{b-a}$ pe $[a,b]$. $E[X] = \frac{a+b}{2}$.
+    \item \textbf{Exponențială($\lambda$):} $f(x) = \lambda e^{-\lambda x}$ pentru $x \ge 0$. \\
+    $E[X] = 1/\lambda$, $\text{Var}(X) = 1/\lambda^2$.
+    \item \textbf{Normală $N(\mu, \sigma^2)$:}
+    \item \textbf{Standardizare:} Dacă $X \sim N(\mu, \sigma^2)$, atunci $Z = \frac{X-\mu}{\sigma} \sim N(0,1)$.
+\end{itemize}
+
+\hrulefill
+
+\section{Vectori Aleatori și Teoreme Limită (Curs 5, 13)}
+
+\begin{itemize}
+    \item \textbf{Covarianța:} $\text{Cov}(X,Y) = E[(X-\mu_X)(Y-\mu_Y)] = E[XY] - E[X]E[Y]$.
+    \item \textbf{Corelația:} $\rho(X,Y) = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y} \in [-1, 1]$.
+    \item \textbf{Teorema Limită Centrală (CLT):} Suma (sau media) a $n$ variabile i.i.d. tinde spre o distribuție Normală când $n$ e mare.
+    \[ \bar{X} \approx N\left(\mu, \frac{\sigma^2}{n}\right) \]
+\end{itemize}
+
+\hrulefill
+
+\section{Inferență Frecvenționistă (Curs 7, 11, 13)}
+
+\subsection*{Estimarea de Verosimilitate Maximă (MLE)}
+\begin{itemize}
+    \item \textbf{Funcția de verosimilitate:} $L(\theta) = P(\text{Date} | \theta)$ (sau densitatea comună).
+    \item \textbf{Metoda:} Se calculează $\ln(L(\theta))$, se derivează $\frac{d}{d\theta}$ și se egalează cu 0.
+\end{itemize}
+
+\subsection*{Testarea Ipotezelor (NHST)}
+\begin{itemize}
+    \item Ipoteza nulă ($H_0$) vs Ipoteza alternativă ($H_A$).
+    \item \textbf{Eroare Tip I ($\alpha$):} Respingi $H_0$ deși e adevărată (Nivel de semnificație).
+    \item \textbf{Eroare Tip II ($\beta$):} Nu respingi $H_0$ deși e falsă.
+    \item \textbf{Puterea testului:} $1 - \beta = P(\text{Resping } H_0 | H_A \text{ adevărată})$.
+    \item \textbf{Testul $\chi^2$ (Chi-pătrat):} $\chi^2 = \sum \frac{(O_i - E_i)^2}{E_i}$ (unde $O$=Observat, $E$=Așteptat).
+\end{itemize}
+
+\subsection*{Intervale de Încredere (CI)}
+\begin{itemize}
+    \item \textbf{Pentru medie} ($\sigma$ cunoscut sau $n$ mare): $\bar{x} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$.
+    \item \textbf{Pentru proporție} (Regula "degetului mare" 95\%): $\hat{p} \pm \frac{1}{\sqrt{n}}$.
+\end{itemize}
+
+\subsection*{Regresie Liniară (Curs 13)}
+\begin{itemize}
+    \item \textbf{Model:} $y = \beta_0 + \beta_1 x$.
+    \item $R^2 = 1 - \frac{RSS}{TSS}$ (Proporția variației explicate de model).
+\end{itemize}
+
+\hrulefill
+
+\section{Inferență Bayesiană (Curs 6, 8, 9, 10, 12)}
+
+\subsection*{Actualizare Bayesiană}
+\begin{itemize}
+    \item \textbf{Forma standard:}
+    \[ P(H|D) = \frac{P(D|H) \cdot P(H)}{P(D)} \]
+    (Posterior $\propto$ Verosimilitate $\times$ Prior).
+    
+    \item \textbf{Forma "Odds" (Șanse):}
+    \[ O(H|D) = \text{Factorul Bayes} \times O(H) \]
+    Unde Factorul Bayes $BF = \frac{P(D|H)}{P(D|H^c)}$.
+    \item \textbf{Conversie Probabilitate $\leftrightarrow$ Odds:} $O(E) = \frac{P(E)}{1-P(E)}$.
+\end{itemize}
+
+\subsection*{Conjugate Priors (Familii conjugate)}
+\textbf{Beta-Binomial:}
+\begin{itemize}
+    \item Dacă Prior este $Beta(a, b)$ și datele sunt $n$ succese, $m$ eșecuri:
+    \item Posterior este $Beta(a+n, b+m)$.
+    \item Media $Beta(a,b)$ este $\frac{a}{a+b}$.
+    \item Prior uniform ("plat") este $Beta(1,1)$.
+\end{itemize}
+
+\end{document}

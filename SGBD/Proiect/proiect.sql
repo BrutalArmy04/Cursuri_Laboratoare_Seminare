@@ -434,10 +434,11 @@ END;
 --7
 
 CREATE OR REPLACE PROCEDURE analiza_jocuri_finalizate IS
-    CURSOR c_jocuri IS
-        SELECT id_joc, status 
-        FROM JOC 
-        WHERE status = 'FINALIZAT';
+
+   -- CURSOR c_jocuri IS
+      --  SELECT id_joc, status 
+      --  FROM JOC 
+        --WHERE status = 'FINALIZAT';
         
     CURSOR c_detalii_jucatori (p_id_joc NUMBER) IS
         SELECT j.nume_utilizator, c.nume_caracter
@@ -455,10 +456,12 @@ CREATE OR REPLACE PROCEDURE analiza_jocuri_finalizate IS
     v_nume_caracter CARACTER.nume_caracter%TYPE;
 
 BEGIN
-    OPEN c_jocuri;
+    --dupa testare lab--
+    --OPEN c_jocuri;
+    FOR v_id_joc_curent IN(SELECT id_joc, status  FROM JOC WHERE status = 'FINALIZAT')
     LOOP
-        FETCH c_jocuri INTO v_id_joc_curent, v_status;
-        EXIT WHEN c_jocuri%NOTFOUND;
+        --FETCH c_jocuri INTO v_id_joc_curent, v_status;
+        --EXIT WHEN c_jocuri%NOTFOUND;
         
         DBMS_OUTPUT.PUT_LINE('-------------------------------------------');
         DBMS_OUTPUT.PUT_LINE('Analiza Jocului #' || v_id_joc_curent || ' (Status: ' || v_status || ')');
