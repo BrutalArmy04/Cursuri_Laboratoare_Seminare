@@ -7,12 +7,13 @@
 using namespace std;
 
 
-void BFS (vector<vector<int>> const& graph, const int source, bool is_matrix)
+vector <int> BFS (vector<vector<int>> const& graph, const int source, bool is_matrix)
 {
     vector <int> neighbour(graph.size(), -1);
     vector <int> distance(graph.size(), INT_MAX);
     vector <int> color(graph.size(), 0);
     queue<int> q;
+    vector <int> result;
 
     color[source] = 1;   //  we are working with it right now
     distance[source] = 0;
@@ -47,10 +48,12 @@ void BFS (vector<vector<int>> const& graph, const int source, bool is_matrix)
                     q.push(v);
                 }
         }
+        result.push_back(u);
         q.pop();
         color[u] = 2;
 
     }
+    return result;
 
 }       
 
@@ -150,8 +153,10 @@ vector <int> topological_sorting(vector<vector<int>> const& graph, const int sou
 }
 
 void visiting_ce(int u, vector <int> &color, vector <int> &disc_time, int &time,
-     vector<vector<int>> const& graph, vector <int> &low_link_value, bool is_matrix, int parent)
+     vector<vector<int>> const& graph, vector <int> &low_link_value, bool is_matrix, int parent, vector <pair<int, int>>& result)
 {
+
+
     color[u] = 1;
     disc_time[u] =low_link_value[u] = time++;
     if (is_matrix == 1)
@@ -159,14 +164,14 @@ void visiting_ce(int u, vector <int> &color, vector <int> &disc_time, int &time,
         for (auto v = 0; v < graph.size(); v++)
         if (graph[u][v] == 1 && color[v] == 0 && v!=parent)
        { 
-        visiting_ce(v, color, disc_time, time, graph, low_link_value, is_matrix, u);
+        visiting_ce(v, color, disc_time, time, graph, low_link_value, is_matrix, u, result);
         low_link_value[u] = min(low_link_value[u], low_link_value[v]);
         if (low_link_value[v] > disc_time[u])
-        cout<<u<<"->"<<v;
+        result.push_back({u,v});
 
     
     }
-    else if (v!=parent)
+    else if (v!=parent && graph[u][v] == 1)
     low_link_value[u] = min(low_link_value[u], disc_time[v]);
 
     }
@@ -175,30 +180,35 @@ void visiting_ce(int u, vector <int> &color, vector <int> &disc_time, int &time,
         for (int v : graph[u])
         if (color[v] == 0 && v!=parent)
         {
-            visiting_ce(v, color, disc_time, time, graph, low_link_value, is_matrix, u);
+            visiting_ce(v, color, disc_time, time, graph, low_link_value, is_matrix, u, result);
             low_link_value[u] = min(low_link_value[u], low_link_value[v]);
             if (low_link_value[v] > disc_time[u])
-            cout<<u<<"->"<<v;
+            {
+                result.push_back({u,v});
+            }
         }
         else if (v!=parent)
         low_link_value[u] = min(low_link_value[u], disc_time[v]);
     }
     color[u] = 2;
+
 }
 
 
-void critical_edges(vector<vector<int>> const &graph, bool is_matrix, int source)
+vector <pair<int, int>> critical_edges(vector<vector<int>> const &graph, bool is_matrix, int source)
 {
     vector <int> disc_time(graph.size(), 0);
     vector <int> low_link_value(graph.size(), 0);
-
+    vector <pair<int, int>> result;
     //vector <int> neighbour(graph.size(), 0);
     vector <int> color(graph.size(), 0);
 
     int time = 0;
     for (int u = 0; u < graph.size(); u++)
         if (color[u] == 0)
-        visiting_ce(u, color, disc_time, time, graph, low_link_value, is_matrix, -1);
+        visiting_ce(u, color, disc_time, time, graph, low_link_value, is_matrix, -1, result);
+    
+    return result;
 
 }
 
@@ -212,36 +222,40 @@ vector<vector<int>> trasp_matrix(vector<vector<int>> graph)
 }
 
 void visiting_Kosaraju(int u, vector <int> & color, vector <int> & distance, int &time, 
-    vector<vector<int>> const& graph, vector <int> &timespan, stack <int>& st, int run)
+    vector<vector<int>> const& graph, vector <int> &timespan, stack <int>& st, int run, vector <int> &comp)
 {
     color[u] = 1;
     cout<<u<<" ";
     distance[u] = time++;
         for (auto v = 0; v < graph.size(); v++)
         if (graph[u][v] == 1 && color[v] == 0)
-        visiting_Kosaraju(v, color, distance, time, graph, timespan, st, run);
+        visiting_Kosaraju(v, color, distance, time, graph, timespan, st, run, comp);
    
     color[u] = 2;
     timespan[u] = time++;
     if (run == 1)
     st.push(u);
+    else
+    comp.push_back(u);
 
 }
 
 
-void DFS_Kosaraju (vector<vector<int>> const& graph, stack <int>& st, int run)
+void DFS_Kosaraju (vector<vector<int>> const& graph, stack <int>& st, int run, vector <vector<int>>& result)
 {
     vector <int> color(graph.size(), 0);
     //vector <int> neighbour(graph.size(), -1);
     vector <int> distance(graph.size(), 0);
     vector <int> timespan(graph.size(), 0);
+    vector <int> comp;
 
     int time = 0;
     if (run == 1)
     {    for (int u = 0; u < graph.size(); u++)
             if (color[u] == 0)
-            
-                visiting_Kosaraju(u, color, distance, time, graph, timespan, st, 1);}
+                {
+                visiting_Kosaraju(u, color, distance, time, graph, timespan, st, 1, comp);}
+            }
     else if (run == 2)
     {
             while (!st.empty())
@@ -249,19 +263,23 @@ void DFS_Kosaraju (vector<vector<int>> const& graph, stack <int>& st, int run)
         int u = st.top();
         st.pop();
         if (color[u] == 0)
-            visiting_Kosaraju(u, color, distance, time, graph, timespan, st, 2);
+            {
+                comp = {};
+                visiting_Kosaraju(u, color, distance, time, graph, timespan, st, 2, comp);
+                result.push_back(comp);
+            }
 
     }
     }
-
 }
-
-void Kosaraju(vector<vector<int>>& graph)
+vector <vector<int>> Kosaraju(vector<vector<int>>& graph)
 {
     stack <int> st;
-    DFS_Kosaraju(graph, st, 1);
+    vector <vector<int>> result;
+    DFS_Kosaraju(graph, st, 1, result);
     vector<vector<int>> tr_graph = trasp_matrix(graph);
-    DFS_Kosaraju(tr_graph, st, 2);
+    DFS_Kosaraju(tr_graph, st, 2, result);
+    return result;
 
 }
 
@@ -384,4 +402,88 @@ vector <Edge> Prim (vector <Edge> Edge_List, int const& nodes, int const &start)
     }
     return result;
 
+}
+
+vector <int> Dijkstra(vector <Edge> Edge_List, int const& start, int const& nodes)
+{
+    vector<vector<pair<int, int>>> adj(nodes);
+    vector <int> distance(nodes, INT_MAX);
+    vector <int> parent(nodes, 0);
+    for (auto& edge : Edge_List) {
+        adj[edge.u].push_back({edge.weight, edge.v});
+        
+    }
+    distance[start] = 0;
+
+    priority_queue< pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
+
+    pq.push({0, start});
+    pair <int, int> u;  // cost, index
+    while (!pq.empty())
+    {
+        u = pq.top();
+        pq.pop();
+
+        for (auto x : adj[u.second])
+
+        if (distance[u.second] + x.first< distance[x.second])
+        {
+            parent[x.second] = u.second;
+            distance[x.second] = x.first + distance[u.second];
+            pq.push({distance[x.second], x.second});
+        }
+    }
+
+    return distance;
+}
+
+vector <int> Bellman_Ford(int nodes, vector <Edge> Edge_List, int source)
+
+{
+    vector <int> distance(nodes, INT_MAX);
+    vector <int> parent(nodes, 0);
+
+    distance[source] = 0;
+
+
+    for (int k = 0; k < nodes-1; k++)
+    for (auto& x: Edge_List)
+    if (distance[x.u] + x.weight < distance[x.v] && distance[x.u]!=INT_MAX)
+    {
+        distance[x.v] = distance[x.u] + x.weight;
+        parent[x.v] = x.u;
+    }
+    for (auto& x: Edge_List)
+    if (distance[x.u] + x.weight < distance[x.v] && distance[x.u]!=INT_MAX)
+    {
+        return {};
+    }
+    return distance;
+}
+
+vector <int> min_dist_in_acyclic_graphs(int source, vector <Edge> Edge_List, int nodes, vector<vector<int>> graph)
+{
+
+    vector <int> distance(nodes, INT_MAX);
+    vector <int> parent(nodes, 0);
+    vector <int> top_sort = topological_sorting(graph, source, 1);
+    distance[source] = 0;
+    vector<vector<pair<int, int>>> adj(nodes);
+
+    for (auto& edge : Edge_List) 
+        adj[edge.u].push_back({edge.weight, edge.v});
+        
+    for (auto u:top_sort)
+    {
+        for (auto x : adj[u])
+        {
+            if (distance[u] + x.first < distance[x.second] && distance[u]!=INT_MAX)
+            {
+                distance[x.second] = distance[u] + x.first;
+                parent[x.second] = u;
+            }
+        }
+    }
+
+    return distance;
 }
