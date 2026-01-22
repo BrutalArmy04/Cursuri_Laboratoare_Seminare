@@ -7,9 +7,10 @@
 using namespace std;
 
 
-vector <int> BFS (vector<vector<int>> const& graph, const int source, bool is_matrix)
+vector <int> BFS (vector<vector<int>> const& graph, const int source, bool is_matrix, vector <int>& neighbour)
 {
-    vector <int> neighbour(graph.size(), -1);
+    for (auto i = 0; i < graph.size(); i++)
+    neighbour[i] = -1;
     vector <int> distance(graph.size(), INT_MAX);
     vector <int> color(graph.size(), 0);
     queue<int> q;
@@ -25,7 +26,7 @@ vector <int> BFS (vector<vector<int>> const& graph, const int source, bool is_ma
         if (is_matrix == 1)
         {
         for (int v = 0; v < graph.size(); v++)
-        if (graph[u][v] == 1)
+        if (graph[u][v] > 0)
             {
                 if (color[v]==0)
                 {
@@ -486,4 +487,181 @@ vector <int> min_dist_in_acyclic_graphs(int source, vector <Edge> Edge_List, int
     }
 
     return distance;
+}
+
+
+vector <vector<long long>> Floyd_Warshall (vector <Edge> Edge_List, int nodes, vector<vector<int>> graph)
+{
+    vector<vector<long long>> distance(nodes, vector<long long>(nodes, INT_MAX));
+    vector<vector<int>> parent(nodes, vector<int>(nodes, -1));
+    for (int i = 0; i < nodes; i++)
+    for (int j = 0; j < nodes; j++)
+    {
+        distance[i][i] = 0;
+        if (graph[i][j] == 1)
+        parent[i][j] = i;
+    }
+    for (auto x : Edge_List)
+    {
+        if (graph[x.u][x.v] == 1)
+        distance[x.u][x.v] = x.weight;
+    }
+
+
+    for (int k = 0; k < nodes; k++)
+    for (int i = 0; i < nodes; i++)
+    for (int j = 0; j < nodes; j++)
+    {
+        if (distance[i][k] != INT_MAX && distance[k][j] != INT_MAX)
+        if ( distance[i][j] > distance[i][k] + distance[k][j])       
+        {
+            distance[i][j] = distance[i][k] + distance[k][j];
+            parent[i][j] = parent[k][j];
+        }
+    }
+    return distance;
+
+}
+
+
+int Ford_Fulkenson(vector <Edge> EdgeList, int nodes, int s, int t) // maximum flow
+{
+    vector<vector<int>> rGraph(nodes, vector<int>(nodes, 0));
+    for (Edge edge : EdgeList)
+    rGraph[edge.u][edge.v] = edge.weight;
+    vector <int> neighbour(nodes);
+
+    vector <int> BFS_vector = BFS(rGraph, s, 1, neighbour);
+    int flow = 0;
+
+
+    while(neighbour[t]!=-1) 
+    {
+        int path_flow = INT_MAX;
+        for (int v = t; v!=s; v = neighbour[v])
+        {
+            if (path_flow > rGraph[neighbour[v]][v])
+            path_flow = rGraph[neighbour[v]][v];
+
+            
+        }
+        flow += path_flow;
+
+
+        for (int v = t; v!=s; v = neighbour[v])
+        {
+            rGraph[neighbour[v]][v] -= path_flow;
+            rGraph[v][neighbour[v]] += path_flow;
+        }
+        BFS_vector = BFS(rGraph, s, 1, neighbour);
+
+        
+    }
+
+    return flow;
+}
+
+
+vector <int> Hierholzer (vector<vector<int>> graph, int nodes, int start)   // eulerian circuits
+{
+    vector <int> circuit;
+    stack <int> current_path;
+
+    current_path.push(start);
+
+    while (!current_path.empty())
+    {
+        int u = current_path.top();
+        bool found_neighbour = 0;
+        for (int v = 0; v < nodes; v++)
+        {
+            if (graph[u][v] == 1)
+            {
+
+                found_neighbour = 1;
+                graph[u][v] = 0;
+                current_path.push(v);
+                break;
+
+            }
+        }
+
+        if (found_neighbour == 0)
+        {
+        current_path.pop();
+        circuit.push_back(u);
+    }
+    }
+
+    reverse(circuit.begin(), circuit.end());
+    return circuit;
+}
+
+pair<int, vector<int>> hamiltonian_min_cost(int n, const vector<vector<int>>& adj) {
+
+    vector<vector<int>> dp(1 << n, vector<int>(n, INT_MAX));
+
+    dp[1][0] = 0;
+
+    for (int mask = 1; mask < (1 << n); ++mask) {
+        for (int i = 0; i < n; ++i) {
+            if (dp[mask][i] == INT_MAX) continue;
+
+            for (int j = 0; j < n; ++j) {
+                if (!((mask >> j) & 1) && adj[i][j] != INT_MAX) {
+                    int new_mask = mask | (1 << j);
+                    if (dp[mask][i] + adj[i][j] < dp[new_mask][j]) {
+                        dp[new_mask][j] = dp[mask][i] + adj[i][j];
+                    }
+                }
+            }
+        }
+    }
+
+    int full_mask = (1 << n) - 1;
+    int min_cost = INT_MAX;
+    int last_node = -1;
+
+    for (int i = 0; i < n; ++i) {
+        if (dp[full_mask][i] != INT_MAX && adj[i][0] != INT_MAX) {
+            int total = dp[full_mask][i] + adj[i][0];
+            if (total < min_cost) {
+                min_cost = total;
+                last_node = i;
+            }
+        }
+    }
+
+    if (min_cost == INT_MAX) {
+        return {-1, {}}; 
+    }
+
+    vector<int> path;
+    int mask = full_mask;
+    int node = last_node;
+
+    while (mask > 0) {
+        path.push_back(node);
+        int prev_mask = mask ^ (1 << node);
+        int prev_node = -1;
+
+        if (node == 0 && prev_mask == 0) break; 
+
+        for (int i = 0; i < n; ++i) {
+            if ((prev_mask >> i) & 1) {
+                if (adj[i][node] != INT_MAX && dp[prev_mask][i] + adj[i][node] == dp[mask][node]) {
+                    prev_node = i;
+                    break;
+                }
+            }
+        }
+
+        if (prev_node == -1) break;
+
+        mask = prev_mask;
+        node = prev_node;
+    }
+
+    reverse(path.begin(), path.end());
+    return {min_cost, path};
 }
