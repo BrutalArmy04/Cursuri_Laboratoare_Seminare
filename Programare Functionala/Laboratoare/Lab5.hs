@@ -1,118 +1,152 @@
---foldr si foldl
--- l = [1,2,3]
---f x y = x + y
--- foldr f 0 ( elem de start) l (lista noastra)
--- va lua ultimul element si 0 si le va aduna si merge in spate pe lista => (((0+3)+2)+1)
--- foldl f 0 l => (((0+1)+2)+3)
+{-
+# Laborator 5 - Fold
 
---1
+## Fold
+Funcțiile `foldr` și `foldl` sunt folosite pentru agregarea unei colecții de elemente.
 
-ex1 l = foldr (+) 0 (map(^2) l) 
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr op unit [a1, a2, ... , an] = a1 `op` (a2 `op` (... `op` (an `op` unit)))
 
---2
+foldl :: (b -> a -> b) -> b -> [a] -> b
+foldl op unit [a1, a2, ... , an] = (...((unit `op` a1) `op` a2) ...) `op` an
+-}
 
+import Data.List (minimumBy)
+import Data.Ord (comparing)
+
+-- 1. Calculați suma pătratelor elementelor impare dintr-o listă dată ca parametru.
+-- Corecție: Trebuie filtrate elementele impare înainte de mapare/fold.
+ex1 :: [Int] -> Int
+ex1 l = foldr (+) 0 (map (^2) (filter odd l))
+
+-- 2. Scrieți o funcție care verifică că toate elementele dintr-o listă sunt `True`.
+ex2 :: [Bool] -> Bool
 ex2 l = foldr (&&) True l
 
---3
-
+-- 3. Scrieți o funcție care verifică dacă toate elementele satisfac o proprietate.
 allVerifies :: (a -> Bool) -> [a] -> Bool
 allVerifies p xs = foldr (&&) True (map p xs)
 
---4 
-
+-- 4. Scrieți o funcție care verifică dacă există elemente care satisfac o proprietate.
+-- Corecție: Elementul neutru pentru (||) trebuie să fie False.
 anyVerifies :: (a -> Bool) -> [a] -> Bool
-anyVerifies p xs = foldr (||) True (map p xs)
+anyVerifies p xs = foldr (||) False (map p xs)
 
---5
-
-
-mapFoldr :: Foldable t1 => (t2 -> a) -> t1 t2 -> [a]
+-- 5. Redefiniți map și filter folosind foldr.
+mapFoldr :: (a -> b) -> [a] -> [b]
 mapFoldr f = foldr (\x acc -> f x : acc) []
 
-filterFoldr :: Foldable t => (a -> Bool) -> t a -> [a]
+filterFoldr :: (a -> Bool) -> [a] -> [a]
 filterFoldr p = foldr (\x acc -> if p x then x : acc else acc) []
 
---6
--- listToInt [2,3,4,5] = 2345
-listToInt :: (Foldable t, Num b) => t b -> b
-listToInt l = foldl (\acc x -> acc*10 + x) 0 l
+-- 6. listToInt folosind foldl (transformă [2,3,4,5] în 2345).
+listToInt :: [Integer] -> Integer
+listToInt l = foldl (\acc x -> acc * 10 + x) 0 l
 
---7
-
-rmChar :: Eq a => a -> [a] -> [a]
+-- 7. Eliminarea caracterelor
+-- (a) Elimină toate aparițiile unui caracter.
+rmChar :: Char -> String -> String
 rmChar c s = filter (/= c) s
 
-rmCharsRec :: Eq a => [a] -> [a] -> [a]
-rmCharsRec _ [] = []
+-- (b) Recursiv: elimină caracterele din primul argument găsite în al doilea.
+rmCharsRec :: String -> String -> String
 rmCharsRec [] str = str
 rmCharsRec (c:cs) str = rmCharsRec cs (rmChar c str)
 
-rmCharsFold :: (Foldable t, Eq a) => t a -> [a] -> [a]
+-- (c) Folosind foldr pentru a face același lucru.
+rmCharsFold :: String -> String -> String
 rmCharsFold chars str = foldr rmChar str chars
 
---8
+-- 8. myReverse folosind foldl.
+myReverse :: [a] -> [a]
+myReverse l = foldl (\acc x -> x : acc) [] l
 
-myReverse :: Foldable t => t a -> [a]
-myReverse l = foldl(\acc x -> x : acc) [] l
-
-
---9
-
-
-myElem :: (Foldable t, Eq a) => a -> t a -> Bool
+-- 9. myElem folosind foldr.
+myElem :: Eq a => a -> [a] -> Bool
 myElem x = foldr (\y acc -> x == y || acc) False
 
---10
-
+-- 10. myUnzip folosind foldr.
 myUnzip :: [(a, b)] -> ([a], [b])
 myUnzip = foldr (\(x, y) (xs, ys) -> (x:xs, y:ys)) ([], [])
 
---11
-
-
-union :: (Foldable t, Eq a) => t a -> [a] -> [a]
+-- 11. Union (reuniunea a două liste) folosind foldr.
+union :: Eq a => [a] -> [a] -> [a]
 union xs ys = foldr (\x acc -> if x `elem` acc then acc else x : acc) ys xs
 
---12
+-- 12. Intersect (intersecția) folosind foldr.
+intersect :: Eq a => [a] -> [a] -> [a]
+intersect xs ys = foldr (\x acc -> if x `elem` ys then x : acc else acc) [] xs
 
-intersect :: (Foldable t1, Foldable t2, Eq a) => t1 a -> t2 a -> [a]
-intersect xs ys = foldr (\x acc -> if x `elem` ys then x: acc else acc) [] xs
+-- 13. Permutations folosind foldr.
+-- Metoda "funcțională pură" cu fold: inserăm elementul curent în toate pozițiile posibile
+-- pentru fiecare permutare a restului listei.
+permutations :: [a] -> [[a]]
+permutations = foldr (\x acc -> concatMap (insertAll x) acc) [[]]
+  where
+    insertAll :: a -> [a] -> [[a]]
+    insertAll e [] = [[e]]
+    insertAll e (y:ys) = (e:y:ys) : map (y:) (insertAll e ys)
 
---13
-
-permutations :: Eq a => [a] -> [[a]]
-permutations [] = [[]]
-permutations xs = foldr (\x acc -> acc ++ [x:perm | perm <- permutations (filter (/= x) xs)]) [] xs
-
-
---Prim
+{-
+## Extra - Algoritmul lui Prim
+14. Implementați algoritmul lui Prim folosind fold.
+-}
 
 infinity :: Int
 infinity = 999999
 
+-- Definim tipul grafului ca o funcție de cost între două noduri
+type Graph = Int -> Int -> Int
 type Node = Int
+type Edge = (Node, Node) -- (From, To)
 
-
-
-prim :: (Ord a1, Eq a2) => [a2] -> (a2 -> a2 -> a1) -> [(a2, a2)]
+-- Funcția prim: primește lista de noduri și funcția de cost.
+-- Returnează lista de muchii care formează MST.
+prim :: [Node] -> Graph -> [Edge]
 prim [] _ = []
-prim (start:nodes) graph = go [(n, graph start n, start) | n <- nodes] [start] []
+prim (start:nodes) graph = 
+    let 
+        -- Starea inițială: (Muchii MST, Lista costurilor minime către nodurile nevizitate)
+        -- Lista costurilor: [(Node, Cost, FromNode)]
+        initialCosts = map (\n -> (n, graph start n, start)) nodes
+    in 
+        -- Folosim foldl pentru a itera de (n-1) ori (numărul de noduri rămase de adăugat)
+        -- Lista peste care facem fold este irelevantă, contează doar lungimea ei (nodes e restul nodurilor)
+        fst $ foldl step ([], initialCosts) nodes
   where
-    go [] _ mst = reverse mst
-    go candidates inMST mst =
-        let (minNode, minDist, fromNode) = 
-                foldl1 (\(n1,d1,f1) (n2,d2,f2) -> if d1 < d2 then (n1,d1,f1) else (n2,d2,f2)) candidates
-            newCandidates = [(n, min (graph minNode n) dist, if graph minNode n < dist then minNode else from) 
-                           | (n, dist, from) <- candidates, n /= minNode]
-        in go newCandidates (minNode:inMST) ((fromNode, minNode):mst)
+    step :: ([Edge], [(Node, Int, Node)]) -> Node -> ([Edge], [(Node, Int, Node)])
+    step (mst, costs) _ =
+        let 
+            -- 1. Găsim nodul cu costul minim din lista de candidați
+            (minNode, minCost, fromNode) = minimumBy (comparing (\(_, c, _) -> c)) costs
+            
+            -- 2. Îl eliminăm din lista de candidați (a devenit vizitat)
+            remainingCandidates = filter (\(n, _, _) -> n /= minNode) costs
+            
+            -- 3. Actualizăm costurile pentru nodurile rămase
+            updatedCosts = map (\(n, currentCost, currentFrom) ->
+                let distToNewNode = graph minNode n
+                in if distToNewNode < currentCost 
+                   then (n, distToNewNode, minNode) -- Am găsit o cale mai scurtă prin minNode
+                   else (n, currentCost, currentFrom) -- Păstrăm vechiul cost
+                ) remainingCandidates
+        in 
+            -- Adăugăm muchia în MST și trecem la pasul următor cu noile costuri
+            ((fromNode, minNode) : mst, updatedCosts)
 
--- Test
-testGraph :: (Eq a1, Eq a2, Num a1, Num a2, Num a3) => a1 -> a2 -> a3
-testGraph 1 2 = 1
-testGraph 2 1 = 1  
+-- Exemplu de graf pentru testare
+-- Noduri: 1, 2, 3
+-- 1-2 cost 10
+-- 2-3 cost 1
+-- 1-3 cost 5
+testGraph :: Graph
+testGraph 1 2 = 10
+testGraph 2 1 = 10
 testGraph 2 3 = 1
 testGraph 3 2 = 1
-testGraph 1 3 = 2
-testGraph 3 1 = 2
-testGraph _ _ = 0
+testGraph 1 3 = 5
+testGraph 3 1 = 5
+testGraph _ _ = infinity
 
+-- Testare: prim [1,2,3] testGraph
+-- Ar trebui să returneze muchiile [(1,3), (3,2)] (sau invers) cu cost total 6.

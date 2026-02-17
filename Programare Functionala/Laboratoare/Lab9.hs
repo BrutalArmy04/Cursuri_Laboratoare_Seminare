@@ -1,32 +1,60 @@
---Ex1
+{-
+# Laborator 9 - ADT. Clase de tipuri
+-}
 
-data Tree = Empty -- arbore vid
-  | Node Int Tree Tree Tree -- arbore cu valoare de tip Int in radacina si 3 fii
+-- ============================================================================
+-- 1. ARBORI
+-- ============================================================================
 
+{-
+Se dă următorul tip de date reprezentând arbori ternari cu informația de tip întreg în rădăcină.
+-}
+
+data Tree = Empty  -- arbore vid
+          | Node Int Tree Tree Tree -- arbore cu valoare (Int) si 3 fii
+          deriving Show
+
+-- Exemplul din cerință
 extree :: Tree
 extree = Node 4 (Node 5 Empty Empty Empty) 
                 (Node 3 Empty Empty (Node 1 Empty Empty Empty)) Empty
 
+{-
+1. Instanțiați clasa ArbInfo pentru tipul Tree.
+   - level: înălțimea arborelui (0 pt vid)
+   - sumval: suma valorilor
+   - nrFrunze: numărul de frunze
+-}
+
 class ArbInfo t where
-  level :: t -> Int -- intoarce inaltimea arborelui;  consideram ca un arbore vid are inaltimea 0
-  sumval :: t -> Int  -- intoarce suma valorilor din arbore
-  nrFrunze :: t -> Int  -- intoarce nr de frunze al arborelui
+  level :: t -> Int 
+  sumval :: t -> Int
+  nrFrunze :: t -> Int
 
 instance ArbInfo Tree where
+  -- Level: 1 + maximul dintre înălțimile fiilor
   level Empty = 0
   level (Node _ left middle right) = 
     1 + max (level left) (max (level middle) (level right))
   
+  -- Sumval: valoarea curentă + suma valorilor din subarbori
   sumval Empty = 0
   sumval (Node val left middle right) = 
     val + sumval left + sumval middle + sumval right
   
+  -- NrFrunze: 1 dacă e frunză, altfel suma frunzelor fiilor
   nrFrunze Empty = 0
   nrFrunze (Node _ Empty Empty Empty) = 1
   nrFrunze (Node _ left middle right) = 
     nrFrunze left + nrFrunze middle + nrFrunze right
 
---Ex 2
+-- ============================================================================
+-- 2. VECTORI - SCALARI
+-- ============================================================================
+
+{-
+Vom implementa spații vectoriale. Mai întâi definim clasa scalarilor.
+-}
 
 class Scalar a where
   zero :: a 
@@ -36,40 +64,53 @@ class Scalar a where
   negates :: a -> a
   recips :: a -> a
 
+-- 2. Instanța pentru Int
+-- Notă: Int nu este corp comutativ (nu are invers multiplicativ real), 
+-- dar implementăm interfața conform cerinței tehnice.
 instance Scalar Int where
   zero = 0
   one = 1
   adds = (+)
   mult = (*)
   negates = negate
-  recips x = 1
+  recips _ = 1 -- Int nu suportă 1/x, returnăm dummy value sau 0/1
 
+-- Instanța pentru Float
 instance Scalar Float where
   zero = 0.0
   one = 1.0
   adds = (+)
   mult = (*)
   negates = negate
-  recips x = 1 / x
+  recips x = 1.0 / x
 
+-- Instanța pentru Double
 instance Scalar Double where
   zero = 0.0
   one = 1.0
   adds = (+)
   mult = (*)
   negates = negate
-  recips x = 1 / x
+  recips x = 1.0 / x
 
---Ex 3
+-- ============================================================================
+-- 3. VECTORI - VECTORI
+-- ============================================================================
+
+{-
+Clasa Vector care depinde de clasa Scalar.
+-}
 
 class (Scalar a) => Vector v a where
   zerov :: v a
   onev :: v a
-  addv :: v a -> v a -> v a --adunare vector
-  smult :: a -> v a -> v a  --inmultire cu scalare
-  negatev :: v a -> v a   --negare vector
+  addv :: v a -> v a -> v a -- adunare vector
+  smult :: a -> v a -> v a  -- inmultire cu scalar
+  negatev :: v a -> v a     -- negare vector
 
-data Vec2D a = V2 a a deriving (Eq, Show)
+-- 3a. Vectori 2D
+data Vec2D a = V2 a a 
+    deriving (Eq, Show)
 
 instance Scalar a => Vector Vec2D a where
   zerov = V2 zero zero
@@ -78,7 +119,9 @@ instance Scalar a => Vector Vec2D a where
   smult s (V2 x y) = V2 (s `mult` x) (s `mult` y)
   negatev (V2 x y) = V2 (negates x) (negates y)
 
-data Vec3D a = V3 a a a deriving (Eq, Show)
+-- 3b. Vectori 3D
+data Vec3D a = V3 a a a 
+    deriving (Eq, Show)
 
 instance Scalar a => Vector Vec3D a where
   zerov = V3 zero zero zero
@@ -88,7 +131,9 @@ instance Scalar a => Vector Vec3D a where
   smult s (V3 x y z) = V3 (s `mult` x) (s `mult` y) (s `mult` z)
   negatev (V3 x y z) = V3 (negates x) (negates y) (negates z)
 
---teste
+-- ============================================================================
+-- TESTE
+-- ============================================================================
 
 testTree :: Bool
 testTree =
@@ -131,3 +176,15 @@ testVec3DFloat =
      zeroVec == V3 0.0 0.0 0.0 &&
      oneVec == V3 1.0 1.0 1.0 &&
      negatev v1 == V3 (-1.0) (-2.0) (-3.0)
+
+main :: IO ()
+main = do
+    putStrLn $ "Test Tree: " ++ show testTree
+    putStrLn $ "Test Scalar Int: " ++ show testScalarInt
+    putStrLn $ "Test Vec2D Int: " ++ show testVec2DInt
+    putStrLn $ "Test Vec3D Float: " ++ show testVec3DFloat
+
+{-
+## Extra: Corespondența Curry-Howard
+Se recomandă vizionarea prezentării 'Propositions as Types' de Philip Wadler.
+-}
