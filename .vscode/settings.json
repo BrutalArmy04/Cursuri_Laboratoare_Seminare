@@ -56,5 +56,9 @@
   "cmake.ignoreCMakeListsMissing": true,
   "C_Cpp_Runner.enableWarnings": true,
   "C_Cpp_Runner.warningsAsError": false,
-  "C_Cpp_Runner.compilerArgs": []
+  "C_Cpp_Runner.compilerArgs": [],
+  "java.project.sourcePaths": [
+    "Programare Avansata pe Obiecte\\Laboratoare\\src"
+  ],
+  "java.project.referencedLibraries": []
 }

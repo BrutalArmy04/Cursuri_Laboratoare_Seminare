@@ -2,6 +2,27 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "Cursuri_Laboratoare_Seminare_c9c5a5fb"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Exercitiu.Main",
+      "projectName": "Cursuri_Laboratoare_Seminare_c9c5a5fb"
+    },
+    {
+      "type": "java",
+      "name": "AudioBook",
+      "request": "launch",
+      "mainClass": "AudioBook",
+      "projectName": "Cursuri_Laboratoare_Seminare_c9c5a5fb"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
