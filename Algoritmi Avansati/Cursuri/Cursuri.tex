@@ -1,0 +1,160 @@
+\documentclass[a4paper]{article}
+
+% --- ESSENTIAL PACKAGES FOR COMPACTION ---
+\usepackage[a4paper, margin=0.2in]{geometry} % set tight margins
+\usepackage{multicol}      % create a multi-column layout
+\usepackage{titlesec}      % customize section/subsection titles
+\usepackage{paralist}      % creating compact lists
+\usepackage{amsmath}       % math environments
+
+% --- UTILITY & STYLING PACKAGES ---
+\usepackage{xcolor}        % custom colors
+\usepackage{graphicx}      % images
+\usepackage{listings}      % code snippets
+\usepackage{hyperref}      % clickable links
+
+% --- COLOR DEFINITIONS ---
+\definecolor{codegray}{rgb}{0.9,0.9,0.9} % code background
+\definecolor{darkblue}{rgb}{0.0,0.0,0.5} % for comments
+\definecolor{defbox_bg}{rgb}{0.9, 0.9, 1.0} % definition box background
+\definecolor{defbox_fr}{rgb}{0.3, 0.3, 0.7} % frame
+
+% --- GLOBAL LAYOUT & SPACING CONFIGURATION ---
+
+% set paragraph spacing: no indent, with tiny vertical gap between paragraphs
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5ex}
+
+% make section and subsection titles extremely compact
+\titlespacing*{\section}{0pt}{1.2ex}{0.8ex}
+\titlespacing*{\subsection}{0pt}{1ex}{0.5ex}
+\titleformat*{\section}{\bfseries\large}
+\titleformat*{\subsection}{\bfseries\normalsize}
+
+% make lists as compact as possible
+\let\itemize\compactitem
+\let\enditemize\endcompactitem
+\let\enumerate\compactenum
+\let\endenumerate\endcompactenum
+
+% --- CODE LISTING STYLE ---
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codegray},   
+    commentstyle=\color{darkblue},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\tiny,
+    breaklines=true,
+    numbers=left,                    
+    numbersep=4pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% --- HYPERREF SETUP---
+\hypersetup{
+    colorlinks=true, linkcolor=blue, urlcolor=cyan,
+}
+
+% --- CUSTOM COMMANDS/ENVIRONMENTS ---
+% tight box for definitions
+\newenvironment{definition}[1]
+    {\par\noindent\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=#1,fonttitle=\bfseries,boxsep=1mm,left=1mm,right=1mm,top=1mm,bottom=1mm]}
+    {\end{tcolorbox}}
+
+% simpler alternative w/o tcolorbox
+% \newcommand{\definition}[2]{\par\noindent\fcolorbox{defbox_fr}{defbox_bg}{\begin{minipage}{0.95\columnwidth}\textbf{#1:} #2\end{minipage}}\par}
+
+\begin{document}
+
+% --- CUSTOM, MINIMAL TITLE ---
+\noindent
+\textbf{\tiny Cheat Sheet - Algoritmi Avansati}
+\hrule
+\vspace{0.25ex}
+
+% --- GLOBAL SETTINGS FOR THE DOCUMENT BODY ---
+\pagestyle{empty}
+\footnotesize
+
+
+\section{}
+
+\begin{multicols}{2}
+
+% \begin{definition}{titlu}
+P (Polynomial) - Clasa de probleme pentru care le putem afla solutia in timp polinomial \\
+Np (Nondeterministic Polynomial) - Clasa de probleme pentru care putem verifica in timp polinomial daca un rezultat este solutie corecta pentru problema noastra. \\
+Problema de Optim: \\
+Informal spus este problema in care trebuie sa gasesti o “cea mai buna” solutie/constructie fezabila. \\
+“Cea mai buna” - poate avea doua sensuri:   \\
+\begin{itemize}
+\item Fie avem o problema de minimizare precum Problema Comis-voiajorului. \\
+\item Fie o problema de maximizare precum cea de a găsi o acoperire de cardinal maxim pentru multimea varfurilor unui graf \\
+\end{itemize}
+Fie P - o problema de optim, și I o intrare pe aceasta problema. Vom nota cu OPT(I) ”valoarea” soluției optime. \\
+În mod analog, atunci când propunem un algoritm care să ofere o soluție fezabilă pentru problema
+noastră, vom nota ”valoarea” acelei soluții cu ALG(I). \\
+De cele mai multe ori, atunci când nu se crează confuzie, vom simplifica notațiile folosind termenii
+”OPT”, respectiv ”ALG” \\
+Pe parcursul prezentării vom presupune că atât OPT, cât și ALG sunt $\geq0$. \\
+Pentru a justifica ca un algoritm este util, aceste trebuie insotit de o justificare
+ca solutia oferita este fezabila pentru problema, precum si o relatie intre ALG si OPT.
+Acest tip de relatie este descrisa astfel: \\
+Definitie 1: 
+\begin{itemize}
+\item un algoritm ALG pentru o problema de minimizare se numeste 
+$\rho$-aproximativ, pentru o valoare $\rho >1$, daca ALG(I) $\leq \rho \cdot$OPT(I) pentru $\forall$ I - intrare \\
+\item un algoritm ALG pentru o problema de maximizare se numeste 
+$\rho$-aproximativ, pentru o valoare $\rho <1$, daca ALG(I) $\geq \rho \cdot$OPT(I) pentru $\forall$ I - intrare \\
+\end{itemize}
+Observatie pentru problemele de minim: Orice algoritm $\rho$-aproximativ este la randul lui
+$\rho$'-aproximativ pentru orice $\rho$' > $\rho$. De aceea, in cazul unul algoritm ALG pentru o problema de minimizare, spre exemplu, trebuie 
+ca justificarea ce insoteste pe ALG sa ofere cea mai mica valoare $\rho$ pentru care ALG este $\rho$-aproximativ.
+Definitie 2: \\
+Fie ALG un algoritm $\rho$-aproximativ pentru o problema de minimizare. Spunem ca 
+factorul de aproximare este "tight bounded" atunci cand avem $\rho$ = $supremum_I$
+$\frac{ALG(I)}{OPT(I)}$. Ca sa aratam ca un algoritm este $\rho$-aproximativ "tight bounded",
+trebuie deci sa justificam urmatoarele 2 lucruri:
+\begin{itemize}
+    \item Trebuie sa aratam ca este $\rho$-aproximativ, adica ALG(I)$\leq \rho \cdot$OPT(I) pentru orice intrare I
+    \item Pentru orice $\rho$'<$\rho$ exista un I pentru care ALG(I)>$\rho$'$\cdot$OPT(I).
+     Adesea totusi ne este la indemana sa aratam ca exista un I pentru care ALG(I) = $\rho \cdot$OPT(I)
+
+\end{itemize}
+
+Problema rucsacului 1/0
+
+Enunt pe scurt: Trebuie sa gasim o submutime de obiecte de valoare totala maxima, fara ca greutatea lor totala sa depaseasca o capacitate data a rucsacului. Obiectele sunt puse integral in rucsac sau sunt data deoparte. Nu pot fi fractionate. \\
+In mod normal este programare dinamica cu complexiate n$\cdot$c. Presupunere: fiecare obiect are o greutate mai mica sau egala cu capacitatea rucsacului! \\
+
+Rezolvare propusa: \\
+
+Fie L - lista obiectlor sortate dupa raportul $\frac{valoare}{greutate}$ \\
+Fie $ O_p$ - obiectul cu profitul cel mai mare din lista de obiecte. \\
+S = 0, G = capacitatea rucsacului; \\
+Pentru fiecare O:L daca greutatea(O)$leq$G, atunci S += val(O), G-= greutate(O) \\
+ALG(I) = max(S, $O_p$) \\
+Justificarea:
+\begin{itemize}
+    \item In primul rand, algoritmul de mai sus ne ofera o solutie fezabila. Elementele care au suma valorilor S vor avea o greutate totala $\geq$ capacitatea rucsacului, respectiv $O_p$ incape si el in rucsac de unul singur.
+    \item Trebuie sa justificam doar factorul de aproximare. Fie $OPT_{1/0}$ valoarea optima pentru Problema Rucsacului in varianta 1/0, respectiv $OPT_G$ valoarea optima, furnizata de algoritmul de tip greedy pentru problema rucsacului in care avem voie sa fractionam obiecte pentru a le incarca in rucsac. 
+    \item Cum este $OPT_{1/0}$ fata de $OPT_G$? \quad $OPT_{1/0} \geq OPT_G$
+    \item Fie k indicele primului obiect care nu este adaugat in algoritmul de la inceputul paginii.
+    \item $OPT_{1/0} \leq OPT_G \leq \sum_{1 \leq i \leq k} val(O_i) = \sum_{1 \leq i \leq k} val(O_i) + val(O_k) leq \sum_{1 \leq i \leq k} val(O_i) + val(O_p)$
+    \item ALG = max(S, $O_P$)
+    \item $OPT_{1/0} leq \sum_{1 \leq i \leq k} val(O_i) + val(O_p) leq ALG + ALG = 2 \cdot ALG. OPT_{1/0} \leq 2 \cdot ALG$
+    \item Ex intrare pt care abaterea e maxima: G = 100; Ob (val/greutate) = [(50+eps1)/(50+eps2), 50/50, 50/50] cu eps1 > eps2 > 0
+    \item Profitul maxim este 100, iar profitul solutiei algoritmului este 50+eps1. ALG(I)$ \cong \frac{1}{2} \cdot OPT(I) deci \frac{1}{2}$ este un "tight upper bound"
+% \end{definition}
+\end{itemize}
+\end{multicols}
+
+\section{}
+
+
+\end{document}

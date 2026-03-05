@@ -5,7 +5,6 @@ package Lab1;
 import java.util.Scanner;
 
 public class Main{
-    int is;
 
     public static void main(String[] args) {
         matrice();

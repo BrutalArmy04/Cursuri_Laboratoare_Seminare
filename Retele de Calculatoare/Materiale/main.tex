@@ -1,4 +1,8 @@
 \documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{url}
 
@@ -39,8 +43,7 @@
     \item WiFi
 \end{itemize}
 
-
-_{*not real name for privacy}
+% *not real name for privacy
 \newpage
 
 
@@ -227,7 +230,7 @@ Mai precis, limitele noastre vor fi:
     DNS = 154.187.255.254/14
 \end{center}
 
-Numarul de adrese asignabile este practic 2^{H}-2. 
+Numarul de adrese asignabile este practic $2^{H}-2$. 
 
 Unde H = lungimea de biti a sufixului sau 32-lungimea mastii.
 
@@ -278,19 +281,19 @@ Intai vom configura fiecare LAN, apoi vom lega in serie fiecare subretea, 2 cate
 \begin{center}
 \begin{tabular}{||c| c| c|c|c||} 
 \hline 
- Ramura & N Users & Nr.IP-uri necesare & 2^{n} maxim \geq N & IP-uri alocate \\
+ Ramura & N Users & Nr.IP-uri necesare & $2^{n}$ maxim $\geq N$ & IP-uri alocate \\
  \hline \hline
- Bega & 4094 & 4096_{4094+2} & 2^{12} & 4096\\   
+ Bega & 4094 & $4096_{4094+2}$ & $2^{12}$ & 4096\\   
  \hline 
- Buzau & 2046 & 2048_{2046+2} & 2^{11} & 2048\\  
+ Buzau & 2046 & $2048_{2046+2}$ & $2^{11}$ & 2048\\  
  \hline 
- Bihor & 1022 & 1024_{1022+2} & 2^{10} & 1024\\  
+ Bihor & 1022 & $1024_{1022+2}$ & $2^{10}$ & 1024\\  
  \hline 
- Bicaz & 511 & 513_{511+2} & 2^{10}& 1024\\ 
+ Bicaz & 511 & $513_{511+2}$ & $2^{10}$& 1024\\ 
  \hline 
- Bistrita & 127 & 129_{127+2} & 2^{8}& 256\\   
+ Bistrita & 127 & $129_{127+2}$ & $2^{8}$& 256\\   
  \hline
- Babadag & 31 & 33_{31+2} & 2^{6} & 64\\   
+ Babadag & 31 & $33_{31+2}$ & $2^{6}$ & 64\\   
 \hline \hline
 \end{tabular}
 \end{center}
@@ -353,7 +356,7 @@ Cum am obtinut Broadcast Address-ul? Network Address OR masca negata.
 \end{center}
 
 \subsubsection{Exemplu Buzau:}
-
+    
 Buzau, 2048 ip-uri, sufix de 11 biti. 32-11 = 21 biti $=>$ \textbf{masca de 21 biti}.
 
 Daca Network Address-ul pentru Bega era prima adresa a retelei noastre cea mare.
@@ -361,12 +364,12 @@ Daca Network Address-ul pentru Bega era prima adresa a retelei noastre cea mare.
 Atunci Network Address-ul pentru Buzau va fi prima adresa disponibila dupa toate adresele folosite de Bega.
 In alte cuvinte, prima adresa DUPA Broadcast Address-ul lui Bega. 
 
-*si da, X.X.15.255 + 1 va da X.X.16.0 deoarece u$_$int8 overflow.
+*si da, X.X.15.255 + 1 va da X.X.16.0 deoarece \texttt{u\_int8} overflow.
 
 Astfel:
 
 \begin{center}
-    \[NA_{Buzau} = BA_{Bega}+1
+    $$NA_{Buzau} = BA_{Bega}+1$$
 \end{center}
 
 
@@ -394,7 +397,7 @@ Cum am obtinut Broadcast address-ul?
     \hline
     \end{tabular}
 \end{center}
-    \[NA_{Bihor} = BA_{Buzau}+1  $and so on and so forth$
+    $$NA_{Bihor} = BA_{Buzau}+1 \text{ and so on and so forth}$$
 
 \subsubsection{Toate zonele:}
 
@@ -607,17 +610,17 @@ Network Address-ul pentru Buzau este 154.184.16.0/21, deci DGW este 154.184.16.1
 
 Avem 2046 ip-uri asignabile si impartim la 26. Luam rezultatul si rotunjim superior.
 
-\[\frac{2046}{26} \approx 78,69 \rightarrow 79 \]
+\[\frac{2046}{26} \approx 78{,}69 \rightarrow 79 \]
 
 Adresa de DGW este 154.184.16.1/21, astfel:
 
--154.184.16.1+1/21     va fi primul switch \rightarrow 154.184.16.2/21.
+154.184.16.1+1/21     va fi primul switch $\rightarrow$ 154.184.16.2/21.
 
--154.184.16.1+79/21 va fi ultimul switch \rightarrow 154.184.16.80/21.
+154.184.16.1+79/21 va fi ultimul switch $\rightarrow$ 154.184.16.80/21.
 
 Intervalul de switch-uri pentru Buzau va fi:
 \begin{center}
-    154.184.16.2/21 - 154.184.16.80/21
+    154.184.16.2/21 -- 154.184.16.80/21
 \end{center}
 
 
@@ -628,17 +631,17 @@ Intervalul de switch-uri pentru Buzau va fi:
     \hline \hline
        Subretea & NrUsers & IP-uri asignabile & Numar Switch-uri & Interval Switch-uri \\
     \hline \hline
-        Bega & 4094 & 4094 & 4094/26 \rightarrow158 & 154.184.0.2/20 - 154.184.0.159/20\\
+        Bega & 4094 & 4094 & $4094/26 \rightarrow 158$ & 154.184.0.2/20 -- 154.184.0.159/20\\
         \hline
-        Buzau & 2046 & 2046 & 2046/26 \rightarrow79 & 154.184.16.2/21 - 154.184.16.80/21\\
+        Buzau & 2046 & 2046 & $2046/26 \rightarrow 79$ & 154.184.16.2/21 -- 154.184.16.80/21\\
         \hline
-        Bihor&1022&1022&1022/26 \rightarrow40& 154.184.24.2/22 - 154.184.24.41/22\\
+        Bihor & 1022 & 1022 & $1022/26 \rightarrow 40$ & 154.184.24.2/22 -- 154.184.24.41/22\\
         \hline
-        Bicaz&511&1022&1022/26 \rightarrow40 & 154.184.28.2/22 - 154.184.28.41/22\\
+        Bicaz & 511 & 1022 & $1022/26 \rightarrow 40$ & 154.184.28.2/22 -- 154.184.28.41/22\\
         \hline
-        Bistrita&127&254&254/26 \rightarrow10& 154.184.32.2/24 - 154.184.32.11/24 \\
+        Bistrita & 127 & 254 & $254/26 \rightarrow 10$ & 154.184.32.2/24 -- 154.184.32.11/24 \\
         \hline
-        Babadag&31&62&62/26 \rightarrow3& 154.184.33.2/26 - 154.184.33.4/26\\
+        Babadag & 31 & 62 & $62/26 \rightarrow 3$ & 154.184.33.2/26 -- 154.184.33.4/26\\
         \hline
     \end{tabular}
 \end{center}
@@ -838,7 +841,7 @@ Ce ne intereseaza mai mult:
     \item[!!] Note mode(N) - La urmatorul click pe mouse vom lasa pe ecran o notita ca un textbox. Este ceruta la examen.
 
         
-    \textbf{Ceva foarte important}. In acele notite putem scrie cod LaTeX. Ce ne intereseaza este comanda \textbf{\&le;} care va aparea in acel note ca semnul de \leq.
+    \textbf{Ceva foarte important}. In acele notite putem scrie cod LaTeX. Ce ne intereseaza este comanda \textbf{\&le;} care va aparea in acel note ca semnul de $\leq$.
     
     \item Inspect (I) - La urmatorul click pe echipament putem forta CPT sa ne arate datele de configurare setate.
     \item Cancel (Esc) - Iese din cele 3 moduri de mai sus.
@@ -856,7 +859,7 @@ Mai mereu redenumim echipamentele cand lucram cu ele. Si deoarece noi simulan ha
 
 
 \subsection{End User PC (Host)}
-\includegraphics[width=0.2\linewidth,right]{PC.png}
+\includegraphics[width=0.2\linewidth]{PC.png}
 
 Un Host PC care reprezinta un utilizator, pentru acesta nu avem nevoie decat sa il redenumim pentru topologie, si sa ii configuram adresa de ip si datele pentru email.
 
@@ -864,7 +867,7 @@ Un Host PC care reprezinta un utilizator, pentru acesta nu avem nevoie decat sa 
 (Stanga Jos) $\rightarrow$ End Devices $\rightarrow$ End Devices $\rightarrow$ PC (PC-PT)
 
 \paragraph{Placa de Retea}:
-Click PC $\rightarrow$ Physical $\rightarrow$Power Off$\rightarrow$ Drag & Drop luam placa de retea $\rightarrow$ Modules $\rightarrow$ luam PT-HOST-NM-1CGE $\rightarrow$ punem in slot $\rightarrow$ Power On.
+Click PC $\rightarrow$ Physical $\rightarrow$Power Off$\rightarrow$ Drag \& Drop luam placa de retea $\rightarrow$ Modules $\rightarrow$ luam PT-HOST-NM-1CGE $\rightarrow$ punem in slot $\rightarrow$ Power On.
 
 De acum mereu vom conecta PC-urile cu cabluri de tip Copper Straight-Through pe interfata de Gigabitethernet.
 
@@ -933,7 +936,7 @@ Copper Straight Through $\rightarrow$ Gigabitethernet 0/0 ( 0/1, 0/2).
 
 
 \paragraph{Placa de Retea}:
-Click Router $\rightarrow$ Physical $\rightarrow$Power Off$\rightarrow$ Drag & Drop luam placa de retea $\rightarrow$ Modules $\rightarrow$ luam HWIC-2T $\rightarrow$ punem in al 4-lea slot, in dreapta sus langa sursa $\rightarrow$ Power On.
+Click Router $\rightarrow$ Physical $\rightarrow$Power Off$\rightarrow$ Drag \& Drop luam placa de retea $\rightarrow$ Modules $\rightarrow$ luam HWIC-2T $\rightarrow$ punem in al 4-lea slot, in dreapta sus langa sursa $\rightarrow$ Power On.
 
 
 
@@ -1103,6 +1106,7 @@ Deoarece reteaua de Wi-Fi este cam prin definitie o retea privata, observam urma
     \item[2] Masca va fi cel putin /24, deoarece RWi-Fi este limitat fizic la cate dispozitive poate organiza/sustine.
     \item[3] Wi-Fi-ul este limitat la a avea 252 de useri deodata, deoarece prin masca, am putea avea maxim $2^8$ ip-uri, dintre care nu luam in considerare 3 adrese, NA,BA si DGW (RWi-Fi este deja DGW).
     \item[4] Adresa de DGW pe reteaua de Wi-Fi, adica adresa prin are identificam dispozitivil prin browser-ul web, initial era 192.168.0.1, daca schimbam adresa de DGW, va trebui sa schimbam si adresa IP din laptopul service deoarece vom pierde conexiunea.
+\end{itemize}
 
 \paragraph{Deci ce punem noi in campurile acelea?}
 
@@ -1150,7 +1154,7 @@ Taburile de sus $\rightarrow$ Wireless $\rightarrow$ Basic Wireless Settings
     \includegraphics[width=0.75\linewidth]{Wireless.png}
 \end{center}
 
-\begin{itemise}
+\begin{itemize}
     \item Network Mode $\rightarrow$ Mixed
     \item Network Name (SSID)$\rightarrow$ Wi-FiOras
     \item Radio Band $\rightarrow$Auto
@@ -1158,7 +1162,7 @@ Taburile de sus $\rightarrow$ Wireless $\rightarrow$ Basic Wireless Settings
     \item Standard Channel $\rightarrow$ alegem fie 6 fie 11
     \item SSID Broadcast $\rightarrow$ Enable
     \item \underline{Scroll jos de tot $\rightarrow$ Save Settings}
-\end{itemise}
+\end{itemize}
 \begin{center}
     \includegraphics[width=0.75\linewidth]{Wireless Security.png}
 \end{center}
@@ -1325,7 +1329,7 @@ Stanga jos $\rightarrow$ Connections$\rightarrow$ Connections.
 
     $\rightarrow$ Server $\rightarrow$ port GigabitEthernet 0
 
-    $\rightarrow$ Switch \rightarrow$ port GigabitEthernet \{1/2\} (i guess merge oricum oricare si FA dar idk)
+    $\rightarrow$ Switch $\rightarrow$ port GigabitEthernet \{1/2\} (i guess merge oricum oricare si FA dar idk)
     
     
 
@@ -1542,7 +1546,7 @@ R-Anglia(config)#ip route 209.100.100.160 255.255.255.224 10.10.10.10
 sau 
 R-Anglia(config)#ip route 209.100.100.160 255.255.255.224 serial 0/0/X
 \end{verbatim}
-unde X\in\{0,1\}
+unde $X\in\{0,1\}$
 
 Permite routerului sa comunice cu Reteaua 209.100.100.160/27 prin adresa serial 10.10.10.10/30 cu care este legat (pe Serial 0/0/0, lab3)
 
@@ -1648,7 +1652,7 @@ Click PC$\rightarrow$Desktop$\rightarrow$Email
 \subsubsection{Testare}
 Iar pentru a testa configuratia curenta.
 
-CRIS \rightarrow Desktop \rightarrow  Command Prompt (CMD)
+CRIS $\rightarrow$ Desktop $\rightarrow$  Command Prompt (CMD)
 
 \begin{verbatim}
     Cisco Packet Tracer PC Command Line 1.0
@@ -2005,7 +2009,7 @@ R-Franta(config-if)#no shutdown
     \item[1.] Incearca sa dai ping de la PC-uri in celelalte componente. Din oricare pc in oricare componenta!
 
     \item[2.] Incearca sa dai un email din Anglia in Franta sa sugerezi ca vinul se bea mai bine cand te uiti la Courage the Cowardly dog.
-        \begin{itemise}
+        \begin{itemize}
             \item  To $\rightarrow$ Franta@info.ro
             \item  Subject $\rightarrow$ Recomandari
             \item  Mai tii minte cainele acela ce ne traumatiza pe cartoon network?
@@ -2013,13 +2017,13 @@ R-Franta(config-if)#no shutdown
             \item Click Franta PC
             \item Email
             \item Receive \& Cry
-        \end{itemise}
+        \end{itemize}
 \newpage
 \subsubsection{Serviciul FTP}
 FTP = File Transfer Protocol.
 
 TFTP = Trivial File Transfer Protocol (nu râde.)
-\begin{itemise}
+\begin{itemize}
     \item[1.] Anglia $\rightarrow$ Desktop $\rightarrow$ Text Editor $\rightarrow$ Scriem un fisier si il salvam, sa zicem BugsBunny.txt.
     \item[2.] Verifica pe Anglia $\rightarrow$ Desktop $\rightarrow$ "TFTP Service" daca gasesti fisierul salvat.
     \item[3.] Desktop$\rightarrow$Command Prompt
@@ -2066,7 +2070,7 @@ ftp>?
         File transfer in progress...
     \end{verbatim}
     \item[9.] Anglia $\rightarrow$ Desktop$\rightarrow$TFTP Service$\rightarrow$ uite ce am gasit! 
-\end{itemise}
+\end{itemize}
 
     
     
@@ -2610,14 +2614,14 @@ Un exemplu a ce puteti sa primiti la examen.
 
 \begin{center}
     \includegraphics[width=1\linewidth]{NotiteLab7.png}
-\end{figure}
+\end{center}
 \part{Optional MAC An III}
 
 \part{Q.E.D.}
 
 $\rightarrow$
 
-\leq
+$\leq$
 
 
 
