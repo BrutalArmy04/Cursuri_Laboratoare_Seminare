@@ -1,6 +1,7 @@
 //package com.pao.laborator00;
 
-package Lab1;
+package lab1;
+ 
 
 import java.util.Scanner;
 

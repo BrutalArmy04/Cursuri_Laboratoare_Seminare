@@ -1,6 +1,6 @@
-//package com.pao.laboratory01.exercise;
+//package lab2.laboratory01.exercise;
 
-package Lab2.Exercitiu;
+package lab2.Exercitiu;
 
 /**
  * Exercițiu — Singleton Service pentru Car

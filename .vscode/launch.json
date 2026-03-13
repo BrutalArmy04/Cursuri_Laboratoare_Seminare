@@ -5,6 +5,34 @@
       "type": "java",
       "name": "Main",
       "request": "launch",
+      "mainClass": "lab3.exercise4.Main",
+      "projectName": "Cursuri_Laboratoare_Seminare_c9c5a5fb"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Lab3.exercise3.Main",
+      "projectName": "Cursuri_Laboratoare_Seminare_c9c5a5fb"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Lab3.exercise2.Main",
+      "projectName": "Cursuri_Laboratoare_Seminare_c9c5a5fb"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Lab3.exercise1.Main",
+      "projectName": "Cursuri_Laboratoare_Seminare_c9c5a5fb"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
       "mainClass": "Main",
       "projectName": "Cursuri_Laboratoare_Seminare_c9c5a5fb"
     },

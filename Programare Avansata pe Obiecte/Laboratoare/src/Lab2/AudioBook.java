@@ -1,5 +1,5 @@
 
-package Lab2;
+package lab2;
 
 import java.util.Arrays;
 import java.util.Comparator; 

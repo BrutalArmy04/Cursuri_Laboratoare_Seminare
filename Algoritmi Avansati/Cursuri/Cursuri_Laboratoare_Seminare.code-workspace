@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../Fundamentele Limbajelor de Programare/Laboratoare/Lab2"
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"Programare Avansata pe Obiecte\\Laboratoare\\src"
+		],
+		"java.project.referencedLibraries": []
+	}
+}

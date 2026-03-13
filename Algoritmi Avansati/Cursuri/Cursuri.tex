@@ -67,7 +67,7 @@
     {\end{tcolorbox}}
 
 % simpler alternative w/o tcolorbox
-% \newcommand{\definition}[2]{\par\noindent\fcolorbox{defbox_fr}{defbox_bg}{\begin{minipage}{0.95\columnwidth}\textbf{#1:} #2\end{minipage}}\par}
+\newcommand{\quickdef}[2]{\par\noindent\fcolorbox{defbox_fr}{defbox_bg}{\begin{minipage}{0.95\columnwidth}\textbf{#1:} #2\end{minipage}}\par}
 
 \begin{document}
 
@@ -90,8 +90,8 @@
 P (Polynomial) - Clasa de probleme pentru care le putem afla solutia in timp polinomial \\
 Np (Nondeterministic Polynomial) - Clasa de probleme pentru care putem verifica in timp polinomial daca un rezultat este solutie corecta pentru problema noastra. \\
 Problema de Optim: \\
-Informal spus este problema in care trebuie sa gasesti o “cea mai buna” solutie/constructie fezabila. \\
-“Cea mai buna” - poate avea doua sensuri:   \\
+Informal spus este problema in care trebuie sa gasesti o “cea mai bună” solutie/constructie fezabila. \\
+“Cea mai bună” - poate avea doua sensuri:   \\
 \begin{itemize}
 \item Fie avem o problema de minimizare precum Problema Comis-voiajorului. \\
 \item Fie o problema de maximizare precum cea de a găsi o acoperire de cardinal maxim pentru multimea varfurilor unui graf \\
@@ -99,7 +99,7 @@ Informal spus este problema in care trebuie sa gasesti o “cea mai buna” solu
 Fie P - o problema de optim, și I o intrare pe aceasta problema. Vom nota cu OPT(I) ”valoarea” soluției optime. \\
 În mod analog, atunci când propunem un algoritm care să ofere o soluție fezabilă pentru problema
 noastră, vom nota ”valoarea” acelei soluții cu ALG(I). \\
-De cele mai multe ori, atunci când nu se crează confuzie, vom simplifica notațiile folosind termenii
+De cele mai multe ori, atunci când nu se creează confuzie, vom simplifica notațiile folosind termenii
 ”OPT”, respectiv ”ALG” \\
 Pe parcursul prezentării vom presupune că atât OPT, cât și ALG sunt $\geq0$. \\
 Pentru a justifica ca un algoritm este util, aceste trebuie insotit de o justificare
@@ -114,7 +114,7 @@ $\rho$-aproximativ, pentru o valoare $\rho <1$, daca ALG(I) $\geq \rho \cdot$OPT
 \end{itemize}
 Observatie pentru problemele de minim: Orice algoritm $\rho$-aproximativ este la randul lui
 $\rho$'-aproximativ pentru orice $\rho$' > $\rho$. De aceea, in cazul unul algoritm ALG pentru o problema de minimizare, spre exemplu, trebuie 
-ca justificarea ce insoteste pe ALG sa ofere cea mai mica valoare $\rho$ pentru care ALG este $\rho$-aproximativ.
+ca justificarea ce insoteste pe ALG sa ofere cea mai mică valoare $\rho$ pentru care ALG este $\rho$-aproximativ.
 Definitie 2: \\
 Fie ALG un algoritm $\rho$-aproximativ pentru o problema de minimizare. Spunem ca 
 factorul de aproximare este "tight bounded" atunci cand avem $\rho$ = $supremum_I$
@@ -137,7 +137,7 @@ Rezolvare propusa: \\
 Fie L - lista obiectlor sortate dupa raportul $\frac{valoare}{greutate}$ \\
 Fie $ O_p$ - obiectul cu profitul cel mai mare din lista de obiecte. \\
 S = 0, G = capacitatea rucsacului; \\
-Pentru fiecare O:L daca greutatea(O)$leq$G, atunci S += val(O), G-= greutate(O) \\
+Pentru fiecare O:L daca greutatea(O)$\leq$G, atunci S += val(O), G-= greutate(O) \\
 ALG(I) = max(S, $O_p$) \\
 Justificarea:
 \begin{itemize}
@@ -145,16 +145,134 @@ Justificarea:
     \item Trebuie sa justificam doar factorul de aproximare. Fie $OPT_{1/0}$ valoarea optima pentru Problema Rucsacului in varianta 1/0, respectiv $OPT_G$ valoarea optima, furnizata de algoritmul de tip greedy pentru problema rucsacului in care avem voie sa fractionam obiecte pentru a le incarca in rucsac. 
     \item Cum este $OPT_{1/0}$ fata de $OPT_G$? \quad $OPT_{1/0} \geq OPT_G$
     \item Fie k indicele primului obiect care nu este adaugat in algoritmul de la inceputul paginii.
-    \item $OPT_{1/0} \leq OPT_G \leq \sum_{1 \leq i \leq k} val(O_i) = \sum_{1 \leq i \leq k} val(O_i) + val(O_k) leq \sum_{1 \leq i \leq k} val(O_i) + val(O_p)$
+    \item $OPT_{1/0} \leq OPT_G \leq \sum_{1 \leq i \leq k} val(O_i) = \sum_{1 \leq i \leq k} val(O_i) + val(O_k) \leq \sum_{1 \leq i \leq k} val(O_i) + val(O_p)$
     \item ALG = max(S, $O_P$)
-    \item $OPT_{1/0} leq \sum_{1 \leq i \leq k} val(O_i) + val(O_p) leq ALG + ALG = 2 \cdot ALG. OPT_{1/0} \leq 2 \cdot ALG$
+    \item $OPT_{1/0} \leq \sum_{1 \leq i \leq k} val(O_i) + val(O_p) \leq ALG + ALG = 2 \cdot ALG. OPT_{1/0} \leq 2 \cdot ALG$
     \item Ex intrare pt care abaterea e maxima: G = 100; Ob (val/greutate) = [(50+eps1)/(50+eps2), 50/50, 50/50] cu eps1 > eps2 > 0
-    \item Profitul maxim este 100, iar profitul solutiei algoritmului este 50+eps1. ALG(I)$ \cong \frac{1}{2} \cdot OPT(I) deci \frac{1}{2}$ este un "tight upper bound"
+    \item Profitul maxim este 100, iar profitul solutiei algoritmului este 50+eps1. ALG(I)$ \cong \frac{1}{2} \cdot OPT(I) deci \frac{1}{2}$ este un "tight upper bound" 
+    \item 
 % \end{definition}
 \end{itemize}
+
+Load Balancing Problem
+Input:
+\begin{itemize}
+    \item m calculatoare identice; n activitati ce trebuiesc procesate. Fiecare activitate j avand nevoie de $t_j$ unitati de timp pentru executie.
+    \item Odata initiata, fiecare dintre activitati trebuie derulata in mod continuu pe acelasi calculator.
+    \item Un calculator poate executa cel mult o activitate in acelasi timp
+\end{itemize}
+Scop: Sa asignam fiecare activitate unui calculator astfel incat sa minimizam timpul pana cand toate activitatile sunt terminate.
+%\textbf{Notatii:}
+Notatii:
+\begin{itemize}
+    \item J(i) - submultimea tuturor activitatilor care au fost programate sa se desfasoare pe masina i.
+    \item $L_i$ va reprezenta timpul de lucru al masinii i.
+    \item $L_i = \sum_{j \in J(i)} t_j$
+    \item Scop: O asignare a activitatile astfel incat $L_k$ este minimizat, unde k = $max_i(L_i)$, adica masina cu cel mai mare load.
+    \item 
+\end{itemize}
+Pseudocodul:
+\begin{itemize}[{}]
+    \item Load - Balance(m, $t_1, t_2, ..., t_n$)
+    \item for i = 1 to m:
+    \begin{itemize}[{}]
+        \item $L_i = 0; J(i) = \emptyset $  initializare: Fiecare Load este 0, iar multimea joburilor este nula pentru fiecare masina
+    \end{itemize}
+    \item for j = 1 to n:
+    \begin{itemize}[{}]
+        \item i = arg(min{$L_k | k \in$ {1,..., m}})  masina cu incarcatura cea mai mică in acest moment
+        \item J(i) = J(i) $\cup$ {j}
+        \item $L_i += t_j$ 
+    \end{itemize}
+\end{itemize}
+
+In curs este step by step example, nu stiu daca sa il scriu \\
+
+Care este factorul de aproximatie: \\
+
+Lema 1: OPT $\geq \max \{ \frac{1}{m} \cdot \sum_{1 \leq j \leq n} t_j, \max \{ t_j \mid 1 \leq j \leq n \} \}$
+Lema 2: Algoritmul descris anterior este un algoritm 2-Aproximativ. Altfel spus, fie ALG = max($L_i | i \in [1,...,m])$ masina cea mai incarcata. Avem de aratat ca $ALG \leq 2 \cdot OPT$.
+\quickdef{Justificare} {Fie:
+\begin{itemize}
+    \item k = indicele masinii cu load-ul maxim in urma rularii algoritmului
+    \item q = ultimul job asignat masinii k
+    \item load'(M) = load-ul masinii M dupa asignarea primelor q-1 joburi, dar nu si a jobului q
+\end{itemize}
+ALG = load'(k) t $t_q$ \\
+load'(k) $ \leq \frac{1}{m} \sum_{1 \leq i \leq m}{} load'(i) = \frac{1}{m} \sum_{1 \leq j < q} t_j < \frac{1}{m} \sum_{1 \leq j \leq n} t_j \leq OPT$ (conforma lema 1)
+$t_q \leq max{t_j | 1 \leq j \leq n} \leq OPT$ (conform lema 1)
+ALG = load'(k) + $t_q \leq OPT + OPT = 2 \cdot OPT$}
+
+\textcolor{green!50!black}{Se poate imbunatati Lower-Boundul? Avem 3 abordari:} \\
+\begin{itemize}
+\item Acelasi algoritm, o analiza mai buna asupra lower-boundului folosit. \\
+Teorema 1: Algoritmul Greedy descris anterior este un algoritm 2-$\frac{1}{m} aproximativ$
+Justificare:    \\
+load'(k) $ \leq \frac{1}{m} \sum_{1 \leq i \leq m}{} load'(i) = \frac{1}{m} \sum_{1 \leq j < q} t_j < \frac{1}{m}( \sum_{1 \leq j \leq n} t_j - t_q ) = \frac{1}{m}(\sum_{1 \leq j \leq n}t_j ) - \frac{1}{m} \cdot t_q $
+ALG = load'(k) + $t_q \leq \frac{1}{m} \cdot (\sum_{1 \leq j \leq n} t_j) - \frac{1}{m} \cdot t_q + t_q = \frac{1}{m} \cdot (\sum_{1 \leq j \leq n} t_j) + t_q(1 - \frac{1}{m}) \leq OPT + OPT \cdot (1 - \frac{1}{m}) = (2 - \frac{1}{m}) \cdot OPT$
+ALG $leq (2 - \frac{1}{m}) \cdot OPT$. Este tight bound? Da \\
+Fie m masimi si m $\cdot$(m-1) activitati de cost 1 si o activitate de cost m. Algoritmul nostru va produce un load maxim de 2m-1 (o activitate de most m si m-1 activitati de cost 1). Solutia optima: o masina are 1 activitate de cost m. Restul de m-1 masini au cate m activitati de cost 1. Per total fiecare masina are un load de exact m unitati de timp. \\
+ALG = 2m-1, OPT = m, ALG = (2-$\frac{1}{m}\cdot OPT)$\\
+\item Acelasi algoritm, gasirea unui alt lower bound folosit alte inegalitati. \\
+
+Fie o multime de n activitati cu timpul de procesare $t_1, t_2,...,t_n$ astfel incat $t_1 \geq t_2 \geq ... \geq t_n. Daca n>m, atunci OPT \geq t_m + t_{m+1}$
+Daca n>m, atuni  $OPT \geq t_m + t_{m+1}$ \\
+Justificare: Din principiul cutiilor rezulta faptul ca daca avem minim m+1 activitati si m masini, atuni cel putin o masina va avea cel putin 2 activitati. Fie acele activitati cu timpii de executie $t_i si t_j$ $OPT \geq t_m + t_{m+1}$
+\item Un cu totul alt algoritm care poate da un total alt LB (Ordered-Scheduling Algorithm)
+\begin{itemize}[]
+    \item Fie algoritmul precedent la care adaugam urmatoarea preprocesare: activitatiile sunt sortate descrescator dupa timpul de lucru.
+    \item Lema 3: Fie o multime de n activitati cu timpul de procesare $t_1, t_2,...,t_n$ astfel incat $t_1 \geq t_2 \geq ... \geq t_n$. Daca n>m, atunci OPT $\geq t_m + t_{m+1}$
+    \item Teorema 2: Algoritmul descris este un algoritm $\frac{3}{2}$-aproximativ
+\end{itemize}
+Justificari:
+\begin{itemize}[]
+    \item Fie k indicele masinii cu loadul maxim in urma executarii algoritmului, deci ALG = load(k)
+    \item Fie q ultima activitate adaugata pe masina k
+    \item Fie load'(i) = load-ul masinii fix inainte ca activitatea q sa fie asociata masinii k, adica load' semnifica loadul masiniilor dupa ce au fost distribuite primele q-1 activitati.
+    \item ALG = load(k) = load'(k) + $t_q$
+    \item load'(k) + $t_q \leq \frac{1}{m} \sum_{1 \leq j \leq n} t_j + t_q$.
+    \item Ce se intampla daca q $\leq$ m? Atunci q va fi pusa peste o masina goala, deci ALG = $t_q \leq t_{max} (activitatea cu timpul de lucru maxim) \leq OPT$
+    \item ALG = OPT - deci daca q este in primele m activitati, atunci algoritmul nostru este exact daca q>m. 
+    \item Load'(k) + $t_q \leq \frac{1}{m} \sum_{1 \leq i \leq n} t_i + t_q < \frac{1}{m} \sum_{1 \leq i \leq n} t_i + \frac{1}{2}(t_m + t_{m+1}) \leq OPT + \frac{1}{2}OPT = \frac{3}{2}OPT$
+\end{itemize}
+\end{itemize}
+
 \end{multicols}
 
 \section{}
+\begin {multicols}{2}
+
+Ciclu Hamiltonian (HC-Problem) \\
+
+Fie G=(V, E) un graf neorientat. Numim ciclu hamiltonian un ciclu in G cu proprietatea ca fiecare nod apare exact o singură data. HC-Problem este problema de decizie daca intr-un graf oarecare exista sau nu un astfel de ciclu. HC-Problem este NP-Completa. \\
+
+Travelling Salesman Problem (TSP) \\
+
+Fie G un graf complet cu ponderi>0 pe muchii. Trebuie sa gasim ciclul hamiltonian de cost minim. Costul unui ciclu este suma costurilor muchiilor din componenta sa. TSP este o prblema NP-hard. Gasirea unui algoritm aproximativ este necesara. Dupa cum vom vedea, nu dispunem de un astfel de algoritm. \\
+Teorema 1:
+\begin{itemize}
+    \item Nu exista nicio valoare c pentru care sa existe un algoritm in timp polinomial si care sa ofere o solutie cu un factor de aproximare c pentru TSP, decat daca P = NP.
+    \item Demo: Vom arata ca exista un asemenea algoritm aproximativ, daca si numai daca putem rezolva problema HC in timp polinomial.
+\end{itemize}
+Justificare: Reducere la absurd: Presupunem ca exista un algoritm aproximativ astfel incat daca exista S - costul optim al unui taseu inchis pentru TSP, atunci algoritmul nostru va oferi un traseu inchis de cost cel mult c$\cdot$S. \\
+Fie G - un graf simplu, neponderat. Problema determimarii unui HC (Hamiltonian Cycle) in G este NPC. Construim un graf ponderat complet G' pe baza lui G dupa cum urmeaza:
+\begin{itemize}
+    \item V(G')=V(G); |V(G')| = n;
+    \item Pentru fiecare e$\in$E(G') pentru care e$\in$E(G) avem w(e, G') = l (ponderea muchiei e in G' va fi 1).
+    \item Pentru fiecare e$\in$E(G') pentru care e$\notin$E(G) avem w(e, G') = c$\cdot$n.
+\end{itemize}
+Daca G are un ciclu hamiltonian, solutia optina pentru TSP(G') va fi de cost n si va fi corespunzatoare ciclului hamiltonian din G. Costul maxim al solutiei date de algoritmul nostru aprximativ (cel care am presupus ca exista) ar fi cel mult n$\cdot$c. (1) \\
+Daca G nu are un ciclu hamiltonian, atunci solutia optina pentru TSP(G) va fi de cost minim (n-1) + n$\cdot$c, deoarece trebuie sa se foloseasca cel putin o muchie $notin$E(G). Costul minim al solutiei date de algoritmul nostru aproximativ (cel care am presupus ca exista) este de cost > n$\cdot$c. (2)
+\begin{itemize}
+    \item graful G' se obtine in timp polinomial.
+    \item Algoritmul ruleaza in timp polinomial.
+    \item Din (1) si (2) rezulta faptul ca putem decide HCP in timp polinomial in functie de outputul algoritmului nostru pentru problema de TSP (daca outputul este cel mult n$\cdot$c, atunci graful G este Hamiltonian, altfel nu este Hamiltonian).
+    \item Dar HCP este NPC din faptul ca P = NP, ceea ce este o contradictie.
+\end{itemize}
+
+
+
+\end{multicols}
 
 
 \end{document}
