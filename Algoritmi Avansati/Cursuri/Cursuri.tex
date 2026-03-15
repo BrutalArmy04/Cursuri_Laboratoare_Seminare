@@ -88,7 +88,7 @@
 
 % \begin{definition}{titlu}
 P (Polynomial) - Clasa de probleme pentru care le putem afla solutia in timp polinomial \\
-Np (Nondeterministic Polynomial) - Clasa de probleme pentru care putem verifica in timp polinomial daca un rezultat este solutie corecta pentru problema noastra. \\
+NP (Nondeterministic Polynomial) - Clasa de probleme pentru care putem verifica in timp polinomial daca un rezultat este solutie corecta pentru problema noastra. \\
 Problema de Optim: \\
 Informal spus este problema in care trebuie sa gasesti o “cea mai bună” solutie/constructie fezabila. \\
 “Cea mai bună” - poate avea doua sensuri:   \\
@@ -104,18 +104,18 @@ De cele mai multe ori, atunci când nu se creează confuzie, vom simplifica nota
 Pe parcursul prezentării vom presupune că atât OPT, cât și ALG sunt $\geq0$. \\
 Pentru a justifica ca un algoritm este util, aceste trebuie insotit de o justificare
 ca solutia oferita este fezabila pentru problema, precum si o relatie intre ALG si OPT.
-Acest tip de relatie este descrisa astfel: \\
+\quickdef{Acest tip de relatie este descrisa astfel:}{
 Definitie 1: 
 \begin{itemize}
 \item un algoritm ALG pentru o problema de minimizare se numeste 
 $\rho$-aproximativ, pentru o valoare $\rho >1$, daca ALG(I) $\leq \rho \cdot$OPT(I) pentru $\forall$ I - intrare \\
 \item un algoritm ALG pentru o problema de maximizare se numeste 
 $\rho$-aproximativ, pentru o valoare $\rho <1$, daca ALG(I) $\geq \rho \cdot$OPT(I) pentru $\forall$ I - intrare \\
-\end{itemize}
+\end{itemize}}
 Observatie pentru problemele de minim: Orice algoritm $\rho$-aproximativ este la randul lui
 $\rho$'-aproximativ pentru orice $\rho$' > $\rho$. De aceea, in cazul unul algoritm ALG pentru o problema de minimizare, spre exemplu, trebuie 
 ca justificarea ce insoteste pe ALG sa ofere cea mai mică valoare $\rho$ pentru care ALG este $\rho$-aproximativ.
-Definitie 2: \\
+\quickdef{Definitie 2:}{ 
 Fie ALG un algoritm $\rho$-aproximativ pentru o problema de minimizare. Spunem ca 
 factorul de aproximare este "tight bounded" atunci cand avem $\rho$ = $supremum_I$
 $\frac{ALG(I)}{OPT(I)}$. Ca sa aratam ca un algoritm este $\rho$-aproximativ "tight bounded",
@@ -126,14 +126,12 @@ trebuie deci sa justificam urmatoarele 2 lucruri:
      Adesea totusi ne este la indemana sa aratam ca exista un I pentru care ALG(I) = $\rho \cdot$OPT(I)
 
 \end{itemize}
+}
 
-Problema rucsacului 1/0
-
-Enunt pe scurt: Trebuie sa gasim o submutime de obiecte de valoare totala maxima, fara ca greutatea lor totala sa depaseasca o capacitate data a rucsacului. Obiectele sunt puse integral in rucsac sau sunt data deoparte. Nu pot fi fractionate. \\
-In mod normal este programare dinamica cu complexiate n$\cdot$c. Presupunere: fiecare obiect are o greutate mai mica sau egala cu capacitatea rucsacului! \\
-
+Problema rucsacului 1/0\\
+Enunt pe scurt: Trebuie sa gasim o submutime de obiecte de valoare totala maxima, fara ca greutatea lor totala sa depaseasca o capacitate data a rucsacului. Obiectele sunt puse integral in rucsac sau sunt data deoparte. Nu pot fi fractionate. 
+In mod normal este programare dinamica cu complexiate n$\cdot$c. Presupunere: fiecare obiect are o greutate mai mica sau egala cu capacitatea rucsacului! 
 Rezolvare propusa: \\
-
 Fie L - lista obiectlor sortate dupa raportul $\frac{valoare}{greutate}$ \\
 Fie $ O_p$ - obiectul cu profitul cel mai mare din lista de obiecte. \\
 S = 0, G = capacitatea rucsacului; \\
@@ -190,9 +188,9 @@ In curs este step by step example, nu stiu daca sa il scriu \\
 
 Care este factorul de aproximatie: \\
 
-Lema 1: OPT $\geq \max \{ \frac{1}{m} \cdot \sum_{1 \leq j \leq n} t_j, \max \{ t_j \mid 1 \leq j \leq n \} \}$
-Lema 2: Algoritmul descris anterior este un algoritm 2-Aproximativ. Altfel spus, fie ALG = max($L_i | i \in [1,...,m])$ masina cea mai incarcata. Avem de aratat ca $ALG \leq 2 \cdot OPT$.
-\quickdef{Justificare} {Fie:
+\quickdef{Lema 1}{OPT $\geq \max \{ \frac{1}{m} \cdot \sum_{1 \leq j \leq n} t_j, \max \{ t_j \mid 1 \leq j \leq n \} \}$}
+\quickdef{Lema 2}{Algoritmul descris anterior este un algoritm 2-Aproximativ. Altfel spus, fie ALG = max($L_i | i \in [1,...,m])$ masina cea mai incarcata. Avem de aratat ca $ALG \leq 2 \cdot OPT$.}
+Justificare: Fie:
 \begin{itemize}
     \item k = indicele masinii cu load-ul maxim in urma rularii algoritmului
     \item q = ultimul job asignat masinii k
@@ -201,12 +199,12 @@ Lema 2: Algoritmul descris anterior este un algoritm 2-Aproximativ. Altfel spus,
 ALG = load'(k) t $t_q$ \\
 load'(k) $ \leq \frac{1}{m} \sum_{1 \leq i \leq m}{} load'(i) = \frac{1}{m} \sum_{1 \leq j < q} t_j < \frac{1}{m} \sum_{1 \leq j \leq n} t_j \leq OPT$ (conforma lema 1)
 $t_q \leq max{t_j | 1 \leq j \leq n} \leq OPT$ (conform lema 1)
-ALG = load'(k) + $t_q \leq OPT + OPT = 2 \cdot OPT$}
+ALG = load'(k) + $t_q \leq OPT + OPT = 2 \cdot OPT$
 
-\textcolor{green!50!black}{Se poate imbunatati Lower-Boundul? Avem 3 abordari:} \\
+Se poate imbunatati Lower-Boundul? Avem 3 abordari: \\
 \begin{itemize}
 \item Acelasi algoritm, o analiza mai buna asupra lower-boundului folosit. \\
-Teorema 1: Algoritmul Greedy descris anterior este un algoritm 2-$\frac{1}{m} aproximativ$
+\quickdef{Teorema 1} {Algoritmul Greedy descris anterior este un algoritm 2-$\frac{1}{m} aproximativ$}
 Justificare:    \\
 load'(k) $ \leq \frac{1}{m} \sum_{1 \leq i \leq m}{} load'(i) = \frac{1}{m} \sum_{1 \leq j < q} t_j < \frac{1}{m}( \sum_{1 \leq j \leq n} t_j - t_q ) = \frac{1}{m}(\sum_{1 \leq j \leq n}t_j ) - \frac{1}{m} \cdot t_q $
 ALG = load'(k) + $t_q \leq \frac{1}{m} \cdot (\sum_{1 \leq j \leq n} t_j) - \frac{1}{m} \cdot t_q + t_q = \frac{1}{m} \cdot (\sum_{1 \leq j \leq n} t_j) + t_q(1 - \frac{1}{m}) \leq OPT + OPT \cdot (1 - \frac{1}{m}) = (2 - \frac{1}{m}) \cdot OPT$
@@ -221,8 +219,8 @@ Justificare: Din principiul cutiilor rezulta faptul ca daca avem minim m+1 activ
 \item Un cu totul alt algoritm care poate da un total alt LB (Ordered-Scheduling Algorithm)
 \begin{itemize}[]
     \item Fie algoritmul precedent la care adaugam urmatoarea preprocesare: activitatiile sunt sortate descrescator dupa timpul de lucru.
-    \item Lema 3: Fie o multime de n activitati cu timpul de procesare $t_1, t_2,...,t_n$ astfel incat $t_1 \geq t_2 \geq ... \geq t_n$. Daca n>m, atunci OPT $\geq t_m + t_{m+1}$
-    \item Teorema 2: Algoritmul descris este un algoritm $\frac{3}{2}$-aproximativ
+    \item \quickdef{Lema 3}{Fie o multime de n activitati cu timpul de procesare $t_1, t_2,...,t_n$ astfel incat $t_1 \geq t_2 \geq ... \geq t_n$. Daca n>m, atunci OPT $\geq t_m + t_{m+1}$} 
+    \item \quickdef{Teorema 2}{Algoritmul descris este un algoritm $\frac{3}{2}$-aproximativ}
 \end{itemize}
 Justificari:
 \begin{itemize}[]
@@ -249,11 +247,11 @@ Fie G=(V, E) un graf neorientat. Numim ciclu hamiltonian un ciclu in G cu propri
 Travelling Salesman Problem (TSP) \\
 
 Fie G un graf complet cu ponderi>0 pe muchii. Trebuie sa gasim ciclul hamiltonian de cost minim. Costul unui ciclu este suma costurilor muchiilor din componenta sa. TSP este o prblema NP-hard. Gasirea unui algoritm aproximativ este necesara. Dupa cum vom vedea, nu dispunem de un astfel de algoritm. \\
-Teorema 1:
+quickdef{Teorema 1}{
 \begin{itemize}
     \item Nu exista nicio valoare c pentru care sa existe un algoritm in timp polinomial si care sa ofere o solutie cu un factor de aproximare c pentru TSP, decat daca P = NP.
     \item Demo: Vom arata ca exista un asemenea algoritm aproximativ, daca si numai daca putem rezolva problema HC in timp polinomial.
-\end{itemize}
+\end{itemize}}
 Justificare: Reducere la absurd: Presupunem ca exista un algoritm aproximativ astfel incat daca exista S - costul optim al unui taseu inchis pentru TSP, atunci algoritmul nostru va oferi un traseu inchis de cost cel mult c$\cdot$S. \\
 Fie G - un graf simplu, neponderat. Problema determimarii unui HC (Hamiltonian Cycle) in G este NPC. Construim un graf ponderat complet G' pe baza lui G dupa cum urmeaza:
 \begin{itemize}
@@ -269,9 +267,34 @@ Daca G nu are un ciclu hamiltonian, atunci solutia optina pentru TSP(G) va fi de
     \item Din (1) si (2) rezulta faptul ca putem decide HCP in timp polinomial in functie de outputul algoritmului nostru pentru problema de TSP (daca outputul este cel mult n$\cdot$c, atunci graful G este Hamiltonian, altfel nu este Hamiltonian).
     \item Dar HCP este NPC din faptul ca P = NP, ceea ce este o contradictie.
 \end{itemize}
-
-
-
+Comis voiajorul de deplaseaza intr-un spatiu euclidian, deci respecta regula triunghiului (oricare 2 laturi adunate sunt mai mari decat a treia). Regula triunghiului pe grafuri: len(u,v) $\leq$ len(v, w) + len(w, u). Altfel spus, odata ce am traversat nodurile u, v, w - in aceasta ordine, este mai eficient ca sa ne intoarcem in u direct din w decat via v.
+Obervatie 2: Fie G un graf complet, ponderat, care respecta regula triunghiului. Si fie $v_1, v_2, v_3,..., v_k$ un lant in graful G. Atunci avem len($v_1, v_k) \leq len(v_1, v_2, v_3,...,v_k).$ \\
+Justificare: inductie
+\begin{itemize}
+\item presupunem ca len $(v_1, v_{k-1}) \leq len(v_1, v_2, v_3,...,v_{k-1})$
+\item Din regula triunghiului avem ca $len(v_1, v_k) \leq len(v_1, v_{k-1}) \leq (v_1, v_2, v_3,...,v_{k-1})+len(v_{k-1}, v_k) = len(v_1, v_2, v_3,...,v_k)$
+\end{itemize}
+Travelling Salesman Problem (TSP) si Arbore Partial de Cost Minim (APCM) \\
+Asemanari - cauta un traseu de cost total minim care sa cuprinda toate nodurile (ambele sunt conexe). Diferente - unul este arbore, altul este ciclu; una este P, iar alta este NP hard! \\
+\quickdef{Lema 3}{Fie OPT costul solutiei optime pentru TSP, iar MST - ponderea totala a unui arbore partial de cost minim pe baza aceluiasi graf. Avem relatia $OPT \geq MST$ (OPT este ciclu, MST este arbore, deci OPT are 1 muchie in plus)} 
+Justificare: Reducere la absurd: presupunem ca MST>OPT. Din ciclul Hamiltonian din care rezulta OPT putem scoate orice muchie si obtinem un lant. Cum lantul optinut are un costtotal mai mic decat al ciclului initial, dar lantul este un arbore, deci are costul cel putin egal cu MST, obtinem contradictia ca MST $leq$ OPT.
+Algoritm approxTSP(G):
+\begin{itemize}
+    \item Calculam arborele partial de cost minim T pentru graful G.
+    \item Algemen un nod u $\in$ T pe post de radacine si initializam $\Gamma$ gol.
+    \item Parcurgere(u, $\Gamma$)
+    \item Concatenam nodul u la finalul lui $\Gamma$ pentru a inchide un ciclu.
+    \item return $\Gamma$
+    \item 
+\end{itemize}
+Parcurgere(u, $\Gamma$)
+\begin{itemize}
+\item Concatenam pe u la $\Gamma$
+\item Pentru fiecare v, fiu a lui u: Parcurgere(v, $\Gamma$)
+\end{itemize}
+///note - aici este un desen si exemple, nu le-am pus
+Justificare: Observam ca ciclul nostru contine atat muchii/lanturi din MST - parcurse o singura data, dar si muchii care nu sunt in MST, dar costul unei muchii de forma (xy) - care nu este in MST - va fi mai mic decat costul unicului lant din MST care uneste x de y conform Lemei 2. ALG va contine muchii care sunt in MST si muchii care nu sunt in MST dar au cost mai mic decat lanturile echivalente din MST. $ALG \leq 2\cdot MST \leq 2\cdot OPT.$
+Exista algoritmul lui Christofides, care este un algoritm $\frac{3}{2}$ aproximativ, care nu intra la examen.
 \end{multicols}
 
 
