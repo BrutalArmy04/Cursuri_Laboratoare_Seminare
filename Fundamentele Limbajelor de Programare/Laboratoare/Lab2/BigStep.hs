@@ -9,8 +9,6 @@ import Parser ( aconf, bconf, parseFirst, sconf, Parser ) -- for testing purpose
 
 Examples:
 
-
-
 >>> testExpr "< 5 , >"
 < 5 >
 
