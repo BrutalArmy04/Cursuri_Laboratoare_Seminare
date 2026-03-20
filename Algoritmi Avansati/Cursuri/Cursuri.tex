@@ -6,7 +6,7 @@
 \usepackage{titlesec}      % customize section/subsection titles
 \usepackage{paralist}      % creating compact lists
 \usepackage{amsmath}       % math environments
-
+\usepackage{amssymb}
 % --- UTILITY & STYLING PACKAGES ---
 \usepackage{xcolor}        % custom colors
 \usepackage{graphicx}      % images
@@ -128,7 +128,7 @@ trebuie deci sa justificam urmatoarele 2 lucruri:
 \end{itemize}
 }
 
-Problema rucsacului 1/0\\
+\textbf{Problema rucsacului 1/0}\\
 Enunt pe scurt: Trebuie sa gasim o submutime de obiecte de valoare totala maxima, fara ca greutatea lor totala sa depaseasca o capacitate data a rucsacului. Obiectele sunt puse integral in rucsac sau sunt data deoparte. Nu pot fi fractionate. 
 In mod normal este programare dinamica cu complexiate n$\cdot$c. Presupunere: fiecare obiect are o greutate mai mica sau egala cu capacitatea rucsacului! 
 Rezolvare propusa: \\
@@ -152,7 +152,7 @@ Justificarea:
 % \end{definition}
 \end{itemize}
 
-Load Balancing Problem
+\textbf{Load Balancing Problem} \\
 Input:
 \begin{itemize}
     \item m calculatoare identice; n activitati ce trebuiesc procesate. Fiecare activitate j avand nevoie de $t_j$ unitati de timp pentru executie.
@@ -201,12 +201,12 @@ load'(k) $ \leq \frac{1}{m} \sum_{1 \leq i \leq m}{} load'(i) = \frac{1}{m} \sum
 $t_q \leq max{t_j | 1 \leq j \leq n} \leq OPT$ (conform lema 1)
 ALG = load'(k) + $t_q \leq OPT + OPT = 2 \cdot OPT$
 
-Se poate imbunatati Lower-Boundul? Avem 3 abordari: \\
+Se poate imbunatati Lower-Boundul? Avem 3 abordari: \\s
 \begin{itemize}
 \item Acelasi algoritm, o analiza mai buna asupra lower-boundului folosit. \\
 \quickdef{Teorema 1} {Algoritmul Greedy descris anterior este un algoritm 2-$\frac{1}{m} aproximativ$}
 Justificare:    \\
-load'(k) $ \leq \frac{1}{m} \sum_{1 \leq i \leq m}{} load'(i) = \frac{1}{m} \sum_{1 \leq j < q} t_j < \frac{1}{m}( \sum_{1 \leq j \leq n} t_j - t_q ) = \frac{1}{m}(\sum_{1 \leq j \leq n}t_j ) - \frac{1}{m} \cdot t_q $
+load'(k) $ \leq \frac{1}{m} \sum_{1 \leq i \leq m}{} load'(i) = \frac{1}{m} \sum\limits_{1 \leq j < q} t_j < \frac{1}{m}( \sum_{1 \leq j \leq n} t_j - t_q ) = \frac{1}{m}(\sum_{1 \leq j \leq n}t_j ) - \frac{1}{m} \cdot t_q $
 ALG = load'(k) + $t_q \leq \frac{1}{m} \cdot (\sum_{1 \leq j \leq n} t_j) - \frac{1}{m} \cdot t_q + t_q = \frac{1}{m} \cdot (\sum_{1 \leq j \leq n} t_j) + t_q(1 - \frac{1}{m}) \leq OPT + OPT \cdot (1 - \frac{1}{m}) = (2 - \frac{1}{m}) \cdot OPT$
 ALG $leq (2 - \frac{1}{m}) \cdot OPT$. Este tight bound? Da \\
 Fie m masimi si m $\cdot$(m-1) activitati de cost 1 si o activitate de cost m. Algoritmul nostru va produce un load maxim de 2m-1 (o activitate de most m si m-1 activitati de cost 1). Solutia optima: o masina are 1 activitate de cost m. Restul de m-1 masini au cate m activitati de cost 1. Per total fiecare masina are un load de exact m unitati de timp. \\
@@ -228,10 +228,10 @@ Justificari:
     \item Fie q ultima activitate adaugata pe masina k
     \item Fie load'(i) = load-ul masinii fix inainte ca activitatea q sa fie asociata masinii k, adica load' semnifica loadul masiniilor dupa ce au fost distribuite primele q-1 activitati.
     \item ALG = load(k) = load'(k) + $t_q$
-    \item load'(k) + $t_q \leq \frac{1}{m} \sum_{1 \leq j \leq n} t_j + t_q$.
+    \item load'(k) + $t_q \leq \frac{1}{m} \sum\limits_{1 \leq j \leq n} t_j + t_q$.
     \item Ce se intampla daca q $\leq$ m? Atunci q va fi pusa peste o masina goala, deci ALG = $t_q \leq t_{max} (activitatea cu timpul de lucru maxim) \leq OPT$
     \item ALG = OPT - deci daca q este in primele m activitati, atunci algoritmul nostru este exact daca q>m. 
-    \item Load'(k) + $t_q \leq \frac{1}{m} \sum_{1 \leq i \leq n} t_i + t_q < \frac{1}{m} \sum_{1 \leq i \leq n} t_i + \frac{1}{2}(t_m + t_{m+1}) \leq OPT + \frac{1}{2}OPT = \frac{3}{2}OPT$
+    \item Load'(k) + $t_q \leq \frac{1}{m} \sum\limits_{1 \leq i \leq n} t_i + t_q < \frac{1}{m} \sum\limits_{1 \leq i \leq n} t_i + \frac{1}{2}(t_m + t_{m+1}) \leq OPT + \frac{1}{2}OPT = \frac{3}{2}OPT$
 \end{itemize}
 \end{itemize}
 
@@ -240,14 +240,14 @@ Justificari:
 \section{}
 \begin {multicols}{2}
 
-Ciclu Hamiltonian (HC-Problem) \\
+\textbf{Ciclu Hamiltonian (HC-Problem)} \\
 
 Fie G=(V, E) un graf neorientat. Numim ciclu hamiltonian un ciclu in G cu proprietatea ca fiecare nod apare exact o singură data. HC-Problem este problema de decizie daca intr-un graf oarecare exista sau nu un astfel de ciclu. HC-Problem este NP-Completa. \\
 
-Travelling Salesman Problem (TSP) \\
+\textbf{Travelling Salesman Problem (TSP)} \\
 
 Fie G un graf complet cu ponderi>0 pe muchii. Trebuie sa gasim ciclul hamiltonian de cost minim. Costul unui ciclu este suma costurilor muchiilor din componenta sa. TSP este o prblema NP-hard. Gasirea unui algoritm aproximativ este necesara. Dupa cum vom vedea, nu dispunem de un astfel de algoritm. \\
-quickdef{Teorema 1}{
+\quickdef{Teorema 1}{
 \begin{itemize}
     \item Nu exista nicio valoare c pentru care sa existe un algoritm in timp polinomial si care sa ofere o solutie cu un factor de aproximare c pentru TSP, decat daca P = NP.
     \item Demo: Vom arata ca exista un asemenea algoritm aproximativ, daca si numai daca putem rezolva problema HC in timp polinomial.
@@ -268,13 +268,13 @@ Daca G nu are un ciclu hamiltonian, atunci solutia optina pentru TSP(G) va fi de
     \item Dar HCP este NPC din faptul ca P = NP, ceea ce este o contradictie.
 \end{itemize}
 Comis voiajorul de deplaseaza intr-un spatiu euclidian, deci respecta regula triunghiului (oricare 2 laturi adunate sunt mai mari decat a treia). Regula triunghiului pe grafuri: len(u,v) $\leq$ len(v, w) + len(w, u). Altfel spus, odata ce am traversat nodurile u, v, w - in aceasta ordine, este mai eficient ca sa ne intoarcem in u direct din w decat via v.
-Obervatie 2: Fie G un graf complet, ponderat, care respecta regula triunghiului. Si fie $v_1, v_2, v_3,..., v_k$ un lant in graful G. Atunci avem len($v_1, v_k) \leq len(v_1, v_2, v_3,...,v_k).$ \\
+\quickdef{Obervatie 2}{Fie G un graf complet, ponderat, care respecta regula triunghiului. Si fie $v_1, v_2, v_3,..., v_k$ un lant in graful G. Atunci avem len($v_1, v_k) \leq len(v_1, v_2, v_3,...,v_k).$}
 Justificare: inductie
 \begin{itemize}
 \item presupunem ca len $(v_1, v_{k-1}) \leq len(v_1, v_2, v_3,...,v_{k-1})$
 \item Din regula triunghiului avem ca $len(v_1, v_k) \leq len(v_1, v_{k-1}) \leq (v_1, v_2, v_3,...,v_{k-1})+len(v_{k-1}, v_k) = len(v_1, v_2, v_3,...,v_k)$
 \end{itemize}
-Travelling Salesman Problem (TSP) si Arbore Partial de Cost Minim (APCM) \\
+\textbf{Travelling Salesman Problem (TSP) si Arbore Partial de Cost Minim (APCM)} \\
 Asemanari - cauta un traseu de cost total minim care sa cuprinda toate nodurile (ambele sunt conexe). Diferente - unul este arbore, altul este ciclu; una este P, iar alta este NP hard! \\
 \quickdef{Lema 3}{Fie OPT costul solutiei optime pentru TSP, iar MST - ponderea totala a unui arbore partial de cost minim pe baza aceluiasi graf. Avem relatia $OPT \geq MST$ (OPT este ciclu, MST este arbore, deci OPT are 1 muchie in plus)} 
 Justificare: Reducere la absurd: presupunem ca MST>OPT. Din ciclul Hamiltonian din care rezulta OPT putem scoate orice muchie si obtinem un lant. Cum lantul optinut are un costtotal mai mic decat al ciclului initial, dar lantul este un arbore, deci are costul cel putin egal cu MST, obtinem contradictia ca MST $leq$ OPT.
@@ -295,6 +295,74 @@ Parcurgere(u, $\Gamma$)
 ///note - aici este un desen si exemple, nu le-am pus
 Justificare: Observam ca ciclul nostru contine atat muchii/lanturi din MST - parcurse o singura data, dar si muchii care nu sunt in MST, dar costul unei muchii de forma (xy) - care nu este in MST - va fi mai mic decat costul unicului lant din MST care uneste x de y conform Lemei 2. ALG va contine muchii care sunt in MST si muchii care nu sunt in MST dar au cost mai mic decat lanturile echivalente din MST. $ALG \leq 2\cdot MST \leq 2\cdot OPT.$
 Exista algoritmul lui Christofides, care este un algoritm $\frac{3}{2}$ aproximativ, care nu intra la examen.
+\end{multicols}
+
+
+
+\section{}
+\begin{multicols}{2}
+
+\textbf{Vertex cover problem}\\
+Problema: Fie o retea de caluculatoare in care trebuie sa testam toate conexiunile. Pentru a testa conexiunile, trebuie sa instalam un program software pe mai multe calculatoare. Acest program poate testa toate conexiunile directe care pleaca din respectivul calculator. Evident, putem instala acest program pentru a monitoriza intreaga retea, dar dorim sa minimizam interventia. Desi se pune problema gasirii unei submultimi de calculatoare de cardinal minim care sa poata monitoriza intreaga retea. Problema formala:
+\begin{itemize}
+    \item Fie un graf orientat G = (V, E).
+    \item Numim "acoperire" o submultime $S \subset V$ cu proprietatea ca pentru orice (x,y)$\in$E avem x$\in$S sau y$\in$S (sau x, y $\in$S)
+    \item Se pune problema gasirii unei acoperiri S de cardinal minim!
+    \item Aceasta problema este NP-hard.
+\end{itemize}
+Fie urmatorul algoritm:
+\begin{itemize}
+    \item INPUT: $G=(V, E)$
+    \item $E' = E$, $S = \emptyset$
+    \item cat timp $E' \neq \emptyset$:
+    \begin{itemize}
+            \item aleg (x,y) $\in$ E':
+            \item S=S $\cup${x, y}
+            \item stergem din E' toate muchiile incidente lui x si lui y
+            \end{itemize}
+    \item incidente lui x
+    \item return S
+    \item Multimea de noduri S este o acoperire pentru graful G
+\end{itemize}
+
+\quickdef{Lema 1}{Fie G = (V, E) un graf neorientat si OPT cardinalul lui acoperiri de grad minim a lui G. Fie E*$\subset$E o multime de muchii nod disjuncte. Atunci avem ca OPT$\geq$|E*|}
+Demonstratie: Fie S - o acoperire pentru G. Deoarece E* este o multime de muchii nod disjuncte, inseamna ca orice nod din S poate acoperi cel mult o singura muchie din E*. Deci |S|$\geq$|E*| pentru orice acoperire S (inclusiv cea optima) si orice multime de muchii nod disjuncte E*. OPT$\geq$|E*|.
+\quickdef{Teorema 2}{Algoritmul alatura este un algoritm 2-aproximativ pentru VCP.}
+Inainte de a demonstra teorema facem o justificare rapida cum ca S-ul rezultat este o acoperire de S in acel moment. La sfarfitul algoritmului E' va fi multimea muchiilor care nu sunt acoperite de S in acest moment. La sfarsitul algoritmului E' va fi vida. Deci toate muchiile graufului sunt acoperite de nodurile din S.
+Demonstratie: Fie E* - multimea de muchii selectate la linia 3 a algoritmului (aleg (x, y)$\in$E*). E* este o multime de muchii nod disjuncte. Deoarece daca aleg o muchie xy care va fi inclusa in E* toate celelalte muchii cu un capat in x sau y sunt eliminate, deci nu vor fi incluse niciodata in E*. OPT $\geq$ |E*| (din lema 1). 2$\cdot$OPT = 2|E*| = |S|, deci algoritmul este 2-aproximativ.
+
+\textbf{Weighted Vertex Cover Problem (WVCP)} \\
+Fie un graf G=(V, E) - un graf simplu si f:V $\to \mathbb{R}_{+}$ care asociaza fiecariu varf un cost. 
+Trebuie sa gasim o acoperire de varfuri S astfel incat sa minimizam $\sum\limits_{v \in S} f(v)$. Este dificil sa gasim un algoritm aproximativ pentru aceasta problema prin metodele de pana acum.
+\textbf{Programare Liniara} \\
+O problema de programare liniara contine o functie de cost cu d variabile $x_1, x_2,...,x_d$ si un set de n constrangeri liniare peste variabilele $x_1, x_2,...,x_d$. Scopul este asignarea de valori pentru variabilele de tip $x_i$ astfel incat sa minimizam/maximizam functia de cost, respectand totodata toate cele n constrangeri. Exemplu:
+\begin{itemize}
+    \item Trebuie minimizat $ c_1\cdot x_1 + ... c_d \cdot x_d$ astfel incat
+    \item $a_{1,1} \cdot x_1 + ... a_{1_d} \cdot x_d \leq b_1$
+    \item \item $a_{2,1} \cdot x_1 + ... a_{2_d} \cdot x_d \leq b_2$
+    \item .....................
+    \item \item $a_{n,1} \cdot x_1 + ... a_{n_d} \cdot x_d \leq b_n$
+\end{itemize}
+O constrangere poate contine adunari de variabile, poate folosi inegalitati de orice tip ($<, >, \geq, \leq, =$). O constrangere nu poate fi optionala, toate constrangerile sunt binding. In constrangeri nu pot aparea elemente de forma $x_i, x_j sau x^2$ - trebuie sa fie liniare. Astfel de sisteme se pot rezolva in timp polinomial prin algoritmi simplex, care rezolva inegalitatea pentru $x_i$ - numere reale.
+Inapoi la WVCP - putem formula aceasta problema ca o problema de programare liniara
+\begin{itemize}
+    \item X = {$x_1, x_2, x_3,...,x_n$}
+    \item $x_i$ = 1 daca acoperirea aleasa contine nodul $v_i$ si $x_i = 0$ altfel.
+    \item Trebuie sa miniminzam functia $\sum\limits_{1 \leq i \leq n} f(v_i) \cdot x_i$
+    \item Pentru fiecare muchie $(v_i, v_j)$ trebuie sa avem:
+    \begin{itemize}
+    \item $x_i + x_j \geq 1, \forall i,j \in {1,...,n}$
+    \item $0 \leq x_i \leq 1, \forall i \in {1,...,n}$
+    \end{itemize}
+    \item Observatie: Algoritmul simplex imi va oferi numere reale pentru variabilele din X. 
+    \item Probleme de tipul 1/0 linear programming (integer linear programming) nu pot fi rezolvate cu algoritmi simplex si sunt ele insele probleme NP-hard.
+    \item Daca $x_i \geq \frac{1}{2} atunci adaug pe v_i in acoperire$.
+    \item ALG = $\sum\limits_{1 \leq i \leq n} f(v_i) \cdot \begin{cases}
+        1, & \text{daca }  x_i \geq \frac{1}{2} \\
+        0, & \text{daca }  x_i < \frac{1}{2}
+    \end{cases} \leq \sum\limits_{1 \leq i \leq n} f(v_i) \cdot 2\cdot x_i = 2 \cdot \sum\limits_{1 \leq i \leq n} f(v_i) \cdot x_i \leq 2 \cdot OPT$
+\end{itemize}
+
 \end{multicols}
 
 
