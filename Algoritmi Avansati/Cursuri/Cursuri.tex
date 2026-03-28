@@ -277,7 +277,7 @@ Justificare: inductie
 \textbf{Travelling Salesman Problem (TSP) si Arbore Partial de Cost Minim (APCM)} \\
 Asemanari - cauta un traseu de cost total minim care sa cuprinda toate nodurile (ambele sunt conexe). Diferente - unul este arbore, altul este ciclu; una este P, iar alta este NP hard! \\
 \quickdef{Lema 3}{Fie OPT costul solutiei optime pentru TSP, iar MST - ponderea totala a unui arbore partial de cost minim pe baza aceluiasi graf. Avem relatia $OPT \geq MST$ (OPT este ciclu, MST este arbore, deci OPT are 1 muchie in plus)} 
-Justificare: Reducere la absurd: presupunem ca MST>OPT. Din ciclul Hamiltonian din care rezulta OPT putem scoate orice muchie si obtinem un lant. Cum lantul optinut are un costtotal mai mic decat al ciclului initial, dar lantul este un arbore, deci are costul cel putin egal cu MST, obtinem contradictia ca MST $leq$ OPT.
+Justificare: Reducere la absurd: presupunem ca $MST > OPT$. Din ciclul Hamiltonian din care rezulta OPT putem scoate orice muchie si obtinem un lant. Cum lantul optinut are un costtotal mai mic decat al ciclului initial, dar lantul este un arbore, deci are costul cel putin egal cu MST, obtinem contradictia ca MST $leq$ OPT.
 Algoritm approxTSP(G):
 \begin{itemize}
     \item Calculam arborele partial de cost minim T pentru graful G.
@@ -363,6 +363,113 @@ Inapoi la WVCP - putem formula aceasta problema ca o problema de programare lini
     \end{cases} \leq \sum\limits_{1 \leq i \leq n} f(v_i) \cdot 2\cdot x_i = 2 \cdot \sum\limits_{1 \leq i \leq n} f(v_i) \cdot x_i \leq 2 \cdot OPT$
 \end{itemize}
 
+\end{multicols}
+
+\section{}
+
+\begin{multicols}{2}
+\textbf{Algoritmi Genetici}\\
+Sunt utilizati in probleme de optim, pentru care:
+\begin{itemize}
+    \item spatiul de cautare a solutiilor posibile este mare
+    \item nu se cunosc algoritmi exacti mai rapizi
+    \item furnizeaza o solutie care nu este neaparat optima
+    \item cautarea in spatiul solutiilor candidat - euristica, bazata pe principii ale evolutiei in genetica
+\end{itemize}
+
+Notiuni:
+\begin{itemize}
+    \item Cromozom = multime ordonata de elemente (gene) ale caror valoare determina caracteristicile unui individ
+    \item Populatie = multime de indivizi care traiesc intr-un mediu la care trebuie sa se adapteze
+    \item Fitness (adecvare) = masura a gradului de adaptare la mediu pentru fiecare individ (functia de fitness)
+    \item Generatie = etapa in evolutia populatiei
+    \item Selectie = proces prin care sunt promovati indivizii cu grad ridicat de adaptare la mediu
+    \item Operatori genetici:
+    \begin{itemize}
+        \item Incrucisare (combinare, crossover) - indivizii din noua generatie mostenesc caracteristicile parintilor
+        \item Mutatie - indivizii din noua generatie pot dobandi si caracteristici noi.
+    \end{itemize}
+\end{itemize}
+
+Algoritm:
+\begin{itemize}
+    \item t = 0
+    \item consider o populatie initiala P(0): alegem aleator indivizi din intervalul d
+    \item cat timp nu exista conditia de terminare(nr maxim de iteratii/durata de executie, stabilizarea performantei medii/maxime, am obtinut o solutie suficient de buna):
+    \begin{itemize}
+    \item construim o populatie noua P(t+1) pe baza indivizilor din P(t) astfel:
+    \begin{itemize}
+    \item selectie: genereaza o populatie intermediara $P^1(t)$ selectand indivizi din P(t) dupa un anumit criteriu de selectie.
+    \item aplicam operatorul de incrucisare pentru (unii) indivizi din $P^1(t)$ optinand populatia intermediara $P^2(t)$
+    \item aplicam operatorul de mutatie peste (unii) indivizi din $P^2(t)$ obtinand populatia P(t+1)
+    \item \textit{optional: la P(t+1) se adauga elementul/elementele elitiste din P(t)}
+    \end{itemize}
+    \end{itemize}
+    \item t = t + 1
+\end{itemize}
+
+\textbf{Exemplu: maximizarea unei functii pozitive} \\
+
+Date de intrare + parametri de control
+
+\begin{itemize}
+    \item intervalul [a, b]
+    \item precizia p (numarul de zecimale)
+    \item dimensiunea populatiei n
+    \item numarul de generatii
+    \item probabilitatea de incrucisare pc
+    \item probabilitatea de mutatie
+    \item dimensiunea (numarul de cromozomi) - n fix si constant
+    \item codificare = cum asociem unei configuratii din spatiul de cautare un cromozom. In general, codificare binara, lungime fixa
+    \item pentru D = [a, b] si o precizie p data (ca numar de zecimale):
+    \begin{itemize}
+    \item discretizarea intervalului => (b-a) $\cdot 10^p$ subintervale (elemente)
+    \item lungimea cromozomului este: $2^{l-1} < (b-a) \cdot 10^p \geq 2^l => l = [log_2((b-a) \cdot 10^p)]$
+    \item valoarea codificata din D = [a,b] - translatie liniara
+    \item $X_{(2)} -> X_{(10)} -> \frac{b-a}{2^l-1} \cdot X_{(10)} + a$
+    \end{itemize}
+    \item Populatia initiala se genereaza aleator.
+    \item Functia de fitness - se pot folosi distante cunoscute (euclidiana, Hamming), iar pentru problema de maxim functia este chiar f.
+    \item Selectia - determinarea unei populatii intermediare, ce contine indivizi care vor fi supusi operatorilor genetici. Exista selectie proportionala, selectie elitistica, selectie turneu si selectie bazata pe ordonare. Pentru selectia proportionala:
+    \begin{itemize}
+    \item Presupunem P(t) = $[X_1,..., X_n]$ si asociem fiecarui individ $X_i$ o probabilitate $p_i$ de a fi selectat, in functie de performanta acestuia (data de functia de fitness f). $p_i = \frac{f(X_i)}{F}, unde F = \sum_{1 \leq j \leq n} f(X_j)$ = performanta totala a populatiei; folosind metoda ruletei selectam n indivizi (!copii) cu distributia de probabilitate ($p_1, p_2,...,p_n$). Etapa de Selectie:
+    \item $p^1(t) = \varnothing$
+    \item repeta de n ori:
+    \begin{itemize}
+    \item genereaza j cu probabilitatea ($p_1, p_2,...,p_n)$ folosind metoda ruletei.
+    \item genereaza u variabila uniforma pe [0, 1)
+    \item determina indicele j astfel incat u este intre $q_{j-1} = p_1 + p_2 + ... + p_{j-1} si q_j = p_1 + ... + p_j (cu conventia q_0 = 0)$
+    \item adauga la populatia selectata $P^1(t) o copie a lui X_j$
+    \end{itemize}
+    \end{itemize}
+    \begin{itemize}
+    \item Selectie elitista = trecerea explicita a celui mai bun individ in generatia urmatoare
+    \item Selectie turneu = se aleg aleatoriu k indivizi din populatie si se selecteaza cel mai performant dintre eficient
+    \item Selectie bazata pe ordonare = se ordoneaza indivizii dupa performanta si li se asociaza cate o probabilitate de selectie in functie de locul lor dupa ordonare
+    \end{itemize}
+    \item Incurcisarea - permite combinarea informatiilor de la parinti. Doi parinti dau nastere la doi descendenti (cu un punct de taietura/de rupere, cu mai multe puncte de rupere, uniforma etc). Cu un punct de taietura:
+    \begin{itemize}
+    \item Un cromozom participa la incrucisare cu o probabilitate fixata pc. Etapa de incrucisare:
+    \item Notam $p^1(t) = {X_1, X_2,...,X_n}$
+    \item for i = 1, n genereaza u variabila uniforma pe [0, 1] daca u<pc atunci marcheaza (va participa la incrucisare)
+    \item formeaza perechi disjuncte de cromozomi marcati si aplica pentru fiecare pereche operatorul de incrucisare
+    \item descendentii rezultati inlocuiesc parintii in populatie
+    \end{itemize}
+    \item Mutatia - schimbarea valorilor unor gene din cromozom, asigura diversitatea populatiei, probabilitatea de mutatie pm - data de intrare
+    \item Etape de mutatie - Varianta 1 (mutatie rara):
+    \begin{itemize}
+    \item Notam $p^2(t) = [X_1, X_2,...X_n]$ populatia obtinuta dupa incrucisare
+    \item for i = 1, n genereaza u variabila uniforma pe [0, 1). Daca u<pm atunci genereaza o pozitie aleatoare p si trece gena p din cromozomul $X_i$ la complement 0 <> 1 (interschimbare)
+    \item 
+    \end{itemize}
+    \item Etape de mutatie - Varianta 1
+    \begin{itemize}
+    \item Notam $p^2(t) = [X_1, X_2,...X_n]$ populatia obtinuta dupa incrucisare
+    \item for i = 1, n si for j = 1, len($X_i$)
+    \item genereaza u variabila uniforma pe [0, 1)
+    \item daca u<pm atunci trece gena j din cromozomul $X_i$ la complement 0 <> 1
+    \end{itemize}
+\end{itemize}
 \end{multicols}
 
 
