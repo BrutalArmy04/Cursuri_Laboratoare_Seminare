@@ -1,0 +1,23 @@
+version: '3'
+services:
+  server:
+    image: python:3.11-slim
+    tty: true
+    networks:
+      - app_net
+    volumes:
+      - ./app:/app
+
+  client:
+    image: python:3.11-slim
+    tty: true
+    networks:
+      - app_net
+    volumes:
+      - ./app:/app
+    depends_on:
+      - server
+
+networks:
+  app_net:
+    driver: bridge
